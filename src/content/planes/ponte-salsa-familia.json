@@ -25,6 +25,8 @@
     "nombre": "Centro"
   },
   "lugar": "Claustro Comfama, Patio Teatro",
+  "lat": 6.24575,
+  "lng": -75.56372,
   "precio": {
     "tipo": "gratis",
     "nota": "Gratis con inscripción previa, válida para toda la temporada. Ingreso por orden de llegada."
@@ -45,5 +47,6 @@
     "direccion"
   ],
   "estado": "activo",
-  "destacado": true
+  "destacado": true,
+  "notasInternas": "Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Comfama Claustro San Ignacio\"; sin verificar."
 }

@@ -16,6 +16,8 @@
     "comuna": 14
   },
   "lugar": "MAMM – Museo de Arte Moderno de Medellín",
+  "lat": 6.2237,
+  "lng": -75.57407,
   "precio": {
     "tipo": "por_confirmar"
   },
@@ -36,5 +38,6 @@
     "horario",
     "direccion"
   ],
-  "estado": "activo"
+  "estado": "activo",
+  "notasInternas": "Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Museo de Arte Moderno de Medellín\"; sin verificar."
 }

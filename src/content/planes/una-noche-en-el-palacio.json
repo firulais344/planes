@@ -14,6 +14,8 @@
     "nombre": "Centro"
   },
   "lugar": "Palacio de la Cultura Rafael Uribe Uribe",
+  "lat": 6.2517,
+  "lng": -75.56806,
   "precio": {
     "tipo": "por_confirmar"
   },
@@ -35,5 +37,5 @@
     "direccion"
   ],
   "estado": "activo",
-  "notasInternas": "Horario y precio no indicados en el listado."
+  "notasInternas": "Horario y precio no indicados en el listado. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Palacio de la Cultura Rafael Uribe Uribe\"; sin verificar."
 }

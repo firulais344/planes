@@ -13,6 +13,8 @@
     "nombre": "Centro"
   },
   "lugar": "Jardín Botánico",
+  "lat": 6.27055,
+  "lng": -75.56353,
   "precio": {
     "tipo": "por_confirmar"
   },
@@ -35,5 +37,5 @@
     "direccion"
   ],
   "estado": "activo",
-  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Jardín Botánico de Medellín\"; sin verificar. OpenStreetMap lo ubica en la Comuna 4 - Aranjuez; revisar zona (escrita como Centro)."
 }

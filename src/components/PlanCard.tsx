@@ -1,7 +1,8 @@
 import type { PlanPublico } from "../lib/publico";
 import { CATEGORIA_NOMBRE, type Categoria } from "../lib/schema";
-import { etiquetaFecha, horaLegible, ocurreEn, ultimosDias } from "../lib/fechas";
+import { etiquetaFecha, horaLegible, ocurreEn, ultimosDias, yaPaso } from "../lib/fechas";
 import { precioInfo } from "../lib/precio";
+import BotonFavorito from "./BotonFavorito";
 
 const IDEAL: Record<string, string> = { pareja: "Pareja", amigos: "Amigos", familia: "Familia", solo: "Solo/a" };
 const PENDIENTE_TXT: Record<string, string> = { horario: "horario", precio: "precio", direccion: "dirección", fecha: "fecha" };
@@ -13,9 +14,9 @@ const FONDO: Record<Categoria, string> = {
 };
 
 /** Ilustración propia por categoría (sin fotos de terceros hasta la Fase 5). Decorativa. */
-export function Arte({ categoria }: { categoria: Categoria }) {
+export function Arte({ categoria, alto = 104 }: { categoria: Categoria; alto?: number }) {
   return (
-    <div class="relative h-[104px] overflow-hidden" style={{ background: FONDO[categoria] }} aria-hidden="true">
+    <div class="relative overflow-hidden" style={{ background: FONDO[categoria], height: `${alto}px` }} aria-hidden="true">
       <svg class="absolute inset-0 h-full w-full" viewBox="0 0 400 104" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#fff" stroke-width="2">
         {categoria === "fiesta" && (
           <g opacity=".4">
@@ -59,6 +60,13 @@ export function PlanSkeleton() {
   );
 }
 
+/** Texto de horario solo si está confirmado; nunca se muestra uno sin verificar. */
+export function horarioVisible(plan: PlanPublico): string | undefined {
+  if (plan.pendientes.includes("horario")) return undefined;
+  if (plan.horaInicio) return horaLegible(plan.horaInicio) + (plan.horaFin ? ` – ${horaLegible(plan.horaFin)}` : "");
+  return plan.horario?.texto;
+}
+
 interface Props {
   plan: PlanPublico;
   hoy: string;
@@ -69,13 +77,10 @@ export default function PlanCard({ plan, hoy }: Props) {
   const esEvento = plan.tipo === "evento";
   const ocurreHoy = esEvento && ocurreEn(plan, [hoy, hoy]);
   const ultimos = esEvento && ultimosDias(plan, hoy);
+  const pasado = esEvento && yaPaso(plan, hoy);
   const pendientes = plan.pendientes.filter((c) => c in PENDIENTE_TXT).map((c) => PENDIENTE_TXT[c]);
 
-  const horaTxt = !plan.pendientes.includes("horario")
-    ? plan.horaInicio
-      ? horaLegible(plan.horaInicio) + (plan.horaFin ? ` – ${horaLegible(plan.horaFin)}` : "")
-      : plan.horario?.texto
-    : undefined;
+  const horaTxt = horarioVisible(plan);
   const donde = [plan.lugar, plan.zona.nombre !== plan.lugar ? plan.zona.nombre : ""].filter(Boolean).join(" · ");
 
   const insignia = "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold";
@@ -90,16 +95,20 @@ export default function PlanCard({ plan, hoy }: Props) {
           <span class="rounded-full px-2.5 py-1 text-xs font-bold text-white" style={{ background: "var(--velo)" }}>{CATEGORIA_NOMBRE[plan.categoria]}</span>
           <span class="rounded-full px-2.5 py-1 text-xs font-bold text-white" style={{ background: "var(--velo)" }}>{etiquetaFecha(plan, hoy)}</span>
         </div>
+        <BotonFavorito slug={plan.slug} titulo={plan.titulo} class="absolute bottom-2 right-2" />
       </div>
 
       <div class="flex flex-1 flex-col gap-2.5 p-5">
         <div class="flex flex-wrap gap-1.5">
+          {pasado && <span class={`${insignia} bg-neutro-bg text-neutro-texto`}>Ya pasó</span>}
           {ocurreHoy && <span class={`${insignia} bg-hoy-bg text-hoy-texto`}>Hoy</span>}
           {ultimos && <span class={`${insignia} bg-alerta-bg text-alerta-texto`}>Últimos días</span>}
           <span class={`${insignia} ${tonoPrecio}`}>{precio.texto}</span>
         </div>
 
-        <h3 class="font-display text-xl font-extrabold leading-tight tracking-tight">{plan.titulo}</h3>
+        <h3 class="font-display text-xl font-extrabold leading-tight tracking-tight">
+          <a href={`/planes/${plan.slug}/`} class="hover:underline">{plan.titulo}</a>
+        </h3>
         <p class="text-sm text-suave">
           {donde}
           {horaTxt ? ` · ${horaTxt}` : ""}
@@ -116,15 +125,16 @@ export default function PlanCard({ plan, hoy }: Props) {
 
         {pendientes.length > 0 && <p class="text-xs text-suave">Confirma {pendientes.join(", ")} en la fuente.</p>}
 
-        <a
-          href={plan.fuente.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mt-1 inline-flex min-h-11 items-center font-bold text-acento hover:underline"
-        >
-          Ver en {plan.fuente.nombre} ↗
-          <span class="solo-lectores">: {plan.titulo} (se abre en otra pestaña)</span>
-        </a>
+        <div class="flex flex-wrap gap-x-5">
+          <a href={`/planes/${plan.slug}/`} class="inline-flex min-h-11 items-center font-bold text-acento hover:underline">
+            Ver plan
+            <span class="solo-lectores">: {plan.titulo}</span>
+          </a>
+          <a href={plan.fuente.url} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center font-semibold text-suave hover:text-texto hover:underline">
+            {plan.fuente.nombre} ↗
+            <span class="solo-lectores">: {plan.titulo} (se abre en otra pestaña)</span>
+          </a>
+        </div>
       </div>
     </article>
   );

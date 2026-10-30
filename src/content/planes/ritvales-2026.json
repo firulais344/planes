@@ -16,6 +16,8 @@
     "nombre": "Norte"
   },
   "lugar": "Parque Norte",
+  "lat": 6.27233,
+  "lng": -75.56785,
   "precio": {
     "tipo": "por_confirmar",
     "nota": "Entradas por Tuboleta"
@@ -38,5 +40,6 @@
     "direccion"
   ],
   "estado": "activo",
-  "destacado": true
+  "destacado": true,
+  "notasInternas": "Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Parque Norte\"; sin verificar. OpenStreetMap lo ubica en la Comuna 4 - Aranjuez."
 }

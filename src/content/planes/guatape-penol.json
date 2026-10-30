@@ -14,6 +14,8 @@
     "nombre": "Fuera de la ciudad"
   },
   "lugar": "Guatapé",
+  "lat": 6.21935,
+  "lng": -75.17944,
   "precio": {
     "tipo": "por_confirmar"
   },
@@ -35,5 +37,5 @@
     "direccion"
   ],
   "estado": "activo",
-  "notasInternas": "Precio sin verificar (escrito de memoria): Transporte y entrada a la piedra aparte. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+  "notasInternas": "Precio sin verificar (escrito de memoria): Transporte y entrada a la piedra aparte. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"El Peñón de Guatapé\"; sin verificar."
 }

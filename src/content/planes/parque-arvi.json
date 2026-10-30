@@ -14,6 +14,8 @@
     "nombre": "Santa Elena"
   },
   "lugar": "Parque Arví",
+  "lat": 6.2814,
+  "lng": -75.50269,
   "precio": {
     "tipo": "por_confirmar"
   },
@@ -35,5 +37,5 @@
   ],
   "estado": "activo",
   "destacado": true,
-  "notasInternas": "Precio sin verificar (escrito de memoria): Revisa tarifas del Metrocable y de las actividades. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+  "notasInternas": "Precio sin verificar (escrito de memoria): Revisa tarifas del Metrocable y de las actividades. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Parque Arví\"; sin verificar."
 }

@@ -1,60 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import type { PlanPublico } from "../lib/publico";
-import { CATEGORIAS, CATEGORIA_NOMBRE, type Categoria } from "../lib/schema";
-import { hoyBogota, ocurreEn, primerDia, rango, tituloDia, yaPaso, type Cuando } from "../lib/fechas";
-import { pasaPrecio, type FiltroPrecio } from "../lib/precio";
+import { CATEGORIAS, CATEGORIA_NOMBRE } from "../lib/schema";
+import { hoyBogota, primerDia, rango, tituloDia, yaPaso, type Cuando } from "../lib/fechas";
+import type { FiltroPrecio } from "../lib/precio";
+import { INICIAL, contarFiltros, estadoDesdeParams, filtrar, mismoEstado, paramsDesdeEstado, type Estado, type Ideal } from "../lib/explorar";
 import PlanCard from "./PlanCard";
 import Sorprendeme from "./Sorprendeme";
-
-type Ideal = PlanPublico["idealPara"][number];
-interface Estado {
-  cuando: Cuando;
-  cat: Categoria | "todas";
-  precio: FiltroPrecio;
-  con: Ideal | "todos";
-  zona: string;
-  q: string;
-  siempre: boolean;
-}
-const INICIAL: Estado = { cuando: "todo", cat: "todas", precio: "todos", con: "todos", zona: "todas", q: "", siempre: true };
+import Mapa, { type Punto } from "./Mapa";
 
 const CUANDO_TXT: Record<Cuando, string> = { todo: "lo que viene", hoy: "hoy", manana: "mañana", finde: "este fin de semana", semana: "los próximos 7 días" };
-
-const norm = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-
-function coincideTexto(p: PlanPublico, q: string) {
-  const texto = norm([p.titulo, p.lugar, p.zona.nombre, p.descripcionCorta, CATEGORIA_NOMBRE[p.categoria], ...p.etiquetas].join(" "));
-  return norm(q).split(/\s+/).filter(Boolean).every((w) => texto.includes(w));
-}
-
-function pasaComunes(p: PlanPublico, e: Estado) {
-  if (e.cat !== "todas" && p.categoria !== e.cat) return false;
-  if (!pasaPrecio(p, e.precio)) return false;
-  if (e.con !== "todos" && !p.idealPara.includes(e.con)) return false;
-  if (e.zona !== "todas" && p.zona.nombre !== e.zona) return false;
-  if (e.q && !coincideTexto(p, e.q)) return false;
-  return true;
-}
-
-function filtrar(planes: PlanPublico[], e: Estado, hoy: string) {
-  const r = rango(e.cuando, hoy);
-  const grupos: { dia: string; items: PlanPublico[] }[] = [];
-  const eventos = planes
-    .filter((p) => p.tipo === "evento" && p.estado !== "cancelado" && !yaPaso(p, hoy) && pasaComunes(p, e) && ocurreEn(p, r))
-    .map((p) => ({ p, dia: primerDia(p, r)! }))
-    .sort((a, b) => a.dia.localeCompare(b.dia) || a.p.titulo.localeCompare(b.p.titulo, "es"));
-  for (const { p, dia } of eventos) {
-    const g = grupos[grupos.length - 1];
-    if (g && g.dia === dia) g.items.push(p);
-    else grupos.push({ dia, items: [p] });
-  }
-  const fijos = e.siempre ? planes.filter((p) => p.tipo === "permanente" && pasaComunes(p, e)) : [];
-  return { grupos, fijos, totalEventos: eventos.length };
-}
-
-function contarFiltros(e: Estado) {
-  return [e.cuando !== "todo", e.cat !== "todas", e.precio !== "todos", e.con !== "todos", e.zona !== "todas", e.q !== "", !e.siempre].filter(Boolean).length;
-}
+const CUANDO_OPCION: Record<Cuando, string> = { todo: "Todo lo que viene", hoy: "Hoy", manana: "Mañana", finde: "Este fin de semana", semana: "Próximos 7 días" };
 
 interface PanelProps {
   e: Estado;
@@ -79,9 +34,7 @@ function Panel({ e, set, zonas, pref }: PanelProps) {
         <div>
           <label class={etiqueta} for={`${pref}-cuando`}>Cuándo</label>
           <select id={`${pref}-cuando`} class="campo" value={e.cuando} onChange={(ev) => set({ cuando: (ev.currentTarget as HTMLSelectElement).value as Cuando })}>
-            {(Object.keys(CUANDO_TXT) as Cuando[]).map((c) => (
-              <option value={c} key={c}>{c === "todo" ? "Todo lo que viene" : c === "hoy" ? "Hoy" : c === "manana" ? "Mañana" : c === "finde" ? "Este fin de semana" : "Próximos 7 días"}</option>
-            ))}
+            {(Object.keys(CUANDO_OPCION) as Cuando[]).map((c) => <option value={c} key={c}>{CUANDO_OPCION[c]}</option>)}
           </select>
         </div>
         <div>
@@ -136,15 +89,25 @@ function Vacio({ onQuitar, onTodo }: { onQuitar: () => void; onTodo: () => void 
   );
 }
 
-export default function Explorador({ planes, hoyInicial }: { planes: PlanPublico[]; hoyInicial: string }) {
-  const [e, setE] = useState<Estado>(INICIAL);
+interface Props {
+  planes: PlanPublico[];
+  hoyInicial: string;
+  /** Filtros con los que arranca la página (p. ej. /gratis). La URL puede refinarlos. */
+  preset?: Estado;
+}
+
+export default function Explorador({ planes, hoyInicial, preset = INICIAL }: Props) {
+  const [e, setE] = useState<Estado>(preset);
   const [hoy, setHoy] = useState(hoyInicial);
+  const [vista, setVista] = useState<"lista" | "mapa">("lista");
   const [hoja, setHoja] = useState(false);
   const [sorpresa, setSorpresa] = useState(false);
+  const [aviso, setAviso] = useState("");
+  const [leidoDeUrl, setLeidoDeUrl] = useState(false);
   const hojaRef = useRef<HTMLDialogElement>(null);
 
   const set = (parcial: Partial<Estado>) => setE((prev) => ({ ...prev, ...parcial }));
-  const reset = () => setE(INICIAL);
+  const reset = () => setE(preset);
 
   // "Hoy" se calcula en el navegador con hora de Bogotá y se refresca al volver a la pestaña.
   useEffect(() => {
@@ -153,6 +116,28 @@ export default function Explorador({ planes, hoyInicial }: { planes: PlanPublico
     document.addEventListener("visibilitychange", actualizar);
     return () => document.removeEventListener("visibilitychange", actualizar);
   }, []);
+
+  // Filtros <-> URL: se leen al cargar y al navegar atrás/adelante; se escriben al cambiar.
+  useEffect(() => {
+    const leer = () => {
+      const params = new URLSearchParams(location.search);
+      setE(estadoDesdeParams(preset, params));
+      setVista(params.get("vista") === "mapa" ? "mapa" : "lista");
+    };
+    leer();
+    setLeidoDeUrl(true);
+    window.addEventListener("popstate", leer);
+    return () => window.removeEventListener("popstate", leer);
+  }, []);
+
+  useEffect(() => {
+    if (!leidoDeUrl) return;
+    const params = paramsDesdeEstado(preset, e);
+    if (vista === "mapa") params.set("vista", "mapa");
+    const qs = params.toString();
+    const destino = location.pathname + (qs ? `?${qs}` : "") + location.hash;
+    if (destino !== location.pathname + location.search + location.hash) history.replaceState(null, "", destino);
+  }, [e, vista, leidoDeUrl]);
 
   useEffect(() => {
     const d = hojaRef.current;
@@ -164,8 +149,13 @@ export default function Explorador({ planes, hoyInicial }: { planes: PlanPublico
   const zonas = useMemo(() => [...new Set(planes.map((p) => p.zona.nombre))].sort((a, b) => a.localeCompare(b, "es")), [planes]);
   const { grupos, fijos, totalEventos } = useMemo(() => filtrar(planes, e, hoy), [planes, e, hoy]);
   const pool = useMemo(() => [...grupos.flatMap((g) => g.items), ...fijos], [grupos, fijos]);
+  const puntos = useMemo<Punto[]>(
+    () => pool.filter((p) => p.lat !== undefined && p.lng !== undefined).map((p) => ({ slug: p.slug, titulo: p.titulo, lat: p.lat!, lng: p.lng!, categoria: p.categoria })),
+    [pool],
+  );
   const nFiltros = contarFiltros(e);
-  const sinFiltros = nFiltros === 0;
+  const hayCambios = !mismoEstado(e, preset);
+  const sinFiltros = mismoEstado(e, INICIAL) && vista === "lista";
 
   const destacados = useMemo(
     () =>
@@ -188,6 +178,16 @@ export default function Explorador({ planes, hoyInicial }: { planes: PlanPublico
     if (clave === "pareja") set({ con: e.con === "pareja" ? "todos" : "pareja" });
   };
 
+  async function copiarEnlace() {
+    try {
+      await navigator.clipboard.writeText(location.href);
+      setAviso("Enlace copiado. Quien lo abra verá estos mismos filtros.");
+    } catch {
+      setAviso("No se pudo copiar. Copia la dirección desde la barra del navegador.");
+    }
+    window.setTimeout(() => setAviso(""), 4000);
+  }
+
   return (
     <div>
       <section aria-label="Buscar planes" class="mx-auto w-[min(1120px,100%-2rem)]">
@@ -201,7 +201,7 @@ export default function Explorador({ planes, hoyInicial }: { planes: PlanPublico
               placeholder="Busca: salsa, teatro, Poblado, concierto…"
               autocomplete="off"
               value={e.q}
-              onInput={(ev) => set({ q: (ev.currentTarget as HTMLInputElement).value.trim() })}
+              onInput={(ev) => set({ q: (ev.currentTarget as HTMLInputElement).value.trimStart() })}
             />
           </div>
           <button type="button" class="btn btn--primario sm:min-w-44" onClick={() => setSorpresa(true)}>
@@ -226,14 +226,30 @@ export default function Explorador({ planes, hoyInicial }: { planes: PlanPublico
 
       <section id="resultados" aria-label="Resultados" class="mx-auto mt-8 w-[min(1120px,100%-2rem)]">
         <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
-          <p role="status" aria-live="polite" class="text-suave">{resumen}</p>
-          {nFiltros > 0 && <button type="button" class="font-semibold text-acento underline-offset-4 hover:underline" onClick={reset}>Quitar filtros</button>}
+          <p role="status" aria-live="polite" class="text-suave">{aviso || resumen}</p>
+          <div class="flex flex-wrap items-center gap-2">
+            {hayCambios && <button type="button" class="min-h-11 px-2 font-semibold text-acento underline-offset-4 hover:underline" onClick={reset}>Quitar filtros</button>}
+            {hayCambios && <button type="button" class="min-h-11 px-2 font-semibold text-acento underline-offset-4 hover:underline" onClick={copiarEnlace}>Copiar enlace</button>}
+            <div role="group" aria-label="Tipo de vista" class="flex gap-2">
+              <button type="button" class="chip" aria-pressed={vista === "lista"} onClick={() => setVista("lista")}>Lista</button>
+              <button type="button" class="chip" aria-pressed={vista === "mapa"} onClick={() => setVista("mapa")}>Mapa</button>
+            </div>
+          </div>
         </div>
 
-        {(e.precio !== "todos") && (
+        {e.precio !== "todos" && (
           <p class="mb-5 rounded-xl border border-linea bg-superficie px-4 py-3 text-sm text-suave">
             Solo mostramos planes con precio confirmado. Muchos aún dicen “Confirmar en la fuente” y por eso no aparecen en este filtro.
           </p>
+        )}
+
+        {vista === "mapa" && (
+          <div class="mb-10">
+            <Mapa puntos={puntos} alto="min(70dvh, 560px)" etiqueta="Mapa con los planes filtrados" />
+            <p class="mt-3 text-sm text-suave">
+              {puntos.length} de {pool.length} planes tienen ubicación en el mapa. Las ubicaciones son aproximadas y vienen de OpenStreetMap: confirma la dirección en la fuente de cada plan.
+            </p>
+          </div>
         )}
 
         {sinFiltros && destacados.length > 0 && (
@@ -245,9 +261,9 @@ export default function Explorador({ planes, hoyInicial }: { planes: PlanPublico
           </div>
         )}
 
-        {total === 0 && <Vacio onQuitar={reset} onTodo={() => set({ cuando: "todo" })} />}
+        {total === 0 && <Vacio onQuitar={reset} onTodo={() => setE({ ...preset, cuando: "todo" })} />}
 
-        {grupos.map((g) => {
+        {vista === "lista" && grupos.map((g) => {
           const t = tituloDia(g.dia, hoy);
           return (
             <div key={g.dia} class="mb-10">
@@ -262,7 +278,7 @@ export default function Explorador({ planes, hoyInicial }: { planes: PlanPublico
           );
         })}
 
-        {fijos.length > 0 && (
+        {vista === "lista" && fijos.length > 0 && (
           <div class="mb-10">
             <h2 class="mb-4 flex flex-wrap items-baseline gap-3 font-display text-2xl font-extrabold">
               Lugares y planes de siempre
@@ -297,7 +313,7 @@ export default function Explorador({ planes, hoyInicial }: { planes: PlanPublico
         )}
       </dialog>
 
-      <Sorprendeme abierto={sorpresa} pool={pool} hoy={hoy} onCerrar={() => setSorpresa(false)} onQuitarFiltros={reset} hayFiltros={nFiltros > 0} />
+      <Sorprendeme abierto={sorpresa} pool={pool} hoy={hoy} onCerrar={() => setSorpresa(false)} onQuitarFiltros={reset} hayFiltros={hayCambios} />
     </div>
   );
 }

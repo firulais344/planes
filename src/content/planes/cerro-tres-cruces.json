@@ -14,6 +14,8 @@
     "comuna": 16
   },
   "lugar": "Cerro Tres Cruces, Belén",
+  "lat": 6.21248,
+  "lng": -75.61631,
   "precio": {
     "tipo": "por_confirmar"
   },
@@ -36,5 +38,5 @@
     "direccion"
   ],
   "estado": "activo",
-  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Cerro Las Tres Cruces\"; sin verificar."
 }

@@ -11,6 +11,8 @@
   ],
   "inicio": "2026-10-31",
   "direccion": "Cra. 35 #7-75",
+  "lat": 6.20694,
+  "lng": -75.56571,
   "zona": {
     "nombre": "El Poblado",
     "comuna": 14
@@ -33,5 +35,6 @@
     "precio",
     "horario"
   ],
-  "estado": "activo"
+  "estado": "activo",
+  "notasInternas": "Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Carrera 35 #7-75\"; sin verificar."
 }

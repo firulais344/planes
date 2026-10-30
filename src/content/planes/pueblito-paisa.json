@@ -10,10 +10,11 @@
     "historia"
   ],
   "zona": {
-    "nombre": "Guayabal",
-    "comuna": 15
+    "nombre": "Guayabal"
   },
   "lugar": "Cerro Nutibara",
+  "lat": 6.23619,
+  "lng": -75.58028,
   "precio": {
     "tipo": "por_confirmar"
   },
@@ -35,5 +36,5 @@
     "direccion"
   ],
   "estado": "activo",
-  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Pueblito Paisa\"; sin verificar. OpenStreetMap lo ubica en la Comuna 16 - Belén; revisar zona (escrita de memoria como Guayabal)."
 }

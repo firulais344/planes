@@ -15,6 +15,8 @@
     "nombre": "Centro"
   },
   "lugar": "Comfama San Ignacio",
+  "lat": 6.24575,
+  "lng": -75.56372,
   "precio": {
     "tipo": "por_confirmar"
   },
@@ -36,5 +38,5 @@
     "direccion"
   ],
   "estado": "activo",
-  "notasInternas": "La URL de fuente es un listado de búsqueda; reemplazar por la del festival."
+  "notasInternas": "La URL de fuente es un listado de búsqueda; reemplazar por la del festival. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Comfama Claustro San Ignacio\"; sin verificar."
 }

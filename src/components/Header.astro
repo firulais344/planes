@@ -4,6 +4,7 @@ import Logo from "./Logo.astro";
 const actual = Astro.url.pathname;
 const enlaces = [
   { href: "/", texto: "Planes" },
+  { href: "/mi-lista/", texto: "Mi lista" },
   { href: "/publica-tu-plan/", texto: "Publica tu plan" },
   { href: "/acerca-de/", texto: "Acerca de" },
   { href: "/contacto/", texto: "Contacto" },
@@ -24,6 +25,7 @@ const esActual = (href: string) => (href === "/" ? actual === "/" : actual.start
             class="rounded-lg px-3 py-2 text-[0.95rem] font-semibold text-suave hover:text-texto aria-[current=page]:text-texto aria-[current=page]:underline aria-[current=page]:decoration-acento aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"
           >
             {e.texto}
+            {e.href === "/mi-lista/" && <span data-fav-count class="ml-1.5 hidden rounded-full bg-acento-fuerte px-1.5 py-0.5 text-xs font-bold text-white" />}
           </a>
         ))
       }
@@ -74,6 +76,20 @@ const esActual = (href: string) => (href === "/" ? actual === "/" : actual.start
     pintar();
   });
   pintar();
+
+  // Contador de "Mi lista": se lee de localStorage y se actualiza al guardar o quitar planes.
+  function contarFavoritos() {
+    let n = 0;
+    try { const v = JSON.parse(localStorage.getItem("favoritos") ?? "[]"); n = Array.isArray(v) ? v.length : 0; } catch {}
+    document.querySelectorAll<HTMLElement>("[data-fav-count]").forEach((el) => {
+      el.textContent = String(n);
+      el.classList.toggle("hidden", n === 0);
+      el.setAttribute("aria-label", `${n} ${n === 1 ? "plan guardado" : "planes guardados"}`);
+    });
+  }
+  contarFavoritos();
+  window.addEventListener("favoritos-cambio", contarFavoritos);
+  window.addEventListener("storage", contarFavoritos);
 
   const btnMenu = document.getElementById("menu-btn") as HTMLButtonElement;
   const menu = document.getElementById("menu-movil")!;

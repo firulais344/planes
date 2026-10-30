@@ -1,0 +1,19 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import MiLista from "../components/MiLista.tsx";
+import { aPublico } from "../lib/publico";
+import { hoyBogota } from "../lib/fechas";
+
+const planes = (await getCollection("planes")).map((e) => aPublico(e.data));
+---
+
+<Base titulo="Mi lista de planes · Parchemos" descripcion="Los planes que guardaste en Parchemos, para compartir o llevar a tu calendario." noindex>
+  <div class="mx-auto w-[min(1120px,100%-2rem)] py-12">
+    <h1 class="font-display text-4xl font-extrabold tracking-tight md:text-5xl">Mi lista</h1>
+    <p class="mt-3 max-w-xl text-lg text-suave">Los planes que guardaste. Se quedan en este dispositivo; si quieres pasarlos a alguien, comparte el enlace.</p>
+    <div class="mt-8">
+      <MiLista client:load planes={planes} hoyInicial={hoyBogota()} />
+    </div>
+  </div>
+</Base>

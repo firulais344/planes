@@ -84,8 +84,9 @@ export const PlanSchema = z
     zona: z.object({ nombre: z.string().min(2), comuna: z.number().int().min(1).max(16).optional() }),
     lugar: z.string().min(2),
     direccion: z.string().optional(),
-    lat: z.number().min(5.9).max(6.6).optional(),
-    lng: z.number().min(-76).max(-75.2).optional(),
+    // Recuadro del Valle de Aburrá y alrededores (incluye Guatapé y Santa Elena).
+    lat: z.number().min(5.7).max(6.8).optional(),
+    lng: z.number().min(-76.1).max(-75.0).optional(),
 
     precio: PrecioSchema,
     /** Dato antiguo sin confirmar: nunca se muestra como hecho, solo como pista. */

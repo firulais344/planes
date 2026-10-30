@@ -2,6 +2,25 @@
 
 Guía de planes en Medellín. En reconstrucción (Fases 1 y 2 de 7 listas): datos validados y diseño nuevo. Pendiente: páginas por plan, SEO, imágenes, verificación y automatización.
 
+## Funcionalidad (Fase 3)
+
+- Página por plan en `/planes/<slug>/`, con mapa (Leaflet + OpenStreetMap), "Cómo llegar", calendario `.ics`, compartir por WhatsApp y planes parecidos. Si el evento ya pasó no da 404: muestra un aviso con alternativas.
+- Páginas indexables generadas desde `src/lib/presets.ts`: `/hoy/`, `/manana/`, `/fin-de-semana/`, `/proximos-7-dias/`, `/gratis/`, categorías, `/pareja/`, `/amigos/`, `/familia/`, `/solo/` y zonas con al menos 2 planes (`/poblado/`, `/centro/`…).
+- Filtros combinables guardados en la URL (`?cuando=finde&precio=gratis&q=salsa&vista=mapa`).
+- Búsqueda tolerante a tildes y errores de escritura (`src/lib/busqueda.ts`).
+- Favoritos en `localStorage` y página `/mi-lista/` (compartible por enlace, exportable a texto y `.ics`).
+- Las coordenadas (19 de 35 planes) son **aproximadas**, tomadas de OpenStreetMap/Nominatim (ODbL), y siguen marcadas como pendientes de verificar. El mapa lo dice en pantalla.
+
+## Trabajar en una carpeta de iCloud Drive
+
+Si el proyecto vive en iCloud Drive, `node_modules` (cientos de archivos) puede dejar a Node colgado mientras iCloud sincroniza. Mantén `node_modules`, `dist` y `.astro` fuera de la sincronización renombrándolos con el sufijo `.nosync` y dejando un enlace con el nombre original:
+
+```bash
+mv node_modules node_modules.nosync && ln -s node_modules.nosync node_modules
+```
+
+Lo más simple es clonar el repositorio en una carpeta fuera de iCloud (por ejemplo `~/Developer`).
+
 ## Diseño
 
 - Tokens de color y tema claro/oscuro en `src/styles/global.css`; los pares de contraste se prueban contra WCAG AA en `tests/contraste.test.ts`.

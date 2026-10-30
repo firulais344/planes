@@ -8,11 +8,14 @@ import Footer from "../components/Footer.astro";
 interface Props {
   titulo?: string;
   descripcion?: string;
+  /** Páginas personales o sin valor para buscadores. */
+  noindex?: boolean;
 }
 
 const {
   titulo = "Parchemos · Qué hacer en Medellín hoy y este fin de semana",
   descripcion = "Fiestas, conciertos, planes gratis, aire libre, comida y cultura en Medellín. Filtra por día, precio y con quién vas.",
+  noindex = false,
 } = Astro.props;
 
 const canonica = new URL(Astro.url.pathname, Astro.site);
@@ -26,6 +29,7 @@ const canonica = new URL(Astro.url.pathname, Astro.site);
     <title>{titulo}</title>
     <meta name="description" content={descripcion} />
     <link rel="canonical" href={canonica.href} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#0b0a14" />
     <meta property="og:type" content="website" />

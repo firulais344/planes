@@ -14,6 +14,8 @@
     "nombre": "Centro"
   },
   "lugar": "Plaza Botero",
+  "lat": 6.25185,
+  "lng": -75.56864,
   "precio": {
     "tipo": "por_confirmar"
   },
@@ -37,5 +39,5 @@
   ],
   "estado": "activo",
   "destacado": true,
-  "notasInternas": "Precio sin verificar (escrito de memoria): La plaza es gratis. El museo tiene entrada. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+  "notasInternas": "Precio sin verificar (escrito de memoria): La plaza es gratis. El museo tiene entrada. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Plaza Botero\"; sin verificar."
 }

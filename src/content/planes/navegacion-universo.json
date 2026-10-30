@@ -14,6 +14,8 @@
     "nombre": "Centro"
   },
   "lugar": "Parque de los Deseos",
+  "lat": 6.26818,
+  "lng": -75.56617,
   "precio": {
     "tipo": "por_confirmar"
   },
@@ -34,5 +36,6 @@
     "horario",
     "direccion"
   ],
-  "estado": "activo"
+  "estado": "activo",
+  "notasInternas": "Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Parque de los Deseos\"; sin verificar. OpenStreetMap lo ubica en la Comuna 4 - Aranjuez; revisar zona (escrita como Centro)."
 }
