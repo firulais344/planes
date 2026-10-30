@@ -1,14 +1,13 @@
 ---
-import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Explorador from "../components/Explorador.tsx";
-import { aPublico } from "../lib/publico";
+import { cargarPlanes } from "../lib/planes";
 import Boletin from "../components/Boletin.astro";
 import { hoyBogota } from "../lib/fechas";
 import { jsonldSitio } from "../lib/jsonld";
 import { SITIO } from "../config/sitio";
 
-const planes = (await getCollection("planes")).map((e) => aPublico(e.data));
+const planes = await cargarPlanes();
 const hoy = hoyBogota();
 ---
 

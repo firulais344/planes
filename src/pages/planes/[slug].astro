@@ -1,12 +1,12 @@
 ---
-import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
-import { Arte, horarioVisible } from "../../components/PlanCard.tsx";
+import { cargarPlanes } from "../../lib/planes";
+import { Arte, Foto, horarioVisible } from "../../components/PlanCard.tsx";
 import BotonFavorito from "../../components/BotonFavorito.tsx";
 import AvisoPasado from "../../components/AvisoPasado.tsx";
 import Mapa from "../../components/Mapa.tsx";
 import PlanCard from "../../components/PlanCard.tsx";
-import { aPublico, type PlanPublico } from "../../lib/publico";
+import type { PlanPublico } from "../../lib/publico";
 import { CATEGORIA_NOMBRE } from "../../lib/schema";
 import { diaCorto, diaLargo, hoyBogota, yaPaso } from "../../lib/fechas";
 import { precioInfo } from "../../lib/precio";
@@ -15,7 +15,7 @@ import { jsonldPlan } from "../../lib/jsonld";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 export async function getStaticPaths() {
-  const todos = (await getCollection("planes")).map((e) => aPublico(e.data));
+  const todos = await cargarPlanes();
   return todos.map((plan) => ({ params: { slug: plan.slug }, props: { plan, todos } }));
 }
 
@@ -64,9 +64,21 @@ const filaDt = "text-sm font-bold uppercase tracking-wide text-suave";
   <article class="mx-auto w-[min(60rem,100%-2rem)] py-8">
     <Breadcrumbs items={[{ nombre: "Inicio", href: "/" }, { nombre: CATEGORIA_NOMBRE[plan.categoria], href: `/${RUTA_CATEGORIA[plan.categoria]}/` }, { nombre: plan.titulo }]} />
 
-    <div class="overflow-hidden rounded-tarjeta border border-linea">
-      <Arte categoria={plan.categoria} alto={150} />
-    </div>
+    {
+      plan.imagenOpt ? (
+        <figure class="overflow-hidden rounded-tarjeta border border-linea bg-superficie">
+          <Foto img={plan.imagenOpt} alto={340} sizes="(min-width: 960px) 960px, 100vw" prioridad />
+          <figcaption class="px-4 py-2 text-xs text-suave">
+            Foto: {plan.imagenOpt.credito ?? "autor sin indicar"} · {plan.imagenOpt.licencia}
+            {plan.imagenOpt.origen && <> · <a class="font-semibold underline underline-offset-2 hover:text-texto" href={plan.imagenOpt.origen} target="_blank" rel="noopener noreferrer">Ver original<span class="solo-lectores"> (se abre en otra pestaña)</span></a></>}
+          </figcaption>
+        </figure>
+      ) : (
+        <div class="overflow-hidden rounded-tarjeta border border-linea">
+          <Arte categoria={plan.categoria} alto={150} />
+        </div>
+      )
+    }
 
     <header class="mt-6">
       <p class="text-sm font-bold uppercase tracking-[0.12em] text-cian">{CATEGORIA_NOMBRE[plan.categoria]}</p>
@@ -92,7 +104,8 @@ const filaDt = "text-sm font-bold uppercase tracking-wide text-suave";
     <dl class="mt-8 grid gap-6 rounded-tarjeta border border-linea bg-superficie p-6 sm:grid-cols-2">
       <div>
         <dt class={filaDt}>Cuándo</dt>
-        <dd class="mt-1 text-lg">{cuando}{horario ? ` · ${horario}` : ""}</dd>
+        <dd class="mt-1 text-lg">{cuando}{horario && plan.tipo === "evento" ? ` · ${horario}` : ""}</dd>
+        {horario && plan.tipo === "permanente" && <dd class="mt-1 text-base text-suave">{horario}</dd>}
       </div>
       <div>
         <dt class={filaDt}>Dónde</dt>
@@ -127,8 +140,10 @@ const filaDt = "text-sm font-bold uppercase tracking-wide text-suave";
       conMapa && (
         <section class="mt-10" aria-labelledby="mapa-titulo">
           <h2 id="mapa-titulo" class="mb-3 font-display text-2xl font-extrabold">Ubicación</h2>
-          <Mapa client:visible detalle alto="340px" etiqueta={`Mapa de ${plan.lugar}`} puntos={[{ slug: plan.slug, titulo: plan.lugar, lat: plan.lat!, lng: plan.lng!, categoria: plan.categoria }]} />
-          <p class="mt-2 text-sm text-suave">Ubicación aproximada según OpenStreetMap. Confirma la dirección exacta en la fuente.</p>
+          <Mapa client:visible detalle alto="340px" etiqueta={`Mapa de ${plan.lugar}`} puntos={[{ slug: plan.slug, titulo: plan.lugar, lat: plan.lat!, lng: plan.lng!, categoria: plan.categoria, aprox: plan.pendientes.includes("coordenadas") }]} />
+          <p class="mt-2 text-sm text-suave">
+            {plan.pendientes.includes("coordenadas") ? "Ubicación aproximada según OpenStreetMap. Confirma la dirección exacta en la fuente." : "Ubicación de OpenStreetMap cruzada con la dirección oficial."}
+          </p>
         </section>
       )
     }

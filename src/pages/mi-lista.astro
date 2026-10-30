@@ -1,11 +1,10 @@
 ---
-import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import MiLista from "../components/MiLista.tsx";
-import { aPublico } from "../lib/publico";
+import { cargarPlanes } from "../lib/planes";
 import { hoyBogota } from "../lib/fechas";
 
-const planes = (await getCollection("planes")).map((e) => aPublico(e.data));
+const planes = await cargarPlanes();
 ---
 
 <Base titulo="Mi lista de planes · Parchemos" descripcion="Los planes que guardaste en Parchemos, para compartir o llevar a tu calendario." noindex>

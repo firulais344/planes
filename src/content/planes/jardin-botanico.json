@@ -2,7 +2,7 @@
   "id": "jardin-botanico",
   "slug": "jardin-botanico",
   "titulo": "Jardín Botánico de Medellín",
-  "descripcionCorta": "Un respiro verde en el norte del centro: jardines, orquideorama y zonas para caminar y descansar.",
+  "descripcionCorta": "Museo vivo y centro de investigación con jardines para recorrer. La entrada es gratuita.",
   "tipo": "permanente",
   "categoria": "aire-libre",
   "etiquetas": [
@@ -10,15 +10,16 @@
     "naturaleza"
   ],
   "zona": {
-    "nombre": "Centro"
+    "nombre": "Aranjuez",
+    "comuna": 4
   },
   "lugar": "Jardín Botánico",
   "lat": 6.27055,
   "lng": -75.56353,
   "precio": {
-    "tipo": "por_confirmar"
+    "tipo": "gratis",
+    "nota": "Entrada gratuita, salvo en eventos especiales. Casa de las Mariposas: $10.000. Sendero de plantas prehistóricas: $6.000."
   },
-  "precioPreliminar": "gratis",
   "idealPara": [
     "familia",
     "pareja",
@@ -26,16 +27,56 @@
     "solo"
   ],
   "fuente": {
-    "nombre": "botanicomedellin.org",
-    "url": "https://botanicomedellin.org/"
+    "nombre": "Jardín Botánico de Medellín",
+    "url": "https://www.botanicomedellin.org/vivenos/planea-tu-visita/horarios-y-fechas-de-cierre-de-puertas/"
   },
   "verificado": false,
   "pendientes": [
-    "coordenadas",
-    "precio",
-    "horario",
-    "direccion"
+    "coordenadas"
   ],
   "estado": "activo",
-  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Jardín Botánico de Medellín\"; sin verificar. OpenStreetMap lo ubica en la Comuna 4 - Aranjuez; revisar zona (escrita como Centro)."
+  "notasInternas": "Verificado el 2026-10-29 en botanicomedellin.org (horarios y preguntas frecuentes): gratis, horarios y dirección Calle 73 # 51D-14 (Carabobo Norte). Zona/comuna 4 según OpenStreetMap. Coordenadas aproximadas de OSM: la dirección oficial no se pudo geocodificar para cruzarlas.",
+  "horario": {
+    "texto": "Martes a viernes 9:30 a. m. – 4:00 p. m.; sábados, domingos y festivos 9:00 a. m. – 4:00 p. m.",
+    "porDia": {
+      "mar": [
+        {
+          "abre": "09:30",
+          "cierra": "16:00"
+        }
+      ],
+      "mie": [
+        {
+          "abre": "09:30",
+          "cierra": "16:00"
+        }
+      ],
+      "jue": [
+        {
+          "abre": "09:30",
+          "cierra": "16:00"
+        }
+      ],
+      "vie": [
+        {
+          "abre": "09:30",
+          "cierra": "16:00"
+        }
+      ],
+      "sab": [
+        {
+          "abre": "09:00",
+          "cierra": "16:00"
+        }
+      ],
+      "dom": [
+        {
+          "abre": "09:00",
+          "cierra": "16:00"
+        }
+      ]
+    }
+  },
+  "direccion": "Calle 73 # 51D-14",
+  "ultimaVerificacion": "2026-10-29"
 }

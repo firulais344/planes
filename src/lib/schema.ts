@@ -26,7 +26,7 @@ export const PrecioSchema = z
     tipo: z.enum(["gratis", "economico", "rango", "por_confirmar"]),
     minCOP: z.number().int().nonnegative().optional(),
     maxCOP: z.number().int().nonnegative().optional(),
-    nota: z.string().max(200).optional(),
+    nota: z.string().max(300).optional(),
   })
   .superRefine((p, ctx) => {
     if (p.tipo === "rango" && p.minCOP === undefined && p.maxCOP === undefined) {
@@ -42,7 +42,7 @@ export const PrecioSchema = z
 
 export const HorarioSchema = z.object({
   /** Texto libre mientras no haya horario por día confirmado. */
-  texto: z.string().max(160).optional(),
+  texto: z.string().max(300).optional(),
   /** Horario por día; cada día admite varias franjas. Un día ausente = sin dato. */
   porDia: z
     .record(z.enum(DIAS), z.array(z.object({ abre: hora, cierra: hora })))

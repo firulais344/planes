@@ -17,7 +17,10 @@
   "lat": 6.2237,
   "lng": -75.57407,
   "precio": {
-    "tipo": "por_confirmar"
+    "tipo": "rango",
+    "minCOP": 12000,
+    "maxCOP": 18000,
+    "nota": "Entrada general $18.000. Adultos mayores de 60 años, menores de 12 años y estudiantes con carné: $12.000. Las entradas valen una semana desde la compra."
   },
   "idealPara": [
     "pareja",
@@ -25,16 +28,56 @@
     "solo"
   ],
   "fuente": {
-    "nombre": "elmamm.org",
-    "url": "https://elmamm.org/"
+    "nombre": "MAMM",
+    "url": "https://www.elmamm.org/visitanos/"
   },
   "verificado": false,
   "pendientes": [
-    "coordenadas",
-    "precio",
-    "horario",
-    "direccion"
+    "direccion",
+    "coordenadas"
   ],
   "estado": "activo",
-  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Museo de Arte Moderno de Medellín\"; sin verificar."
+  "notasInternas": "Verificado el 2026-10-29 en elmamm.org (visitanos y producto/entradas-al-museo-mamm): tarifas y horarios. La dirección postal no aparece en esas páginas; coordenadas de OSM (Carrera 44, Villa Carlota) sin cruzar. Precios sujetos a cambio.",
+  "horario": {
+    "texto": "Martes a viernes 11:00 a. m. – 7:00 p. m.; sábados, domingos y festivos 11:00 a. m. – 6:00 p. m. Cierra los lunes y los martes posteriores a un festivo.",
+    "porDia": {
+      "mar": [
+        {
+          "abre": "11:00",
+          "cierra": "19:00"
+        }
+      ],
+      "mie": [
+        {
+          "abre": "11:00",
+          "cierra": "19:00"
+        }
+      ],
+      "jue": [
+        {
+          "abre": "11:00",
+          "cierra": "19:00"
+        }
+      ],
+      "vie": [
+        {
+          "abre": "11:00",
+          "cierra": "19:00"
+        }
+      ],
+      "sab": [
+        {
+          "abre": "11:00",
+          "cierra": "18:00"
+        }
+      ],
+      "dom": [
+        {
+          "abre": "11:00",
+          "cierra": "18:00"
+        }
+      ]
+    }
+  },
+  "ultimaVerificacion": "2026-10-29"
 }

@@ -8,6 +8,8 @@ export interface Punto {
   lat: number;
   lng: number;
   categoria: Categoria;
+  /** true (por defecto) si la coordenada aún no se cruzó con una dirección oficial. */
+  aprox?: boolean;
 }
 
 const COLOR: Record<Categoria, string> = { "fiesta": "#d6176f", "aire-libre": "#0e8f66", "comida-cultura": "#c97a00" };
@@ -70,7 +72,7 @@ export default function Mapa({ puntos, alto = "420px", detalle = false, etiqueta
       const cat = document.createElement("div");
       cat.textContent = CATEGORIA_NOMBRE[p.categoria];
       const aprox = document.createElement("small");
-      aprox.textContent = "Ubicación aproximada: confirma la dirección en la fuente.";
+      aprox.textContent = p.aprox === false ? "Ubicación cruzada con la dirección oficial." : "Ubicación aproximada: confirma la dirección en la fuente.";
       caja.append(titulo, cat, aprox);
       m.bindPopup(caja);
       m.bindTooltip(p.titulo);

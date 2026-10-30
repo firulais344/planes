@@ -2,7 +2,7 @@
   "id": "parque-explora",
   "slug": "parque-explora",
   "titulo": "Parque Explora",
-  "descripcionCorta": "Museo interactivo de ciencia y tecnología, pensado para ir en familia.",
+  "descripcionCorta": "Museo de ciencias con planetario y acuario y más de 300 experiencias interactivas, pensado para ir en familia.",
   "tipo": "permanente",
   "categoria": "comida-cultura",
   "etiquetas": [
@@ -24,16 +24,57 @@
     "amigos"
   ],
   "fuente": {
-    "nombre": "parqueexplora.org",
-    "url": "https://www.parqueexplora.org/"
+    "nombre": "Parque Explora",
+    "url": "https://www.parqueexplora.org/visitanos/horarios-y-tarifas"
   },
   "verificado": false,
   "pendientes": [
-    "coordenadas",
     "precio",
-    "horario",
-    "direccion"
+    "direccion",
+    "coordenadas"
   ],
   "estado": "activo",
-  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Parque Explora\"; sin verificar. OpenStreetMap lo ubica en la Comuna 4 - Aranjuez; revisar zona (escrita como Centro)."
+  "notasInternas": "Verificado el 2026-10-29 en parqueexplora.org (horarios-y-tarifas, descuentos): horarios. La página muestra tarifas A/B/C sin explicar a qué corresponden y precios con afiliación a Comfama/Comfenalco: precio pendiente. Dirección no encontrada en esas páginas. OSM lo ubica en la Comuna 4 - Aranjuez (zona escrita como Centro; revisar).",
+  "horario": {
+    "texto": "Martes a viernes 8:30 a. m. – 5:30 p. m. (la taquilla cierra a las 4:00 p. m.); fines de semana y festivos 10:00 a. m. – 6:30 p. m. (la taquilla cierra a las 5:00 p. m.).",
+    "porDia": {
+      "mar": [
+        {
+          "abre": "08:30",
+          "cierra": "17:30"
+        }
+      ],
+      "mie": [
+        {
+          "abre": "08:30",
+          "cierra": "17:30"
+        }
+      ],
+      "jue": [
+        {
+          "abre": "08:30",
+          "cierra": "17:30"
+        }
+      ],
+      "vie": [
+        {
+          "abre": "08:30",
+          "cierra": "17:30"
+        }
+      ],
+      "sab": [
+        {
+          "abre": "10:00",
+          "cierra": "18:30"
+        }
+      ],
+      "dom": [
+        {
+          "abre": "10:00",
+          "cierra": "18:30"
+        }
+      ]
+    }
+  },
+  "ultimaVerificacion": "2026-10-29"
 }

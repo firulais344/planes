@@ -18,9 +18,9 @@
   "lat": 6.25627,
   "lng": -75.62154,
   "precio": {
-    "tipo": "por_confirmar"
+    "tipo": "gratis",
+    "nota": "Las escaleras eléctricas públicas son gratuitas, según la guía oficial. Los tours guiados son aparte y su precio depende del operador."
   },
-  "precioPreliminar": "gratis",
   "idealPara": [
     "amigos",
     "pareja",
@@ -28,17 +28,24 @@
     "solo"
   ],
   "fuente": {
-    "nombre": "Google Maps",
-    "url": "https://www.google.com/maps/search/?api=1&query=Comuna%2013%20escaleras%20el%C3%A9ctricas%20Medell%C3%ADn"
+    "nombre": "Medellín Travel",
+    "url": "https://www.medellin.travel/comuna-13-3/"
+  },
+  "imagen": {
+    "src": "comuna-13.jpg",
+    "alt": "Escaleras, murales y torres del Metrocable en la Comuna 13 de Medellín",
+    "licencia": "Unsplash License",
+    "credito": "Josseph Downs (@0zymanndias) en Unsplash",
+    "origen": "https://unsplash.com/photos/a-bunch-of-graffiti-on-the-side-of-a-building-WOkl7pWtcE0"
   },
   "verificado": false,
   "pendientes": [
-    "coordenadas",
-    "precio",
     "horario",
-    "direccion"
+    "direccion",
+    "coordenadas"
   ],
   "estado": "activo",
   "destacado": true,
-  "notasInternas": "Precio sin verificar (escrito de memoria): Caminar es gratis; los tours guiados tienen costo. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Comuna 13 - San Javier (centro del barrio)\"; sin verificar."
+  "notasInternas": "Verificado el 2026-10-29 en medellin.travel/comuna-13-3/: las escaleras eléctricas públicas son gratuitas. La guía no menciona si caminar por el barrio tiene costo ni da horarios. Sin dirección; el pin de OSM es el centro del barrio.",
+  "ultimaVerificacion": "2026-10-29"
 }

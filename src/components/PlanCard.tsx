@@ -1,4 +1,4 @@
-import type { PlanPublico } from "../lib/publico";
+import type { ImagenOptimizada, PlanPublico } from "../lib/publico";
 import { CATEGORIA_NOMBRE, type Categoria } from "../lib/schema";
 import { etiquetaFecha, horaLegible, ocurreEn, ultimosDias, yaPaso } from "../lib/fechas";
 import { precioInfo } from "../lib/precio";
@@ -45,6 +45,30 @@ export function Arte({ categoria, alto = 104 }: { categoria: Categoria; alto?: n
   );
 }
 
+/** Foto optimizada: AVIF y WebP con srcset, JPEG de respaldo, tamaño fijo para evitar saltos de diseño. */
+export function Foto({ img, alto, sizes, prioridad = false }: { img: ImagenOptimizada; alto: number; sizes: string; prioridad?: boolean }) {
+  const extra: Record<string, string> = prioridad ? { fetchpriority: "high" } : {};
+  return (
+    <picture>
+      <source type="image/avif" srcset={img.avif} sizes={sizes} />
+      <source type="image/webp" srcset={img.webp} sizes={sizes} />
+      <img
+        src={img.src}
+        srcset={img.jpeg}
+        sizes={sizes}
+        alt={img.alt}
+        width={img.ancho}
+        height={img.alto}
+        loading={prioridad ? "eager" : "lazy"}
+        decoding="async"
+        class="w-full object-cover"
+        style={{ height: `${alto}px` }}
+        {...extra}
+      />
+    </picture>
+  );
+}
+
 export function PlanSkeleton() {
   return (
     <div class="overflow-hidden rounded-tarjeta border border-linea bg-superficie" aria-hidden="true">
@@ -80,7 +104,8 @@ export default function PlanCard({ plan, hoy }: Props) {
   const pasado = esEvento && yaPaso(plan, hoy);
   const pendientes = plan.pendientes.filter((c) => c in PENDIENTE_TXT).map((c) => PENDIENTE_TXT[c]);
 
-  const horaTxt = horarioVisible(plan);
+  // En la tarjeta solo se muestra la hora de los eventos; el horario de un lugar va en su página.
+  const horaTxt = esEvento ? horarioVisible(plan) : undefined;
   const donde = [plan.lugar, plan.zona.nombre !== plan.lugar ? plan.zona.nombre : ""].filter(Boolean).join(" · ");
 
   const insignia = "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold";
@@ -90,7 +115,7 @@ export default function PlanCard({ plan, hoy }: Props) {
   return (
     <article id={`plan-${plan.slug}`} class="group flex flex-col overflow-hidden rounded-tarjeta border border-linea bg-superficie transition hover:-translate-y-1 hover:border-violeta hover:shadow-tarjeta">
       <div class="relative">
-        <Arte categoria={plan.categoria} />
+        {plan.imagenOpt ? <Foto img={plan.imagenOpt} alto={150} sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw" /> : <Arte categoria={plan.categoria} />}
         <div class="absolute inset-x-3 top-3 flex items-start justify-between gap-2">
           <span class="rounded-full px-2.5 py-1 text-xs font-bold text-white" style={{ background: "var(--velo)" }}>{CATEGORIA_NOMBRE[plan.categoria]}</span>
           <span class="rounded-full px-2.5 py-1 text-xs font-bold text-white" style={{ background: "var(--velo)" }}>{etiquetaFecha(plan, hoy)}</span>

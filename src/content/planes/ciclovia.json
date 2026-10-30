@@ -10,7 +10,7 @@
     "deporte"
   ],
   "horario": {
-    "texto": "Domingos y festivos, mañana"
+    "texto": "Domingos y festivos. Estadio, Avenida del Río y El Poblado: 7:00 a. m. – 1:00 p. m. Cerro El Volador: 7:00 a. m. – 12:00 m. Las Palmas: 5:30 a. m. – 10:00 a. m. (según el documento del Inder de 2025)."
   },
   "zona": {
     "nombre": "Varias"
@@ -27,16 +27,16 @@
     "pareja"
   ],
   "fuente": {
-    "nombre": "Google Maps",
-    "url": "https://www.google.com/maps/search/?api=1&query=Ciclov%C3%ADa%20Medell%C3%ADn"
+    "nombre": "Inder Medellín",
+    "url": "https://administracion.inder.gov.co/uploads/Horarios_y_trayectos_Ciclovias_Inder_2025_b2a1c7617c.pdf"
   },
   "verificado": false,
   "pendientes": [
-    "coordenadas",
     "precio",
-    "horario",
-    "direccion"
+    "direccion",
+    "coordenadas"
   ],
   "estado": "activo",
-  "notasInternas": "Horario sin verificar (escrito de memoria). Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+  "notasInternas": "Verificado el 2026-10-29 en el PDF del Inder 'Horarios y trayectos Ciclovías 2025': horarios de ciclovías institucionales. El documento es de 2025: revisar si cambió. Además hay ciclovías barriales con otros horarios. No indica costo: precio pendiente. No aplica una dirección única (son trayectos).",
+  "ultimaVerificacion": "2026-10-29"
 }

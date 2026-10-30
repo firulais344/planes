@@ -163,7 +163,7 @@ export default function Explorador({ planes, hoyInicial, preset = INICIAL }: Pro
   const { grupos, fijos, totalEventos } = useMemo(() => filtrar(planes, e, hoy), [planes, e, hoy]);
   const pool = useMemo(() => [...grupos.flatMap((g) => g.items), ...fijos], [grupos, fijos]);
   const puntos = useMemo<Punto[]>(
-    () => pool.filter((p) => p.lat !== undefined && p.lng !== undefined).map((p) => ({ slug: p.slug, titulo: p.titulo, lat: p.lat!, lng: p.lng!, categoria: p.categoria })),
+    () => pool.filter((p) => p.lat !== undefined && p.lng !== undefined).map((p) => ({ slug: p.slug, titulo: p.titulo, lat: p.lat!, lng: p.lng!, categoria: p.categoria, aprox: p.pendientes.includes("coordenadas") })),
     [pool],
   );
   const nFiltros = contarFiltros(e);
@@ -261,7 +261,7 @@ export default function Explorador({ planes, hoyInicial, preset = INICIAL }: Pro
           <div class="mb-10">
             <Mapa puntos={puntos} alto="min(70dvh, 560px)" etiqueta="Mapa con los planes filtrados" />
             <p class="mt-3 text-sm text-suave">
-              {puntos.length} de {pool.length} planes tienen ubicación en el mapa. Las ubicaciones son aproximadas y vienen de OpenStreetMap: confirma la dirección en la fuente de cada plan.
+              {puntos.length} de {pool.length} planes tienen ubicación en el mapa. Las ubicaciones vienen de OpenStreetMap y muchas son aproximadas: confirma la dirección en la fuente de cada plan.
             </p>
           </div>
         )}

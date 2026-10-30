@@ -2,7 +2,7 @@
   "id": "plaza-botero",
   "slug": "plaza-botero",
   "titulo": "Plaza Botero y Museo de Antioquia",
-  "descripcionCorta": "Esculturas de Fernando Botero al aire libre, frente al Museo de Antioquia y el Palacio de la Cultura.",
+  "descripcionCorta": "Visita el Museo de Antioquia y la Plaza Botero, en pleno centro de Medellín, a pasos del Parque Berrío.",
   "tipo": "permanente",
   "categoria": "comida-cultura",
   "etiquetas": [
@@ -27,17 +27,63 @@
     "solo"
   ],
   "fuente": {
-    "nombre": "museodeantioquia.co",
-    "url": "https://www.museodeantioquia.co/"
+    "nombre": "Museo de Antioquia",
+    "url": "https://museodeantioquia.co/visita-tarifas/"
   },
   "verificado": false,
   "pendientes": [
-    "coordenadas",
-    "precio",
-    "horario",
-    "direccion"
+    "precio"
   ],
   "estado": "activo",
   "destacado": true,
-  "notasInternas": "Precio sin verificar (escrito de memoria): La plaza es gratis. El museo tiene entrada. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Plaza Botero\"; sin verificar."
+  "notasInternas": "Verificado el 2026-10-29 en museodeantioquia.co/visita-tarifas/: dirección y horarios del museo. Esa misma sección mencionaba otro horario de domingo (9:40–16:30) en una versión anterior; se usa el vigente de la página (modificada el 2026-10-29). Las tarifas se publican como imagen (no se pudieron leer): precio pendiente. La Plaza Botero es un espacio público: su gratuidad no figura en la fuente. Coordenadas de OSM cruzadas con la dirección oficial: a 35 m. Zona/comuna 10 según OSM.",
+  "horario": {
+    "texto": "Museo de Antioquia: lunes a sábado 9:40 a. m. – 5:30 p. m.; domingos y festivos 10:00 a. m. – 5:00 p. m.",
+    "porDia": {
+      "lun": [
+        {
+          "abre": "09:40",
+          "cierra": "17:30"
+        }
+      ],
+      "mar": [
+        {
+          "abre": "09:40",
+          "cierra": "17:30"
+        }
+      ],
+      "mie": [
+        {
+          "abre": "09:40",
+          "cierra": "17:30"
+        }
+      ],
+      "jue": [
+        {
+          "abre": "09:40",
+          "cierra": "17:30"
+        }
+      ],
+      "vie": [
+        {
+          "abre": "09:40",
+          "cierra": "17:30"
+        }
+      ],
+      "sab": [
+        {
+          "abre": "09:40",
+          "cierra": "17:30"
+        }
+      ],
+      "dom": [
+        {
+          "abre": "10:00",
+          "cierra": "17:00"
+        }
+      ]
+    }
+  },
+  "direccion": "Museo de Antioquia: Carrera 52 # 52–43",
+  "ultimaVerificacion": "2026-10-29"
 }

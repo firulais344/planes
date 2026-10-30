@@ -86,6 +86,13 @@ describe("PlanSchema", () => {
     expect(ok({ lat: 4.7, lng: -74.07 }).success).toBe(false); // Bogotá
   });
 
+  it("una imagen exige texto alternativo y licencia", () => {
+    const img = { src: "foto.jpg", alt: "Una foto", licencia: "Unsplash License" };
+    expect(ok({ imagen: img }).success).toBe(true);
+    expect(ok({ imagen: { ...img, licencia: undefined } }).success).toBe(false);
+    expect(ok({ imagen: { ...img, alt: "" } }).success).toBe(false);
+  });
+
   it("exige al menos un 'ideal para'", () => {
     expect(ok({ idealPara: [] }).success).toBe(false);
   });

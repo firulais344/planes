@@ -29,6 +29,13 @@
     "nombre": "Google Maps",
     "url": "https://www.google.com/maps/search/?api=1&query=Guatap%C3%A9%20Piedra%20del%20Pe%C3%B1ol%20Medell%C3%ADn"
   },
+  "imagen": {
+    "src": "guatape-penol.jpg",
+    "alt": "La Piedra del Peñol con su escalera en zigzag, en Guatapé",
+    "licencia": "Pexels License",
+    "credito": "eduardo-augusto-873660888 en Pexels",
+    "origen": "https://www.pexels.com/photo/el-penol-rock-in-guatape-with-clear-blue-sky-31882522/"
+  },
   "verificado": false,
   "pendientes": [
     "coordenadas",
@@ -37,5 +44,5 @@
     "direccion"
   ],
   "estado": "activo",
-  "notasInternas": "Precio sin verificar (escrito de memoria): Transporte y entrada a la piedra aparte. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"El Peñón de Guatapé\"; sin verificar."
+  "notasInternas": "Precio sin verificar (escrito de memoria): Transporte y entrada a la piedra aparte. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"El Peñón de Guatapé\"; sin verificar. Intento 2026-10-29: las fuentes se contradicen (tarifa 18.000–20.000 vs 35.000 COP; horario 7:00–18:00 vs 8:00–17:00) y no hay una claramente oficial. Pendiente."
 }

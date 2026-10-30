@@ -2,7 +2,7 @@
   "id": "mercado-del-rio",
   "slug": "mercado-del-rio",
   "titulo": "Mercado del Río",
-  "descripcionCorta": "Mercado gastronómico con muchas opciones de comida en un solo lugar, bueno cuando el grupo no se pone de acuerdo.",
+  "descripcionCorta": "Mercado gastronómico con más de 24 restaurantes, bares, cervecerías artesanales y canchas de tejo.",
   "tipo": "permanente",
   "categoria": "comida-cultura",
   "etiquetas": [
@@ -26,16 +26,62 @@
     "familia"
   ],
   "fuente": {
-    "nombre": "Google Maps",
-    "url": "https://www.google.com/maps/search/?api=1&query=Mercado%20del%20R%C3%ADo%20Medell%C3%ADn"
+    "nombre": "Mercado del Río",
+    "url": "https://mercadodelrio.com.co/"
   },
   "verificado": false,
   "pendientes": [
-    "coordenadas",
-    "precio",
-    "horario",
-    "direccion"
+    "precio"
   ],
   "estado": "activo",
-  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Mercado del Río\"; sin verificar."
+  "notasInternas": "Verificado el 2026-10-29 en mercadodelrio.com.co (y dirección también en medellin.travel): dirección y horario de cocinas y restaurantes. La página lista además otro horario que llega hasta la 1:00 a. m. los viernes y sábados, sin indicar a qué locales corresponde (posiblemente bares): confirmar. No indica costo de ingreso: precio pendiente. Coordenadas de OSM coinciden con la dirección oficial (0 m).",
+  "horario": {
+    "texto": "Abierto los 7 días. Cocinas y restaurantes: domingo a martes 12:00 m. – 9:00 p. m.; miércoles y jueves hasta las 10:00 p. m.; viernes y sábado hasta las 11:00 p. m.",
+    "porDia": {
+      "dom": [
+        {
+          "abre": "12:00",
+          "cierra": "21:00"
+        }
+      ],
+      "lun": [
+        {
+          "abre": "12:00",
+          "cierra": "21:00"
+        }
+      ],
+      "mar": [
+        {
+          "abre": "12:00",
+          "cierra": "21:00"
+        }
+      ],
+      "mie": [
+        {
+          "abre": "12:00",
+          "cierra": "22:00"
+        }
+      ],
+      "jue": [
+        {
+          "abre": "12:00",
+          "cierra": "22:00"
+        }
+      ],
+      "vie": [
+        {
+          "abre": "12:00",
+          "cierra": "23:00"
+        }
+      ],
+      "sab": [
+        {
+          "abre": "12:00",
+          "cierra": "23:00"
+        }
+      ]
+    }
+  },
+  "direccion": "Calle 24 # 48-28",
+  "ultimaVerificacion": "2026-10-29"
 }

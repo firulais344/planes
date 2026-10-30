@@ -1,19 +1,18 @@
 ---
-import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Explorador from "../components/Explorador.tsx";
-import { aPublico } from "../lib/publico";
+import { cargarPlanes } from "../lib/planes";
 import { hoyBogota } from "../lib/fechas";
 import { construirPresets, enlacesRelacionados } from "../lib/presets";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 
 export async function getStaticPaths() {
-  const planes = (await getCollection("planes")).map((e) => aPublico(e.data));
+  const planes = await cargarPlanes();
   return construirPresets(planes).map((preset) => ({ params: { filtro: preset.slug }, props: { preset } }));
 }
 
 const { preset } = Astro.props;
-const planes = (await getCollection("planes")).map((e) => aPublico(e.data));
+const planes = await cargarPlanes();
 const otras = enlacesRelacionados(construirPresets(planes), preset.slug);
 ---
 

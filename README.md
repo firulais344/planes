@@ -2,6 +2,11 @@
 
 Guía de planes en Medellín. En reconstrucción (Fases 1 y 2 de 7 listas): datos validados y diseño nuevo. Pendiente: páginas por plan, SEO, imágenes, verificación y automatización.
 
+## Imágenes y verificación (Fase 5)
+
+- Política de imágenes y créditos en `docs/IMAGENES.md`: solo fotos con licencia clara (Unsplash/Pexels, sin Unsplash+), sin personas identificables; si no hay foto, se usa la ilustración propia. Las fotos se optimizan en el build (AVIF, WebP, `srcset`, carga diferida).
+- Informe de la verificación de los lugares permanentes contra sus sitios oficiales en `VERIFICACION.md`: qué se confirmó, qué cambió y qué sigue pendiente.
+
 ## SEO, analítica y privacidad (Fase 4)
 
 - Metadatos únicos por página, Open Graph y Twitter Cards, `hreflang="es-CO"`, canonical y migas de pan (visibles y en JSON-LD).

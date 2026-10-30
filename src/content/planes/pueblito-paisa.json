@@ -10,31 +10,78 @@
     "historia"
   ],
   "zona": {
-    "nombre": "Guayabal"
+    "nombre": "Belén",
+    "comuna": 16
   },
   "lugar": "Cerro Nutibara",
   "lat": 6.23619,
   "lng": -75.58028,
   "precio": {
-    "tipo": "por_confirmar"
+    "tipo": "gratis",
+    "nota": "La guía oficial de Medellín indica que la entrada no tiene costo."
   },
-  "precioPreliminar": "gratis",
   "idealPara": [
     "pareja",
     "familia",
     "amigos"
   ],
   "fuente": {
-    "nombre": "Google Maps",
-    "url": "https://www.google.com/maps/search/?api=1&query=Pueblito%20Paisa%20Cerro%20Nutibara%20Medell%C3%ADn"
+    "nombre": "Medellín Travel",
+    "url": "https://www.medellin.travel/pueblito-paisa-cerro-nutibara/"
   },
   "verificado": false,
   "pendientes": [
-    "coordenadas",
-    "precio",
-    "horario",
-    "direccion"
+    "coordenadas"
   ],
   "estado": "activo",
-  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Pueblito Paisa\"; sin verificar. OpenStreetMap lo ubica en la Comuna 16 - Belén; revisar zona (escrita de memoria como Guayabal)."
+  "notasInternas": "Verificado el 2026-10-29 en medellin.travel/pueblito-paisa-cerro-nutibara/: horario, entrada sin costo y acceso. La guía no da dirección postal. Comuna 16 - Belén según OpenStreetMap. Coordenadas de OSM sin cruzar.",
+  "horario": {
+    "texto": "Todos los días, 5:30 a. m. – 10:00 p. m.",
+    "porDia": {
+      "lun": [
+        {
+          "abre": "05:30",
+          "cierra": "22:00"
+        }
+      ],
+      "mar": [
+        {
+          "abre": "05:30",
+          "cierra": "22:00"
+        }
+      ],
+      "mie": [
+        {
+          "abre": "05:30",
+          "cierra": "22:00"
+        }
+      ],
+      "jue": [
+        {
+          "abre": "05:30",
+          "cierra": "22:00"
+        }
+      ],
+      "vie": [
+        {
+          "abre": "05:30",
+          "cierra": "22:00"
+        }
+      ],
+      "sab": [
+        {
+          "abre": "05:30",
+          "cierra": "22:00"
+        }
+      ],
+      "dom": [
+        {
+          "abre": "05:30",
+          "cierra": "22:00"
+        }
+      ]
+    }
+  },
+  "direccion": "Cerro Nutibara; la guía oficial indica el desvío por la carrera 63B, sobre la Avenida 33",
+  "ultimaVerificacion": "2026-10-29"
 }
