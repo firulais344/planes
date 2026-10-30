@@ -1,0 +1,25 @@
+name: Reconstrucción diaria del sitio
+
+# Las páginas «hoy», «mañana» y «este fin de semana» se generan en el build.
+# Una reconstrucción diaria las mantiene al día aunque nadie haga cambios.
+
+on:
+  schedule:
+    - cron: "5 10 * * *" # 5:05 en Bogotá (UTC-5)
+  workflow_dispatch:
+
+jobs:
+  reconstruir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Disparar el build en Netlify
+        env:
+          HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "El secreto NETLIFY_BUILD_HOOK no está configurado: no hay nada que hacer."
+            exit 0
+          fi
+          curl -fsS -X POST -d '{}' "$HOOK"
+          echo "Build solicitado."

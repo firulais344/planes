@@ -1,0 +1,55 @@
+[
+  {
+    "id": "carga-manual",
+    "nombre": "Carga manual",
+    "tipo": "manual",
+    "permiso": "autorizado",
+    "evidencia": "Datos que aportan directamente los organizadores (formulario «Publica tu plan») o el equipo, en ingesta/entrantes/. No se rastrea ningún sitio.",
+    "copiarDescripcion": true
+  },
+  {
+    "id": "medellin-travel",
+    "nombre": "Medellín Travel",
+    "tipo": "html",
+    "url": "https://www.medellin.travel/events-calendar/",
+    "permiso": "no_solicitado",
+    "evidencia": "Su robots.txt lo permite todo y sus términos no mencionan reutilizar el calendario: zona gris. Pedir autorización escrita al Bureau antes de consultarlo (docs/SOLICITUD_PERMISO.md).",
+    "copiarDescripcion": false
+  },
+  {
+    "id": "alcaldia-medellin",
+    "nombre": "Alcaldía de Medellín (agenda de eventos)",
+    "tipo": "html",
+    "url": "https://www.medellin.gov.co/es/eventos/",
+    "permiso": "por_revisar",
+    "evidencia": "Su robots.txt solo bloquea rutas administrativas. Falta leer la política de uso del portal y confirmar si publican un feed o datos abiertos.",
+    "copiarDescripcion": false
+  },
+  {
+    "id": "eventario",
+    "nombre": "Eventario",
+    "tipo": "html",
+    "url": "https://eventario.co/",
+    "permiso": "no_solicitado",
+    "evidencia": "Sus términos dicen que el contenido de la plataforma no puede usarse ni reproducirse sin autorización expresa y escrita. Su robots.txt bloquea la API y los listados paginados.",
+    "copiarDescripcion": false
+  },
+  {
+    "id": "la-tiquetera",
+    "nombre": "La Tiquetera",
+    "tipo": "html",
+    "url": "https://latiquetera.com/",
+    "permiso": "no_solicitado",
+    "evidencia": "Sus términos prohíben reproducir su contenido y usar robots o raspadores sin permiso previo y por escrito.",
+    "copiarDescripcion": false
+  },
+  {
+    "id": "tuboleta",
+    "nombre": "Tuboleta",
+    "tipo": "html",
+    "url": "https://www.tuboleta.com/",
+    "permiso": "no_solicitado",
+    "evidencia": "Sus términos indican que el contenido del sitio es de Ticket Fast o de los promotores. No se revisó su robots.txt. Requiere alianza o autorización.",
+    "copiarDescripcion": false
+  }
+]

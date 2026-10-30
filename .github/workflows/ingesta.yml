@@ -1,0 +1,58 @@
+name: Ingesta diaria de planes
+
+on:
+  schedule:
+    - cron: "0 11 * * *" # 6:00 en Bogotá (UTC-5)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ingesta
+  cancel-in-progress: false
+
+jobs:
+  ingesta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Ejecutar la ingesta
+        run: npm run ingesta
+
+      - name: Validar los datos
+        run: npm run validate
+
+      - name: Abrir un pull request si hay cambios
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Sin cambios: no se abre ningún PR."
+            exit 0
+          fi
+          FECHA=$(TZ=America/Bogota date +%F)
+          RAMA="ingesta/$FECHA"
+          git config user.name "parchemos-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$RAMA"
+          git add -A
+          git commit -m "Ingesta de planes $FECHA"
+          git push --force origin "$RAMA"
+          CUERPO="ingesta/reportes/$FECHA.md"
+          [ -f "$CUERPO" ] || { CUERPO=$(mktemp); echo "Ingesta de planes $FECHA. Revisa los cambios." > "$CUERPO"; }
+          if gh pr view "$RAMA" >/dev/null 2>&1; then
+            gh pr edit "$RAMA" --body-file "$CUERPO"
+          else
+            gh pr create --base main --head "$RAMA" --title "Ingesta de planes $FECHA" --body-file "$CUERPO"
+          fi

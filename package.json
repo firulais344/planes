@@ -9,7 +9,9 @@
     "build": "npm run validate && astro build",
     "preview": "astro preview",
     "test": "vitest run",
-    "check": "astro check"
+    "check": "astro check",
+    "ingesta": "tsx scripts/ingesta/ejecutar.ts",
+    "cola": "tsx scripts/ingesta/ejecutar.ts --cola"
   },
   "dependencies": {
     "@astrojs/preact": "^4.1.3",

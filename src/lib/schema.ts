@@ -104,6 +104,10 @@ export const PlanSchema = z
     estado: z.enum(ESTADOS).default("activo"),
     /** Selección editorial para la sección "Destacados" de la home. */
     destacado: z.boolean().optional(),
+    /** Fuente de ingesta (ingesta/fuentes.json) que creó el plan; los cargados a mano no la tienen. */
+    fuenteId: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/).optional(),
+    /** Otras páginas donde aparece el mismo plan (deduplicación entre fuentes). */
+    otrasFuentes: z.array(z.object({ nombre: z.string().min(2), url })).optional(),
     notasInternas: z.string().optional(),
   })
   .superRefine((p, ctx) => {
