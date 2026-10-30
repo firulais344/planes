@@ -2,6 +2,15 @@
 
 Guía de planes en Medellín. En reconstrucción (Fases 1 y 2 de 7 listas): datos validados y diseño nuevo. Pendiente: páginas por plan, SEO, imágenes, verificación y automatización.
 
+## Ingesta automática (Fase 6)
+
+Un pipeline trae eventos nuevos, deduplica, detecta cambios y cancelaciones y los deja en un **PR para que los revises**; nunca publica solo.
+
+- **Solo consulta fuentes con permiso.** Hoy funcionan la carga manual y los feeds iCal de aliados. Medellín Travel, Eventario, La Tiquetera, Tuboleta y la Alcaldía están **omitidas** hasta tener autorización escrita: el porqué de cada una está en `docs/FUENTES.md`, y hay una plantilla de solicitud en `docs/SOLICITUD_PERMISO.md`.
+- Guía de uso, cola de revisión y reporte de calidad: `docs/INGESTA.md`. Comandos: `npm run ingesta`, `npm run ingesta -- --dry`, `npm run cola`.
+- Workflows en `.github/workflows/`: `ingesta.yml` (diario, abre el PR), `reconstruir.yml` (reconstrucción diaria en Netlify) y `ci.yml` (validación, tests, tipos y build).
+- Requiere dos ajustes en GitHub y Netlify que están descritos en `docs/INGESTA.md`.
+
 ## Imágenes y verificación (Fase 5)
 
 - Política de imágenes y créditos en `docs/IMAGENES.md`: solo fotos con licencia clara (Unsplash/Pexels, sin Unsplash+), sin personas identificables; si no hay foto, se usa la ilustración propia. Las fotos se optimizan en el build (AVIF, WebP, `srcset`, carga diferida).
