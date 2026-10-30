@@ -101,6 +101,8 @@ export const PlanSchema = z
     /** Qué campos siguen sin confirmar. Alimenta la cola de revisión. */
     pendientes: z.array(z.enum(CAMPOS_VERIFICABLES)).default([]),
     estado: z.enum(ESTADOS).default("activo"),
+    /** Selección editorial para la sección "Destacados" de la home. */
+    destacado: z.boolean().optional(),
     notasInternas: z.string().optional(),
   })
   .superRefine((p, ctx) => {

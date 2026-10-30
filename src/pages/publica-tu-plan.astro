@@ -1,0 +1,46 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base titulo="Publica tu plan · Parchemos" descripcion="¿Organizas un evento en Medellín? Envíanos los datos y lo revisamos para publicarlo en Parchemos.">
+  <div class="mx-auto w-[min(40rem,100%-2rem)] py-14">
+    <h1 class="font-display text-4xl font-extrabold tracking-tight md:text-5xl">Publica tu plan</h1>
+    <p class="mt-4 text-lg text-suave">
+      Cuéntanos de tu evento o lugar. Lo revisamos y, si encaja, lo publicamos con el enlace a tu página o a la venta de entradas.
+    </p>
+
+    <form name="publica-tu-plan" method="POST" action="/gracias/" data-netlify="true" netlify-honeypot="bot-field" class="mt-8 grid gap-5">
+      <input type="hidden" name="form-name" value="publica-tu-plan" />
+      <p class="hidden"><label>No llenes esto: <input name="bot-field" /></label></p>
+
+      <div>
+        <label class="mb-1 block font-semibold" for="titulo">Nombre del plan</label>
+        <input class="campo" id="titulo" name="titulo" required maxlength="120" />
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label class="mb-1 block font-semibold" for="fecha">Fecha (o “todos los días”)</label>
+          <input class="campo" id="fecha" name="fecha" required maxlength="80" placeholder="Ej. 28 de noviembre, 8 pm" />
+        </div>
+        <div>
+          <label class="mb-1 block font-semibold" for="lugar">Lugar y barrio</label>
+          <input class="campo" id="lugar" name="lugar" required maxlength="120" />
+        </div>
+      </div>
+      <div>
+        <label class="mb-1 block font-semibold" for="precio">Precio (si lo sabes)</label>
+        <input class="campo" id="precio" name="precio" maxlength="80" placeholder="Ej. Gratis, o desde COP 40.000" />
+      </div>
+      <div>
+        <label class="mb-1 block font-semibold" for="enlace">Enlace oficial o de entradas</label>
+        <input class="campo" id="enlace" name="enlace" type="url" required placeholder="https://" />
+      </div>
+      <div>
+        <label class="mb-1 block font-semibold" for="contacto">Tu correo o WhatsApp, por si necesitamos confirmar algo</label>
+        <input class="campo" id="contacto" name="contacto" required maxlength="120" />
+      </div>
+      <p class="text-sm text-suave">Usaremos tus datos únicamente para responder esta solicitud.</p>
+      <button class="btn btn--primario justify-self-start" type="submit">Enviar plan</button>
+    </form>
+  </div>
+</Base>

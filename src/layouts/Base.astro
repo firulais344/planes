@@ -1,0 +1,53 @@
+---
+import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource-variable/inter";
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  titulo?: string;
+  descripcion?: string;
+}
+
+const {
+  titulo = "Parchemos · Qué hacer en Medellín hoy y este fin de semana",
+  descripcion = "Fiestas, conciertos, planes gratis, aire libre, comida y cultura en Medellín. Filtra por día, precio y con quién vas.",
+} = Astro.props;
+
+const canonica = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="es-CO" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo}</title>
+    <meta name="description" content={descripcion} />
+    <link rel="canonical" href={canonica.href} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#0b0a14" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:url" content={canonica.href} />
+    <script is:inline>
+      // Aplica el tema guardado antes del primer pintado para evitar parpadeos.
+      try {
+        var t = localStorage.getItem("tema");
+        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+        else if (matchMedia("(prefers-color-scheme: light)").matches) document.documentElement.dataset.theme = "light";
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <a href="#contenido" class="solo-lectores focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded-lg focus:bg-texto focus:px-3 focus:py-2 focus:text-fondo">Saltar al contenido</a>
+    <Header />
+    <main id="contenido" tabindex="-1" class="outline-none">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

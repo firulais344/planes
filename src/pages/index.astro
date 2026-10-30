@@ -1,18 +1,24 @@
 ---
 import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Explorador from "../components/Explorador.tsx";
+import { aPublico } from "../lib/publico";
+import { hoyBogota } from "../lib/fechas";
 
-const planes = await getCollection("planes");
+const planes = (await getCollection("planes")).map((e) => aPublico(e.data));
+const hoy = hoyBogota();
 ---
 
-<!doctype html>
-<html lang="es-CO">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Parchemos · Planes en Medellín</title>
-  </head>
-  <body style="font-family: system-ui; background: #0b0a14; color: #f3f1ff; padding: 2rem">
-    <h1>Parchemos</h1>
-    <p>Reconstrucción en curso (Fase 1 de 7). {planes.length} planes cargados y validados.</p>
-  </body>
-</html>
+<Base>
+  <section class="mx-auto w-[min(1120px,100%-2rem)] pb-8 pt-12 md:pt-16">
+    <p class="mb-3 text-sm font-bold uppercase tracking-[0.14em] text-cian">Planes en Medellín</p>
+    <h1 class="font-display text-[clamp(2.4rem,8vw,4.8rem)] font-extrabold leading-[0.98] tracking-tight">
+      ¿Qué hacemos <span class="bg-gradient-to-r from-acento to-[#ffb83d] bg-clip-text text-transparent">hoy</span>?
+    </h1>
+    <p class="mt-4 max-w-xl text-lg text-suave">
+      Fiestas, conciertos, parques, comida y cultura. Elige el día, el presupuesto y con quién vas, y te mostramos qué hay.
+    </p>
+  </section>
+
+  <Explorador client:idle planes={planes} hoyInicial={hoy} />
+</Base>

@@ -34,5 +34,6 @@
     "direccion"
   ],
   "estado": "activo",
+  "destacado": true,
   "notasInternas": "Precio sin verificar (escrito de memoria): Revisa tarifas del Metrocable y de las actividades. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
 }

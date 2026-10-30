@@ -26,7 +26,7 @@
     "pareja"
   ],
   "fuente": {
-    "nombre": "Medellín Travel (guía oficial)",
+    "nombre": "Medellín Travel",
     "url": "https://www.medellin.travel/caleventos/ritvales-2026-263/?lang=en"
   },
   "verificado": false,
@@ -37,5 +37,6 @@
     "horario",
     "direccion"
   ],
-  "estado": "activo"
+  "estado": "activo",
+  "destacado": true
 }

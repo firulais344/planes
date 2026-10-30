@@ -1,0 +1,33 @@
+---
+import Logo from "./Logo.astro";
+import { hoyBogota, diaLargo } from "../lib/fechas";
+
+const actualizado = diaLargo(hoyBogota());
+---
+
+<footer class="mt-20 border-t border-linea py-10 text-sm text-suave">
+  <div class="mx-auto grid w-[min(1120px,100%-2rem)] gap-8 md:grid-cols-[1.4fr_1fr_1fr]">
+    <div class="space-y-3">
+      <Logo id="ftr" />
+      <p class="max-w-sm">Planes en Medellín para hoy, para el fin de semana o para cuando no sabes qué hacer.</p>
+      <p>Sitio construido el {actualizado}. Los horarios y precios pueden cambiar: confírmalos en el enlace de cada plan.</p>
+    </div>
+    <nav aria-label="Pie de página">
+      <p class="mb-3 font-display font-bold text-texto">Explora</p>
+      <ul class="space-y-2">
+        <li><a class="hover:text-texto hover:underline" href="/">Todos los planes</a></li>
+        <li><a class="hover:text-texto hover:underline" href="/publica-tu-plan/">Publica tu plan</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Información">
+      <p class="mb-3 font-display font-bold text-texto">Parchemos</p>
+      <ul class="space-y-2">
+        <li><a class="hover:text-texto hover:underline" href="/acerca-de/">Acerca de</a></li>
+        <li><a class="hover:text-texto hover:underline" href="/contacto/">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+  <p class="mx-auto mt-8 w-[min(1120px,100%-2rem)] border-t border-linea pt-6">
+    Reunimos información pública de medellin.travel, Tuboleta, La Tiquetera y Eventario, y siempre enlazamos la fuente original.
+  </p>
+</footer>

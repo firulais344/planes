@@ -1,0 +1,22 @@
+---
+interface Props {
+  /** Prefijo para el id del degradado, evita choques si el logo aparece dos veces. */
+  id?: string;
+  class?: string;
+}
+const { id = "logo", class: clase = "" } = Astro.props;
+---
+
+<span class:list={["inline-flex items-center gap-2.5", clase]}>
+  <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id={`${id}-g`} x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#d6176f"></stop>
+        <stop offset="1" stop-color="#6d3be0"></stop>
+      </linearGradient>
+    </defs>
+    <rect width="32" height="32" rx="9" fill={`url(#${id}-g)`}></rect>
+    <path d="M16 6l2.3 7.7L26 16l-7.7 2.3L16 26l-2.3-7.7L6 16l7.7-2.3z" fill="#fff"></path>
+  </svg>
+  <span class="font-display text-[1.35rem] font-extrabold tracking-tight">parche<span class="text-acento">mos</span></span>
+</span>

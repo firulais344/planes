@@ -1,0 +1,30 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base titulo="Contacto · Parchemos" descripcion="Escríbenos para corregir un dato, proponer una alianza o contarnos una idea.">
+  <div class="mx-auto w-[min(40rem,100%-2rem)] py-14">
+    <h1 class="font-display text-4xl font-extrabold tracking-tight md:text-5xl">Contacto</h1>
+    <p class="mt-4 text-lg text-suave">¿Viste un dato incorrecto, quieres proponer una alianza o tienes una idea? Escríbenos.</p>
+
+    <form name="contacto" method="POST" action="/gracias/" data-netlify="true" netlify-honeypot="bot-field" class="mt-8 grid gap-5">
+      <input type="hidden" name="form-name" value="contacto" />
+      <p class="hidden"><label>No llenes esto: <input name="bot-field" /></label></p>
+
+      <div>
+        <label class="mb-1 block font-semibold" for="nombre">Nombre</label>
+        <input class="campo" id="nombre" name="nombre" required maxlength="80" autocomplete="name" />
+      </div>
+      <div>
+        <label class="mb-1 block font-semibold" for="correo">Correo</label>
+        <input class="campo" id="correo" name="correo" type="email" required maxlength="120" autocomplete="email" />
+      </div>
+      <div>
+        <label class="mb-1 block font-semibold" for="mensaje">Mensaje</label>
+        <textarea class="campo" id="mensaje" name="mensaje" rows="5" required maxlength="2000"></textarea>
+      </div>
+      <p class="text-sm text-suave">Usaremos tus datos únicamente para responder este mensaje.</p>
+      <button class="btn btn--primario justify-self-start" type="submit">Enviar mensaje</button>
+    </form>
+  </div>
+</Base>

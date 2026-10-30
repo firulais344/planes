@@ -37,5 +37,6 @@
     "direccion"
   ],
   "estado": "activo",
+  "destacado": true,
   "notasInternas": "Precio sin verificar (escrito de memoria): Caminar es gratis; los tours guiados tienen costo. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
 }

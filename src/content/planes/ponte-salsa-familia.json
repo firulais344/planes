@@ -35,7 +35,7 @@
     "amigos"
   ],
   "fuente": {
-    "nombre": "Medellín Travel (guía oficial)",
+    "nombre": "Medellín Travel",
     "url": "https://www.medellin.travel/caleventos/ponte-salsa-en-familia-2026-1019/?lang=en"
   },
   "verificado": false,
@@ -44,5 +44,6 @@
     "coordenadas",
     "direccion"
   ],
-  "estado": "activo"
+  "estado": "activo",
+  "destacado": true
 }

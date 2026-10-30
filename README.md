@@ -1,6 +1,13 @@
 # Parchemos · Planes en Medellín
 
-Guía de planes en Medellín. En reconstrucción (Fase 1 de 7): el sitio antiguo fue reemplazado por un proyecto Astro; el diseño nuevo llega en la Fase 2.
+Guía de planes en Medellín. En reconstrucción (Fases 1 y 2 de 7 listas): datos validados y diseño nuevo. Pendiente: páginas por plan, SEO, imágenes, verificación y automatización.
+
+## Diseño
+
+- Tokens de color y tema claro/oscuro en `src/styles/global.css`; los pares de contraste se prueban contra WCAG AA en `tests/contraste.test.ts`.
+- Fuentes autoalojadas: Bricolage Grotesque (títulos) e Inter (texto).
+- Ilustraciones por categoría hechas en SVG propio (sin fotos de terceros).
+- Las fechas ("hoy", "este finde") usan siempre America/Bogota: `src/lib/fechas.ts`.
 
 ## Stack
 
