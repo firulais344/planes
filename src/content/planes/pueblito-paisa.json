@@ -1,0 +1,39 @@
+{
+  "id": "pueblito-paisa",
+  "slug": "pueblito-paisa",
+  "titulo": "Cerro Nutibara y Pueblito Paisa",
+  "descripcionCorta": "Mirador con réplica de un pueblo antioqueño tradicional y buena vista de la ciudad, sobre todo al atardecer.",
+  "tipo": "permanente",
+  "categoria": "aire-libre",
+  "etiquetas": [
+    "mirador",
+    "historia"
+  ],
+  "zona": {
+    "nombre": "Guayabal",
+    "comuna": 15
+  },
+  "lugar": "Cerro Nutibara",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "precioPreliminar": "gratis",
+  "idealPara": [
+    "pareja",
+    "familia",
+    "amigos"
+  ],
+  "fuente": {
+    "nombre": "Google Maps",
+    "url": "https://www.google.com/maps/search/?api=1&query=Pueblito%20Paisa%20Cerro%20Nutibara%20Medell%C3%ADn"
+  },
+  "verificado": false,
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+}

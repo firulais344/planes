@@ -1,0 +1,40 @@
+{
+  "id": "funkoween-favela",
+  "slug": "funkoween-favela",
+  "titulo": "El Funkoween Favela Party",
+  "descripcionCorta": "Fiesta de Halloween con funk brasileño y reggaetón: música en vivo de Lenexx y Franquinho, DJ sets, comida, bar y premios al mejor disfraz.",
+  "tipo": "evento",
+  "categoria": "fiesta",
+  "etiquetas": [
+    "funk",
+    "reggaeton",
+    "halloween",
+    "dj"
+  ],
+  "inicio": "2026-10-31",
+  "zona": {
+    "nombre": "Comuna 13",
+    "comuna": 13
+  },
+  "lugar": "La Favela, Comuna 13",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "idealPara": [
+    "amigos",
+    "pareja"
+  ],
+  "fuente": {
+    "nombre": "Medellín Travel (guía oficial)",
+    "url": "https://www.medellin.travel/caleventos/el-funkoween-favela-party-1124/?lang=en"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo"
+}

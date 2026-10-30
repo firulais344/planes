@@ -1,0 +1,38 @@
+{
+  "id": "patio-de-baile-milonga",
+  "slug": "patio-de-baile-milonga",
+  "titulo": "Patio de Baile: La Milonga",
+  "descripcionCorta": "Noche de milonga (tango) en Patio de Baile.",
+  "tipo": "evento",
+  "categoria": "fiesta",
+  "etiquetas": [
+    "tango",
+    "baile"
+  ],
+  "inicio": "2026-11-27",
+  "zona": {
+    "nombre": "Medellín"
+  },
+  "lugar": "Patio de Baile",
+  "precio": {
+    "tipo": "rango",
+    "minCOP": 75800,
+    "nota": "Desde COP $75.800 según La Tiquetera."
+  },
+  "idealPara": [
+    "pareja",
+    "amigos"
+  ],
+  "fuente": {
+    "nombre": "La Tiquetera",
+    "url": "https://latiquetera.com/site/patio-de-baile/events/view/patio-de-baile-la-milonga-noviembre-2026"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo"
+}

@@ -1,0 +1,38 @@
+{
+  "id": "14-canonazos-fest",
+  "slug": "14-canonazos-fest",
+  "titulo": "14 Cañonazos Fest",
+  "descripcionCorta": "Noche de música tropical y colombiana organizada por Discos Fuentes, con bandas del sello y el público eligiendo al ganador.",
+  "tipo": "evento",
+  "categoria": "fiesta",
+  "etiquetas": [
+    "musica-tropical",
+    "festival"
+  ],
+  "inicio": "2026-10-31",
+  "zona": {
+    "nombre": "Centro"
+  },
+  "lugar": "Jardín Botánico de Medellín",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "idealPara": [
+    "amigos",
+    "pareja",
+    "familia"
+  ],
+  "fuente": {
+    "nombre": "Medellín Travel (guía oficial)",
+    "url": "https://www.medellin.travel/caleventos/14-canonazos-fest-1067/?lang=en"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo"
+}

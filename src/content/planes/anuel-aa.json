@@ -1,0 +1,38 @@
+{
+  "id": "anuel-aa",
+  "slug": "anuel-aa",
+  "titulo": "Anuel AA – Real Hasta la Muerte Tour 2026",
+  "descripcionCorta": "Trap latino y reggaetón con sus grandes éxitos y adelantos de Real Hasta la Muerte 2.",
+  "tipo": "evento",
+  "categoria": "fiesta",
+  "etiquetas": [
+    "concierto",
+    "trap",
+    "reggaeton"
+  ],
+  "inicio": "2026-11-22",
+  "zona": {
+    "nombre": "Medellín"
+  },
+  "lugar": "DAVIarena",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "precioPreliminar": "alto",
+  "idealPara": [
+    "amigos"
+  ],
+  "fuente": {
+    "nombre": "Medellín Travel (guía oficial)",
+    "url": "https://www.medellin.travel/caleventos/anuel-aa-real-hasta-la-muerte-tour-2026-1087/?lang=en"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo"
+}

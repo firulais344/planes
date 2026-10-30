@@ -1,0 +1,37 @@
+{
+  "id": "kris-r",
+  "slug": "kris-r",
+  "titulo": "Kris R – El Trap de Kolombia",
+  "descripcionCorta": "Concierto de gran formato del trap hecho en Medellín.",
+  "tipo": "evento",
+  "categoria": "fiesta",
+  "etiquetas": [
+    "concierto",
+    "trap"
+  ],
+  "inicio": "2026-11-20",
+  "zona": {
+    "nombre": "Medellín"
+  },
+  "lugar": "DAVIarena",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "precioPreliminar": "alto",
+  "idealPara": [
+    "amigos"
+  ],
+  "fuente": {
+    "nombre": "Medellín Travel (guía oficial)",
+    "url": "https://www.medellin.travel/caleventos/kris-r-el-trap-de-kolombia-1007/?lang=en"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo"
+}

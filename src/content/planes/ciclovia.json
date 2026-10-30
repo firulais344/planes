@@ -1,0 +1,42 @@
+{
+  "id": "ciclovia",
+  "slug": "ciclovia",
+  "titulo": "Ciclovía de Medellín",
+  "descripcionCorta": "Las vías se cierran a los carros para caminar, trotar o montar bicicleta en familia.",
+  "tipo": "permanente",
+  "categoria": "aire-libre",
+  "etiquetas": [
+    "ciclismo",
+    "deporte"
+  ],
+  "horario": {
+    "texto": "Domingos y festivos, mañana"
+  },
+  "zona": {
+    "nombre": "Varias"
+  },
+  "lugar": "Vías habilitadas de la ciudad",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "precioPreliminar": "gratis",
+  "idealPara": [
+    "familia",
+    "amigos",
+    "solo",
+    "pareja"
+  ],
+  "fuente": {
+    "nombre": "Google Maps",
+    "url": "https://www.google.com/maps/search/?api=1&query=Ciclov%C3%ADa%20Medell%C3%ADn"
+  },
+  "verificado": false,
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "Horario sin verificar (escrito de memoria). Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+}

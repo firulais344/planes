@@ -1,0 +1,40 @@
+{
+  "id": "itinerancia-biff",
+  "slug": "itinerancia-biff",
+  "titulo": "Itinerancia BIFF 2026",
+  "descripcionCorta": "Muestra de cine en el Museo de Arte Moderno de Medellín.",
+  "tipo": "evento",
+  "categoria": "comida-cultura",
+  "etiquetas": [
+    "cine",
+    "museo"
+  ],
+  "inicio": "2026-10-24",
+  "fin": "2026-11-02",
+  "zona": {
+    "nombre": "Ciudad del Río",
+    "comuna": 14
+  },
+  "lugar": "MAMM – Museo de Arte Moderno de Medellín",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "idealPara": [
+    "pareja",
+    "amigos",
+    "solo"
+  ],
+  "fuente": {
+    "nombre": "Eventario",
+    "url": "https://eventario.co/events/itinerancia-biff-2026/"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo"
+}

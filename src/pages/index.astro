@@ -1,0 +1,18 @@
+---
+import { getCollection } from "astro:content";
+
+const planes = await getCollection("planes");
+---
+
+<!doctype html>
+<html lang="es-CO">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Parchemos · Planes en Medellín</title>
+  </head>
+  <body style="font-family: system-ui; background: #0b0a14; color: #f3f1ff; padding: 2rem">
+    <h1>Parchemos</h1>
+    <p>Reconstrucción en curso (Fase 1 de 7). {planes.length} planes cargados y validados.</p>
+  </body>
+</html>

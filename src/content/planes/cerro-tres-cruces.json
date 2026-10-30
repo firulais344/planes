@@ -1,0 +1,40 @@
+{
+  "id": "cerro-tres-cruces",
+  "slug": "cerro-tres-cruces",
+  "titulo": "Cerro Tres Cruces",
+  "descripcionCorta": "Caminata con vista de la ciudad. Aparece entre las rutas mejor valoradas de Medellín en AllTrails.",
+  "tipo": "permanente",
+  "categoria": "aire-libre",
+  "etiquetas": [
+    "senderismo",
+    "mirador"
+  ],
+  "zona": {
+    "nombre": "Belén",
+    "comuna": 16
+  },
+  "lugar": "Cerro Tres Cruces, Belén",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "precioPreliminar": "gratis",
+  "idealPara": [
+    "amigos",
+    "pareja",
+    "familia",
+    "solo"
+  ],
+  "fuente": {
+    "nombre": "AllTrails",
+    "url": "https://www.alltrails.com/es/colombia/antioquia/medellin"
+  },
+  "verificado": false,
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+}

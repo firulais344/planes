@@ -1,0 +1,48 @@
+{
+  "id": "ponte-salsa-familia",
+  "slug": "ponte-salsa-familia",
+  "titulo": "Ponte Salsa en Familia",
+  "descripcionCorta": "Pista de baile salsera dominical con la Orquesta Idiosincrasia en vivo, para todas las edades.",
+  "tipo": "evento",
+  "categoria": "fiesta",
+  "etiquetas": [
+    "salsa",
+    "baile",
+    "musica-en-vivo"
+  ],
+  "inicio": "2026-11-01",
+  "fin": "2026-11-22",
+  "horaInicio": "15:00",
+  "horaFin": "17:00",
+  "recurrencia": {
+    "frecuencia": "semanal",
+    "dias": [
+      "dom"
+    ],
+    "hasta": "2026-11-22"
+  },
+  "zona": {
+    "nombre": "Centro"
+  },
+  "lugar": "Claustro Comfama, Patio Teatro",
+  "precio": {
+    "tipo": "gratis",
+    "nota": "Gratis con inscripción previa, válida para toda la temporada. Ingreso por orden de llegada."
+  },
+  "idealPara": [
+    "familia",
+    "pareja",
+    "amigos"
+  ],
+  "fuente": {
+    "nombre": "Medellín Travel (guía oficial)",
+    "url": "https://www.medellin.travel/caleventos/ponte-salsa-en-familia-2026-1019/?lang=en"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "direccion"
+  ],
+  "estado": "activo"
+}

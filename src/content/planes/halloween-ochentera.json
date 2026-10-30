@@ -1,0 +1,37 @@
+{
+  "id": "halloween-ochentera",
+  "slug": "halloween-ochentera",
+  "titulo": "Halloween Fiesta Ochentera",
+  "descripcionCorta": "Fiesta de Halloween con música de los 80.",
+  "tipo": "evento",
+  "categoria": "fiesta",
+  "etiquetas": [
+    "halloween",
+    "anos-80"
+  ],
+  "inicio": "2026-10-31",
+  "direccion": "Cra. 35 #7-75",
+  "zona": {
+    "nombre": "El Poblado",
+    "comuna": 14
+  },
+  "lugar": "Cra. 35 #7-75",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "idealPara": [
+    "amigos"
+  ],
+  "fuente": {
+    "nombre": "Eventario",
+    "url": "https://eventario.co/events/halloween-fiesta-ochentera/"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario"
+  ],
+  "estado": "activo"
+}

@@ -1,0 +1,38 @@
+{
+  "id": "navegacion-universo",
+  "slug": "navegacion-universo",
+  "titulo": "Navegación por el universo con Orquesta Corales Reinos Solares",
+  "descripcionCorta": "Propuesta cultural de música y astronomía en el Parque de los Deseos.",
+  "tipo": "evento",
+  "categoria": "comida-cultura",
+  "etiquetas": [
+    "musica",
+    "astronomia"
+  ],
+  "inicio": "2026-10-29",
+  "zona": {
+    "nombre": "Centro"
+  },
+  "lugar": "Parque de los Deseos",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "idealPara": [
+    "familia",
+    "pareja",
+    "amigos"
+  ],
+  "fuente": {
+    "nombre": "Eventario",
+    "url": "https://eventario.co/events/navegacion-por-el-universo-con-orquesta-corales-reinos-solares/"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo"
+}

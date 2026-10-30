@@ -1,0 +1,39 @@
+{
+  "id": "miradas-medellin",
+  "slug": "miradas-medellin",
+  "titulo": "Festival Miradas Medellín",
+  "descripcionCorta": "Festival de cine y artes audiovisuales con talento local e internacional.",
+  "tipo": "evento",
+  "categoria": "comida-cultura",
+  "etiquetas": [
+    "cine",
+    "festival"
+  ],
+  "inicio": "2026-11-03",
+  "fin": "2026-11-08",
+  "zona": {
+    "nombre": "Medellín"
+  },
+  "lugar": "Diferentes lugares de Medellín",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "idealPara": [
+    "amigos",
+    "pareja",
+    "solo"
+  ],
+  "fuente": {
+    "nombre": "Medellín Travel (guía oficial)",
+    "url": "https://www.medellin.travel/caleventos/festival-miradas-medellin-568/?lang=en"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo"
+}

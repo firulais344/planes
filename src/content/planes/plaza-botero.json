@@ -1,0 +1,40 @@
+{
+  "id": "plaza-botero",
+  "slug": "plaza-botero",
+  "titulo": "Plaza Botero y Museo de Antioquia",
+  "descripcionCorta": "Esculturas de Fernando Botero al aire libre, frente al Museo de Antioquia y el Palacio de la Cultura.",
+  "tipo": "permanente",
+  "categoria": "comida-cultura",
+  "etiquetas": [
+    "escultura",
+    "museo",
+    "centro-historico"
+  ],
+  "zona": {
+    "nombre": "Centro"
+  },
+  "lugar": "Plaza Botero",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "precioPreliminar": "gratis",
+  "idealPara": [
+    "pareja",
+    "familia",
+    "amigos",
+    "solo"
+  ],
+  "fuente": {
+    "nombre": "museodeantioquia.co",
+    "url": "https://www.museodeantioquia.co/"
+  },
+  "verificado": false,
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "Precio sin verificar (escrito de memoria): La plaza es gratis. El museo tiene entrada. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+}

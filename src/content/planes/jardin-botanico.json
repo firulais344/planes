@@ -1,0 +1,39 @@
+{
+  "id": "jardin-botanico",
+  "slug": "jardin-botanico",
+  "titulo": "Jardín Botánico de Medellín",
+  "descripcionCorta": "Un respiro verde en el norte del centro: jardines, orquideorama y zonas para caminar y descansar.",
+  "tipo": "permanente",
+  "categoria": "aire-libre",
+  "etiquetas": [
+    "parque",
+    "naturaleza"
+  ],
+  "zona": {
+    "nombre": "Centro"
+  },
+  "lugar": "Jardín Botánico",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "precioPreliminar": "gratis",
+  "idealPara": [
+    "familia",
+    "pareja",
+    "amigos",
+    "solo"
+  ],
+  "fuente": {
+    "nombre": "botanicomedellin.org",
+    "url": "https://botanicomedellin.org/"
+  },
+  "verificado": false,
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+}

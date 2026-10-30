@@ -1,0 +1,40 @@
+{
+  "id": "festival-teatro-comfama",
+  "slug": "festival-teatro-comfama",
+  "titulo": "Festival de Teatro Comfama San Ignacio",
+  "descripcionCorta": "Varias funciones: El mago de oz, La tercera mitad, Cariño Malo, Murmuria, Todos somos Poe y Loba. Revisa el día de cada obra.",
+  "tipo": "evento",
+  "categoria": "comida-cultura",
+  "etiquetas": [
+    "teatro",
+    "festival"
+  ],
+  "inicio": "2026-10-31",
+  "fin": "2026-11-07",
+  "zona": {
+    "nombre": "Centro"
+  },
+  "lugar": "Comfama San Ignacio",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "idealPara": [
+    "pareja",
+    "familia",
+    "amigos"
+  ],
+  "fuente": {
+    "nombre": "La Tiquetera",
+    "url": "https://latiquetera.com/events/search?search=medellin"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "La URL de fuente es un listado de búsqueda; reemplazar por la del festival."
+}

@@ -1,0 +1,39 @@
+{
+  "id": "porro-o-miedo",
+  "slug": "porro-o-miedo",
+  "titulo": "¿Porro o miedo? Especial bailable de Noche de Brujas",
+  "descripcionCorta": "Fiesta de disfraces con la Orquesta La Pascasia: porro, música en vivo y mucho baile.",
+  "tipo": "evento",
+  "categoria": "fiesta",
+  "etiquetas": [
+    "porro",
+    "halloween",
+    "baile",
+    "musica-en-vivo"
+  ],
+  "inicio": "2026-10-30",
+  "zona": {
+    "nombre": "Centro"
+  },
+  "lugar": "La Pascasia",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "idealPara": [
+    "amigos",
+    "pareja"
+  ],
+  "fuente": {
+    "nombre": "Medellín Travel (guía oficial)",
+    "url": "https://www.medellin.travel/caleventos/porro-o-miedo-el-porro-es-legal-especial-bailable-de-noche-de-brujas-1128/?lang=en"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo"
+}

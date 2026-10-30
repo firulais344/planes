@@ -1,0 +1,41 @@
+{
+  "id": "ritvales-2026",
+  "slug": "ritvales-2026",
+  "titulo": "RITVALES 2026",
+  "descripcionCorta": "El festival de música electrónica al aire libre más grande de Colombia: house, techno y progressive durante dos noches.",
+  "tipo": "evento",
+  "categoria": "fiesta",
+  "etiquetas": [
+    "electronica",
+    "festival",
+    "techno"
+  ],
+  "inicio": "2026-10-31",
+  "fin": "2026-11-01",
+  "zona": {
+    "nombre": "Norte"
+  },
+  "lugar": "Parque Norte",
+  "precio": {
+    "tipo": "por_confirmar",
+    "nota": "Entradas por Tuboleta"
+  },
+  "precioPreliminar": "alto",
+  "idealPara": [
+    "amigos",
+    "pareja"
+  ],
+  "fuente": {
+    "nombre": "Medellín Travel (guía oficial)",
+    "url": "https://www.medellin.travel/caleventos/ritvales-2026-263/?lang=en"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo"
+}

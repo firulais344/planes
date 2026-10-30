@@ -1,0 +1,39 @@
+{
+  "id": "dance-now-america",
+  "slug": "dance-now-america",
+  "titulo": "Dance Now America Tour",
+  "descripcionCorta": "Noche de eurodance de los 90 con voces originales como Haddaway, Real McCoy, No Mercy y Technotronic.",
+  "tipo": "evento",
+  "categoria": "fiesta",
+  "etiquetas": [
+    "concierto",
+    "eurodance",
+    "anos-90"
+  ],
+  "inicio": "2026-10-31",
+  "zona": {
+    "nombre": "Medellín"
+  },
+  "lugar": "Diamante de Béisbol",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "precioPreliminar": "alto",
+  "idealPara": [
+    "amigos",
+    "pareja"
+  ],
+  "fuente": {
+    "nombre": "Medellín Travel (guía oficial)",
+    "url": "https://www.medellin.travel/caleventos/dance-now-america-tour-1058/?lang=en"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo"
+}

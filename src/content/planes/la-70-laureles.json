@@ -1,0 +1,41 @@
+{
+  "id": "la-70-laureles",
+  "slug": "la-70-laureles",
+  "titulo": "La 70 en Laureles",
+  "descripcionCorta": "Calle de bares y música con ambiente más local que El Poblado.",
+  "tipo": "permanente",
+  "categoria": "fiesta",
+  "etiquetas": [
+    "rumba",
+    "bares"
+  ],
+  "horario": {
+    "texto": "Noches"
+  },
+  "zona": {
+    "nombre": "Laureles",
+    "comuna": 11
+  },
+  "lugar": "Calle 70, Laureles",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "precioPreliminar": "medio",
+  "idealPara": [
+    "amigos",
+    "pareja"
+  ],
+  "fuente": {
+    "nombre": "Google Maps",
+    "url": "https://www.google.com/maps/search/?api=1&query=Calle%2070%20Laureles%20Medell%C3%ADn"
+  },
+  "verificado": false,
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "Horario sin verificar (escrito de memoria). Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+}

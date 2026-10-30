@@ -1,0 +1,39 @@
+{
+  "id": "mercado-del-rio",
+  "slug": "mercado-del-rio",
+  "titulo": "Mercado del Río",
+  "descripcionCorta": "Mercado gastronómico con muchas opciones de comida en un solo lugar, bueno cuando el grupo no se pone de acuerdo.",
+  "tipo": "permanente",
+  "categoria": "comida-cultura",
+  "etiquetas": [
+    "gastronomia",
+    "mercado"
+  ],
+  "zona": {
+    "nombre": "Ciudad del Río",
+    "comuna": 14
+  },
+  "lugar": "Mercado del Río",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "precioPreliminar": "medio",
+  "idealPara": [
+    "amigos",
+    "pareja",
+    "familia"
+  ],
+  "fuente": {
+    "nombre": "Google Maps",
+    "url": "https://www.google.com/maps/search/?api=1&query=Mercado%20del%20R%C3%ADo%20Medell%C3%ADn"
+  },
+  "verificado": false,
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+}

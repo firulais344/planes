@@ -1,35 +1,33 @@
 # Parchemos · Planes en Medellín
 
-Sitio estático (HTML, CSS y JavaScript, sin build) para encontrar fiestas, conciertos, planes al aire libre, comida y cultura en Medellín. Filtra por día, categoría, precio, con quién vas y zona.
+Guía de planes en Medellín. En reconstrucción (Fase 1 de 7): el sitio antiguo fue reemplazado por un proyecto Astro; el diseño nuevo llega en la Fase 2.
 
-## Publicar en Netlify
+## Stack
 
-1. Sube esta carpeta a un repositorio de GitHub.
-2. En Netlify: **Add new site → Import an existing project → GitHub** y elige el repositorio.
-3. No necesita comando de build. El directorio de publicación es la raíz (`.`), ya definido en `netlify.toml`.
+Astro 5 · TypeScript · Tailwind 4 · Preact (islas) · Zod · Vitest. Hosting en Netlify.
 
-Cada `git push` vuelve a publicar el sitio.
-
-## Probar en local
-
-Abre `index.html` en el navegador, o levanta un servidor:
+## Comandos
 
 ```bash
-python3 -m http.server 8000
+npm install
+npm run dev        # servidor de desarrollo
+npm run validate   # valida los planes (agrega --reporte para ver el estado de verificación)
+npm test           # tests
+npm run build      # valida y construye en dist/
 ```
 
-Para probar con otra fecha: `http://localhost:8000/?hoy=2026-11-01`.
+## Datos
 
-## Editar los planes
+Cada plan es un archivo `src/content/planes/<slug>.json`. El modelo está en `src/lib/schema.ts`.
+El build **falla** si un plan es inválido (fechas inexistentes, slug repetido, precio incoherente, etc.).
 
-Todos los planes están en `planes.js`. Al principio del archivo hay un comentario con los campos. Los eventos usan `tipo: "evento"` con `inicio` y `fin` (`AAAA-MM-DD`); los lugares de siempre usan `tipo: "permanente"`. Los eventos pasados se ocultan solos.
+Regla principal: no se inventan datos.
 
-Los datos se recopilaron el 2026-10-29 desde medellin.travel, Tuboleta, La Tiquetera y Eventario. Los precios marcados como "por confirmar" no aparecían en las fuentes.
+- Un precio que no se pudo confirmar en la fuente es `por_confirmar` y `pendientes` incluye `"precio"`.
+- El valor antiguo, si lo hay, queda en `precioPreliminar` y nunca se muestra como dato.
+- `verificado: true` exige `ultimaVerificacion`, precio real y `pendientes` vacío.
+- `pendientes` lista lo que falta confirmar (`fecha`, `horario`, `precio`, `direccion`, `coordenadas`).
 
-## Archivos
+## Despliegue
 
-- `index.html`: estructura de la página
-- `styles.css`: estilos (tema nocturno)
-- `app.js`: filtros y renderizado
-- `planes.js`: los datos
-- `netlify.toml`: configuración de Netlify
+Netlify lee `netlify.toml`: comando `npm run build`, carpeta `dist`. El dominio se define con la variable `SITE_URL`.

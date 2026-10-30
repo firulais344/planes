@@ -1,0 +1,38 @@
+{
+  "id": "mamm",
+  "slug": "mamm",
+  "titulo": "MAMM – Museo de Arte Moderno de Medellín",
+  "descripcionCorta": "Museo de arte moderno y contemporáneo, ideal para una mañana tranquila.",
+  "tipo": "permanente",
+  "categoria": "comida-cultura",
+  "etiquetas": [
+    "museo",
+    "arte"
+  ],
+  "zona": {
+    "nombre": "Ciudad del Río",
+    "comuna": 14
+  },
+  "lugar": "MAMM",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "idealPara": [
+    "pareja",
+    "amigos",
+    "solo"
+  ],
+  "fuente": {
+    "nombre": "elmamm.org",
+    "url": "https://elmamm.org/"
+  },
+  "verificado": false,
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+}

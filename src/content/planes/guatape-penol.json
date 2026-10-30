@@ -1,0 +1,39 @@
+{
+  "id": "guatape-penol",
+  "slug": "guatape-penol",
+  "titulo": "Día en Guatapé y Piedra del Peñol",
+  "descripcionCorta": "Excursión de un día a un pueblo colorido y a un mirador sobre el embalse. Sale temprano desde la ciudad.",
+  "tipo": "permanente",
+  "categoria": "aire-libre",
+  "etiquetas": [
+    "excursion",
+    "mirador",
+    "pueblo"
+  ],
+  "zona": {
+    "nombre": "Fuera de la ciudad"
+  },
+  "lugar": "Guatapé",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "precioPreliminar": "medio",
+  "idealPara": [
+    "amigos",
+    "pareja",
+    "familia"
+  ],
+  "fuente": {
+    "nombre": "Google Maps",
+    "url": "https://www.google.com/maps/search/?api=1&query=Guatap%C3%A9%20Piedra%20del%20Pe%C3%B1ol%20Medell%C3%ADn"
+  },
+  "verificado": false,
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "Precio sin verificar (escrito de memoria): Transporte y entrada a la piedra aparte. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+}

@@ -1,0 +1,42 @@
+{
+  "id": "parque-lleras-provenza",
+  "slug": "parque-lleras-provenza",
+  "titulo": "Salir de rumba: Parque Lleras y Provenza",
+  "descripcionCorta": "La zona de bares, discotecas y restaurantes más concurrida de Medellín.",
+  "tipo": "permanente",
+  "categoria": "fiesta",
+  "etiquetas": [
+    "rumba",
+    "bares",
+    "discotecas"
+  ],
+  "horario": {
+    "texto": "Noches, sobre todo jueves a sábado"
+  },
+  "zona": {
+    "nombre": "El Poblado",
+    "comuna": 14
+  },
+  "lugar": "Parque Lleras y Provenza",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "precioPreliminar": "medio",
+  "idealPara": [
+    "amigos",
+    "pareja"
+  ],
+  "fuente": {
+    "nombre": "Google Maps",
+    "url": "https://www.google.com/maps/search/?api=1&query=Parque%20Lleras%20Provenza%20Medell%C3%ADn"
+  },
+  "verificado": false,
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "Horario sin verificar (escrito de memoria). Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+}

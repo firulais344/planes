@@ -1,0 +1,39 @@
+{
+  "id": "chayanne",
+  "slug": "chayanne",
+  "titulo": "Chayanne – Bailemos Otra Vez Tour",
+  "descripcionCorta": "Concierto con clásicos como Torero, Un siglo sin ti, Salomé y Lola.",
+  "tipo": "evento",
+  "categoria": "fiesta",
+  "etiquetas": [
+    "concierto",
+    "pop-latino"
+  ],
+  "inicio": "2026-11-19",
+  "zona": {
+    "nombre": "Medellín"
+  },
+  "lugar": "DAVIarena",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "precioPreliminar": "alto",
+  "idealPara": [
+    "pareja",
+    "familia",
+    "amigos"
+  ],
+  "fuente": {
+    "nombre": "Medellín Travel (guía oficial)",
+    "url": "https://www.medellin.travel/caleventos/chayanne-bailemos-otra-vez-tour-1051/?lang=en"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo"
+}

@@ -1,0 +1,38 @@
+{
+  "id": "tertulias-musicales",
+  "slug": "tertulias-musicales",
+  "titulo": "Tertulias Musicales",
+  "descripcionCorta": "Escucha grabaciones emblemáticas del siglo XX y conversa sobre la historia de la música en Colombia.",
+  "tipo": "evento",
+  "categoria": "comida-cultura",
+  "etiquetas": [
+    "musica",
+    "conversatorio"
+  ],
+  "inicio": "2026-10-29",
+  "zona": {
+    "nombre": "Centro"
+  },
+  "lugar": "Palacio de la Cultura Rafael Uribe Uribe",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "idealPara": [
+    "amigos",
+    "solo"
+  ],
+  "fuente": {
+    "nombre": "Medellín Travel (guía oficial)",
+    "url": "https://www.medellin.travel/caleventos/tertulias-musicales-1122/?lang=en"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "Horario y precio no indicados en el listado."
+}

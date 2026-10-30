@@ -1,0 +1,38 @@
+{
+  "id": "halloween-sinfonico",
+  "slug": "halloween-sinfonico",
+  "titulo": "Halloween Sinfónico: Fiesta de las galaxias",
+  "descripcionCorta": "Concierto didáctico para celebrar Halloween en familia.",
+  "tipo": "evento",
+  "categoria": "comida-cultura",
+  "etiquetas": [
+    "halloween",
+    "musica-clasica",
+    "ninos"
+  ],
+  "inicio": "2026-10-31",
+  "zona": {
+    "nombre": "Medellín"
+  },
+  "lugar": "Ver sede en La Tiquetera",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "idealPara": [
+    "familia"
+  ],
+  "fuente": {
+    "nombre": "La Tiquetera",
+    "url": "https://latiquetera.com/event/halloween-sinfonico-fiesta-de-las-galaxias"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "La sede no aparece en la fuente."
+}

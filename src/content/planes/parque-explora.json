@@ -1,0 +1,37 @@
+{
+  "id": "parque-explora",
+  "slug": "parque-explora",
+  "titulo": "Parque Explora",
+  "descripcionCorta": "Museo interactivo de ciencia y tecnología, pensado para ir en familia.",
+  "tipo": "permanente",
+  "categoria": "comida-cultura",
+  "etiquetas": [
+    "museo",
+    "ciencia",
+    "ninos"
+  ],
+  "zona": {
+    "nombre": "Centro"
+  },
+  "lugar": "Parque Explora",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "idealPara": [
+    "familia",
+    "amigos"
+  ],
+  "fuente": {
+    "nombre": "parqueexplora.org",
+    "url": "https://www.parqueexplora.org/"
+  },
+  "verificado": false,
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+}

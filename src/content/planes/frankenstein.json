@@ -1,0 +1,40 @@
+{
+  "id": "frankenstein",
+  "slug": "frankenstein",
+  "titulo": "Frankenstein: La herencia oscura",
+  "descripcionCorta": "Reinterpretación teatral del clásico de Mary Shelley, perfecta para el fin de semana de Halloween.",
+  "tipo": "evento",
+  "categoria": "comida-cultura",
+  "etiquetas": [
+    "teatro",
+    "halloween"
+  ],
+  "inicio": "2026-10-30",
+  "fin": "2026-10-31",
+  "zona": {
+    "nombre": "El Poblado",
+    "comuna": 14
+  },
+  "lugar": "CasaTeatro El Poblado",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "idealPara": [
+    "pareja",
+    "amigos",
+    "solo"
+  ],
+  "fuente": {
+    "nombre": "Medellín Travel (guía oficial)",
+    "url": "https://www.medellin.travel/caleventos/frankenstein-la-herencia-oscura-1129/?lang=en"
+  },
+  "verificado": false,
+  "ultimaVerificacion": "2026-10-29",
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo"
+}

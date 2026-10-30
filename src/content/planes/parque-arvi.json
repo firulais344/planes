@@ -1,0 +1,38 @@
+{
+  "id": "parque-arvi",
+  "slug": "parque-arvi",
+  "titulo": "Parque Arví",
+  "descripcionCorta": "Parque natural con senderos, bosque y actividades de aventura, al que se llega en Metrocable.",
+  "tipo": "permanente",
+  "categoria": "aire-libre",
+  "etiquetas": [
+    "parque-natural",
+    "senderismo",
+    "metrocable"
+  ],
+  "zona": {
+    "nombre": "Santa Elena"
+  },
+  "lugar": "Parque Arví",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "idealPara": [
+    "familia",
+    "pareja",
+    "amigos"
+  ],
+  "fuente": {
+    "nombre": "parquearvi.org",
+    "url": "https://parquearvi.org/"
+  },
+  "verificado": false,
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "Precio sin verificar (escrito de memoria): Revisa tarifas del Metrocable y de las actividades. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+}

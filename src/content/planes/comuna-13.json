@@ -1,0 +1,41 @@
+{
+  "id": "comuna-13",
+  "slug": "comuna-13",
+  "titulo": "Comuna 13: grafitis y escaleras eléctricas",
+  "descripcionCorta": "Recorrido por el arte urbano y las escaleras eléctricas del barrio. Se puede ir por cuenta propia o con guía local.",
+  "tipo": "permanente",
+  "categoria": "comida-cultura",
+  "etiquetas": [
+    "arte-urbano",
+    "grafiti",
+    "tour"
+  ],
+  "zona": {
+    "nombre": "Comuna 13",
+    "comuna": 13
+  },
+  "lugar": "Comuna 13",
+  "precio": {
+    "tipo": "por_confirmar"
+  },
+  "precioPreliminar": "gratis",
+  "idealPara": [
+    "amigos",
+    "pareja",
+    "familia",
+    "solo"
+  ],
+  "fuente": {
+    "nombre": "Google Maps",
+    "url": "https://www.google.com/maps/search/?api=1&query=Comuna%2013%20escaleras%20el%C3%A9ctricas%20Medell%C3%ADn"
+  },
+  "verificado": false,
+  "pendientes": [
+    "coordenadas",
+    "precio",
+    "horario",
+    "direccion"
+  ],
+  "estado": "activo",
+  "notasInternas": "Precio sin verificar (escrito de memoria): Caminar es gratis; los tours guiados tienen costo. Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial."
+}
