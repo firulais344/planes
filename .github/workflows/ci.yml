@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   verificar:
+    name: Datos, tests, tipos, build y enlaces
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -23,9 +24,69 @@ jobs:
       - run: npm ci
       - name: Validar los planes
         run: npm run validate
-      - name: Tests
+      - name: Tests unitarios
         run: npm test
       - name: Tipos
         run: npx astro check
       - name: Build
         run: npm run build
+      - name: Enlaces rotos (internos)
+        run: npm run enlaces
+
+      - name: Guardar el sitio construido
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 3
+
+  e2e:
+    name: Playwright (móvil y escritorio)
+    needs: verificar
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
+      - name: Guardar el informe si falla
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: test-results
+          retention-days: 5
+
+  lighthouse:
+    name: Lighthouse CI (móvil, umbral 95)
+    needs: verificar
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - run: npx --yes @lhci/cli@0.14.x autorun
+      - name: Guardar los informes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse
+          path: .lighthouseci
+          retention-days: 5

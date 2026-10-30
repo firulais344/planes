@@ -1,0 +1,25 @@
+name: Enlaces externos
+
+# Los enlaces externos (fuentes de cada plan) caducan: una vez por semana se revisan todos.
+on:
+  schedule:
+    - cron: "0 12 * * 1" # lunes 7:00 en Bogotá
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  enlaces:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Revisar enlaces internos y externos
+        run: npm run enlaces -- --externos

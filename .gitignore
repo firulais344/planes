@@ -7,3 +7,8 @@ dist.nosync
 .astro.nosync
 .env
 .env.*
+
+# Pruebas y reportes
+test-results/
+playwright-report/
+.lighthouseci/

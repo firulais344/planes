@@ -42,6 +42,26 @@ describe("rango", () => {
   });
 });
 
+describe("casos límite de calendario", () => {
+  it("el fin de semana y los 7 días cruzan el cambio de año", () => {
+    expect(rango("finde", "2026-12-31")).toEqual(["2027-01-01", "2027-01-03"]); // jueves
+    expect(rango("semana", "2026-12-29")).toEqual(["2026-12-29", "2027-01-04"]);
+  });
+  it("desde un viernes y desde un lunes", () => {
+    expect(rango("finde", "2026-10-30")).toEqual(["2026-10-30", "2026-11-01"]);
+    expect(rango("finde", "2026-11-02")).toEqual(["2026-11-06", "2026-11-08"]);
+  });
+  it("maneja el 29 de febrero de un año bisiesto", () => {
+    expect(sumarDias("2028-02-28", 1)).toBe("2028-02-29");
+    expect(sumarDias("2028-02-29", 1)).toBe("2028-03-01");
+    expect(sumarDias("2027-02-28", 1)).toBe("2027-03-01");
+  });
+  it("la medianoche de Bogotá cambia el día, también el 31 de diciembre", () => {
+    expect(hoyBogota(new Date("2027-01-01T04:59:59Z"))).toBe("2026-12-31");
+    expect(hoyBogota(new Date("2027-01-01T05:00:00Z"))).toBe("2027-01-01");
+  });
+});
+
 describe("ocurreEn / primerDia", () => {
   const unDia = { inicio: "2026-10-31" };
   const varios = { inicio: "2026-10-24", fin: "2026-11-02" };
