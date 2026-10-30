@@ -1,0 +1,14 @@
+---
+interface Props {
+  id?: string;
+}
+const { id = "consentimiento" } = Astro.props;
+---
+
+<div class="flex items-start gap-3">
+  <input type="checkbox" id={id} name="consentimiento" value="si" required class="mt-1 h-5 w-5 shrink-0 accent-[var(--acento-fuerte)]" />
+  <label for={id} class="text-sm text-suave">
+    Autorizo el tratamiento de mis datos personales para esta finalidad, según la
+    <a href="/privacidad/" target="_blank" rel="noopener" class="font-bold text-acento underline underline-offset-4">política de privacidad<span class="solo-lectores"> (se abre en otra pestaña)</span></a>.
+  </label>
+</div>

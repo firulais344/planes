@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import type { PlanPublico } from "../lib/publico";
 import PlanCard, { PlanSkeleton } from "./PlanCard";
+import { track } from "../lib/analitica";
 
 interface Props {
   abierto: boolean;
@@ -82,7 +83,7 @@ export default function Sorprendeme({ abierto, pool, hoy, onCerrar, onQuitarFilt
         </div>
 
         <div class="flex flex-wrap gap-2">
-          <button type="button" class="btn btn--primario flex-1" onClick={() => sortear(plan?.slug)} disabled={cargando || pool.length === 0}>
+          <button type="button" class="btn btn--primario flex-1" onClick={() => { track("sorprendeme_otro"); sortear(plan?.slug); }} disabled={cargando || pool.length === 0}>
             Otro plan
           </button>
         </div>

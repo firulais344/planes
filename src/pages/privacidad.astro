@@ -1,0 +1,68 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { SITIO, responsableDefinido } from "../config/sitio";
+
+const actualizada = new Intl.DateTimeFormat("es-CO", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(`${SITIO.politicaActualizada}T00:00:00Z`));
+const definido = responsableDefinido();
+const h2 = "pt-4 font-display text-2xl font-extrabold";
+---
+
+<Base titulo="Política de privacidad · Parchemos" descripcion="Qué datos personales recoge Parchemos, para qué los usa y cómo puedes ejercer tus derechos según la Ley 1581 de 2012.">
+  <article class="mx-auto w-[min(46rem,100%-2rem)] space-y-5 py-12 text-[1.05rem] leading-relaxed">
+    <Breadcrumbs items={[{ nombre: "Inicio", href: "/" }, { nombre: "Política de privacidad" }]} />
+    <h1 class="font-display text-4xl font-extrabold tracking-tight md:text-5xl">Política de privacidad</h1>
+    <p class="text-suave">Última actualización: {actualizada}.</p>
+
+    <p>
+      Esta política explica qué datos personales trata {SITIO.nombre}, para qué y cómo puedes ejercer tus derechos, de acuerdo con la
+      <strong>Ley 1581 de 2012</strong> y sus decretos reglamentarios (Colombia).
+    </p>
+
+    <h2 class={h2}>Responsable del tratamiento</h2>
+    {
+      definido ? (
+        <p>
+          <strong>{SITIO.responsable.nombre}</strong>. Contacto para consultas y reclamos: {SITIO.responsable.contacto || "a través del formulario de contacto"}.
+        </p>
+      ) : (
+        <p class="rounded-xl border border-alerta-texto/40 bg-alerta-bg px-4 py-3 text-alerta-texto">
+          El responsable del tratamiento aún no está definido. Mientras tanto, el boletín está desactivado y no se recogen correos para esa finalidad.
+        </p>
+      )
+    }
+
+    <h2 class={h2}>Qué datos recogemos y para qué</h2>
+    <ul class="list-disc space-y-2 pl-6">
+      <li><strong>Formulario de contacto:</strong> nombre, correo y mensaje. Los usamos solo para responderte.</li>
+      <li><strong>Publica tu plan:</strong> los datos del plan y tu correo o WhatsApp. Los usamos para revisar tu propuesta y confirmar detalles contigo.</li>
+      <li><strong>Boletín (cuando esté activo):</strong> correo y, si quieres, WhatsApp. Los usamos para avisarte del boletín y enviarlo. Puedes darte de baja cuando quieras.</li>
+    </ul>
+    <p>Los formularios se envían a través de Netlify, el proveedor donde se aloja el sitio. No vendemos ni compartimos tus datos con terceros para publicidad.</p>
+
+    <h2 class={h2}>Analítica</h2>
+    <p>
+      Medimos el uso del sitio con una herramienta de analítica que no usa cookies ni crea perfiles individuales. Registramos acciones como búsquedas, filtros usados y clics hacia las fuentes, para saber qué mejorar.
+      Respetamos la señal “No rastrear” de tu navegador. Si el texto de una búsqueda incluyera un dato personal, no lo asociamos contigo; aun así, te pedimos no escribir datos personales en el buscador.
+    </p>
+
+    <h2 class={h2}>Información guardada en tu dispositivo</h2>
+    <p>
+      Para que el sitio funcione guardamos en tu navegador tu preferencia de tema (claro u oscuro) y los planes que marcas como favoritos. Esa información queda en tu dispositivo, no la recibimos y puedes borrarla desde tu navegador.
+      Como no usamos cookies de seguimiento ni publicidad, el sitio no muestra un aviso de cookies.
+    </p>
+
+    <h2 class={h2}>Tus derechos</h2>
+    <p>Como titular de los datos puedes conocerlos, actualizarlos, rectificarlos, solicitar su supresión, revocar tu autorización y pedir prueba de ella. También puedes presentar quejas ante la Superintendencia de Industria y Comercio (SIC).</p>
+    <p>Para ejercer estos derechos escríbenos por el <a class="font-bold text-acento underline underline-offset-4" href="/contacto/">formulario de contacto</a>.</p>
+
+    <h2 class={h2}>Conservación y seguridad</h2>
+    <p>Conservamos tus datos solo el tiempo necesario para la finalidad indicada y los eliminamos cuando lo solicites o cuando ya no se necesiten. Aplicamos medidas razonables para protegerlos.</p>
+
+    <h2 class={h2}>Menores de edad</h2>
+    <p>El sitio no está dirigido a menores de 18 años y no recogemos sus datos de forma intencional.</p>
+
+    <h2 class={h2}>Cambios</h2>
+    <p>Si cambiamos esta política, actualizaremos la fecha de arriba y, cuando el cambio sea importante, lo avisaremos en el sitio.</p>
+  </article>
+</Base>

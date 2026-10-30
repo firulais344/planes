@@ -1,0 +1,26 @@
+---
+import { jsonldMigas, serializar } from "../lib/jsonld";
+
+interface Props {
+  /** El último elemento es la página actual y no lleva enlace. */
+  items: { nombre: string; href?: string }[];
+}
+const { items } = Astro.props;
+
+const absoluta = (href?: string) => new URL(href ?? Astro.url.pathname, Astro.site).href;
+const datos = jsonldMigas(items.map((i) => ({ nombre: i.nombre, url: absoluta(i.href) })));
+---
+
+<nav aria-label="Migas de pan" class="mb-4 text-sm text-suave">
+  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+    {
+      items.map((it, i) => (
+        <li class="flex items-center gap-2">
+          {it.href ? <a href={it.href} class="font-semibold hover:text-texto hover:underline">{it.nombre}</a> : <span aria-current="page" class="text-texto">{it.nombre}</span>}
+          {i < items.length - 1 && <span aria-hidden="true">›</span>}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+<script type="application/ld+json" set:html={serializar(datos)} />

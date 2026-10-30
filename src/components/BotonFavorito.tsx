@@ -1,4 +1,5 @@
 import { alternarFavorito, useFavoritos } from "../lib/favoritos";
+import { track } from "../lib/analitica";
 
 interface Props {
   slug: string;
@@ -15,7 +16,7 @@ export default function BotonFavorito({ slug, titulo, conTexto = false, class: c
       type="button"
       aria-pressed={activo}
       aria-label={activo ? `Quitar ${titulo} de mi lista` : `Guardar ${titulo} en mi lista`}
-      onClick={() => alternarFavorito(slug)}
+      onClick={() => track("favorito", { accion: alternarFavorito(slug).includes(slug) ? "agregar" : "quitar" })}
       class={`inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full font-bold transition ${conTexto ? "btn" : "text-white"} ${clase}`}
       style={conTexto ? undefined : { background: "var(--velo)" }}
     >

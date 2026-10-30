@@ -4,6 +4,7 @@ import { enlaceLista, guardarFavoritos, slugsDeParametro, useFavoritos } from ".
 import { etiquetaFecha, hoyBogota } from "../lib/fechas";
 import { calendarioICS, esAgendable } from "../lib/ics";
 import PlanCard from "./PlanCard";
+import { track } from "../lib/analitica";
 
 function descargar(nombre: string, tipo: string, contenido: string) {
   const url = URL.createObjectURL(new Blob([contenido], { type: tipo }));
@@ -41,6 +42,7 @@ export default function MiLista({ planes, hoyInicial }: { planes: PlanPublico[];
   async function copiar() {
     try {
       await navigator.clipboard.writeText(enlace());
+      track("compartir", { via: "enlace_lista" });
       decir("Enlace copiado. Quien lo abra verá esta lista.");
     } catch {
       decir("No se pudo copiar el enlace.");
@@ -48,6 +50,7 @@ export default function MiLista({ planes, hoyInicial }: { planes: PlanPublico[];
   }
 
   function exportarTexto() {
+    track("exportar", { formato: "texto" });
     const lineas = items.map((p) => `• ${p.titulo} — ${etiquetaFecha(p, hoy)} — ${p.lugar}\n  ${location.origin}/planes/${p.slug}/`);
     descargar("mi-lista-parchemos.txt", "text/plain;charset=utf-8", `Mi lista de planes en Medellín\n\n${lineas.join("\n\n")}\n`);
   }
@@ -55,7 +58,8 @@ export default function MiLista({ planes, hoyInicial }: { planes: PlanPublico[];
   function exportarCalendario() {
     const agendables = items.filter(esAgendable).map((plan) => ({ plan, url: `${location.origin}/planes/${plan.slug}/` }));
     if (!agendables.length) return decir("Ningún plan de tu lista tiene fecha para agendar.");
-    descargar("mi-lista-parchemos.ics", "text/calendar;charset=utf-8", calendarioICS(agendables));
+    track("exportar", { formato: "ics" });
+    descargar("mi-lista-parchemos.ics","text/calendar;charset=utf-8", calendarioICS(agendables));
   }
 
   function guardarCompartida() {
@@ -89,7 +93,7 @@ export default function MiLista({ planes, hoyInicial }: { planes: PlanPublico[];
         <>
           <div class="flex flex-wrap items-center gap-2" role="group" aria-label="Compartir y exportar">
             <button type="button" class="btn" onClick={copiar}>Copiar enlace</button>
-            <a class="btn" href={wa} target="_blank" rel="noopener noreferrer">Compartir por WhatsApp<span class="solo-lectores"> (se abre en otra pestaña)</span></a>
+            <a class="btn" href={wa} target="_blank" rel="noopener noreferrer" data-umami-event="compartir" data-umami-event-via="whatsapp_lista">Compartir por WhatsApp<span class="solo-lectores"> (se abre en otra pestaña)</span></a>
             <button type="button" class="btn" onClick={exportarTexto}>Descargar texto</button>
             <button type="button" class="btn" onClick={exportarCalendario}>Descargar calendario (.ics)</button>
             {!viendoCompartida && (

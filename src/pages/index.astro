@@ -3,13 +3,16 @@ import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Explorador from "../components/Explorador.tsx";
 import { aPublico } from "../lib/publico";
+import Boletin from "../components/Boletin.astro";
 import { hoyBogota } from "../lib/fechas";
+import { jsonldSitio } from "../lib/jsonld";
+import { SITIO } from "../config/sitio";
 
 const planes = (await getCollection("planes")).map((e) => aPublico(e.data));
 const hoy = hoyBogota();
 ---
 
-<Base>
+<Base jsonld={[jsonldSitio(new URL("/", Astro.site).href, SITIO.nombre)]}>
   <section class="mx-auto w-[min(1120px,100%-2rem)] pb-8 pt-12 md:pt-16">
     <p class="mb-3 text-sm font-bold uppercase tracking-[0.14em] text-cian">Planes en Medellín</p>
     <h1 class="font-display text-[clamp(2.4rem,8vw,4.8rem)] font-extrabold leading-[0.98] tracking-tight">
@@ -21,4 +24,5 @@ const hoy = hoyBogota();
   </section>
 
   <Explorador client:load planes={planes} hoyInicial={hoy} />
+  <Boletin />
 </Base>

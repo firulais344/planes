@@ -4,21 +4,30 @@ import "@fontsource-variable/inter";
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { SITIO } from "../config/sitio";
+import { serializar } from "../lib/jsonld";
 
 interface Props {
   titulo?: string;
   descripcion?: string;
   /** Páginas personales o sin valor para buscadores. */
   noindex?: boolean;
+  /** Ruta de la imagen para redes sociales (por defecto, la de la home). */
+  imagen?: string;
+  /** Datos estructurados (schema.org) de la página. */
+  jsonld?: object[];
 }
 
 const {
   titulo = "Parchemos · Qué hacer en Medellín hoy y este fin de semana",
   descripcion = "Fiestas, conciertos, planes gratis, aire libre, comida y cultura en Medellín. Filtra por día, precio y con quién vas.",
   noindex = false,
+  imagen = "/og/inicio.png",
+  jsonld = [],
 } = Astro.props;
 
 const canonica = new URL(Astro.url.pathname, Astro.site);
+const imagenAbs = new URL(imagen, Astro.site).href;
 ---
 
 <!doctype html>
@@ -37,6 +46,19 @@ const canonica = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:title" content={titulo} />
     <meta property="og:description" content={descripcion} />
     <meta property="og:url" content={canonica.href} />
+    <meta property="og:site_name" content={SITIO.nombre} />
+    <meta property="og:image" content={imagenAbs} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={titulo} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={titulo} />
+    <meta name="twitter:description" content={descripcion} />
+    <meta name="twitter:image" content={imagenAbs} />
+    <link rel="alternate" hreflang="es-CO" href={canonica.href} />
+    <link rel="alternate" hreflang="x-default" href={canonica.href} />
+    {jsonld.map((o) => <script type="application/ld+json" set:html={serializar(o)} />)}
+    {SITIO.analitica.id && <script defer src={SITIO.analitica.src} data-website-id={SITIO.analitica.id} data-do-not-track="true" />}
     <script is:inline>
       // Aplica el tema guardado antes del primer pintado para evitar parpadeos.
       try {
