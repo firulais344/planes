@@ -130,7 +130,7 @@ export default function PlanCard({ plan, hoy }: Props) {
             Ver plan
             <span class="solo-lectores">: {plan.titulo}</span>
           </a>
-          <a href={plan.fuente.url} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center font-semibold text-suave hover:text-texto hover:underline">
+          <a href={plan.fuente.url} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center font-semibold text-suave hover:text-texto hover:underline" data-umami-event="clic_fuente" data-umami-event-plan={plan.slug} data-umami-event-fuente={plan.fuente.nombre}>
             {plan.fuente.nombre} ↗
             <span class="solo-lectores">: {plan.titulo} (se abre en otra pestaña)</span>
           </a>

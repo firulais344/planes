@@ -11,6 +11,8 @@ import { CATEGORIA_NOMBRE } from "../../lib/schema";
 import { diaCorto, diaLargo, hoyBogota, yaPaso } from "../../lib/fechas";
 import { precioInfo } from "../../lib/precio";
 import { esAgendable } from "../../lib/ics";
+import { jsonldPlan } from "../../lib/jsonld";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 export async function getStaticPaths() {
   const todos = (await getCollection("planes")).map((e) => aPublico(e.data));
@@ -52,12 +54,15 @@ const canonica = new URL(`/planes/${plan.slug}/`, Astro.site).href;
 const comoLlegar = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${plan.lugar}, Medellín`)}`;
 const whatsapp = `https://wa.me/?text=${encodeURIComponent(`${plan.titulo} en Medellín: ${canonica}`)}`;
 const conMapa = plan.lat !== undefined && plan.lng !== undefined;
+const rutaOg = `/og/${plan.slug}.png`;
+const datosEstructurados = [jsonldPlan(plan, { url: canonica, imagen: new URL(rutaOg, Astro.site).href })];
+const RUTA_CATEGORIA = { "fiesta": "fiestas", "aire-libre": "aire-libre", "comida-cultura": "comida-y-cultura" } as const;
 const filaDt = "text-sm font-bold uppercase tracking-wide text-suave";
 ---
 
-<Base titulo={`${plan.titulo} · Parchemos`} descripcion={plan.descripcionCorta}>
+<Base titulo={`${plan.titulo} · Parchemos`} descripcion={plan.descripcionCorta} imagen={rutaOg} jsonld={datosEstructurados}>
   <article class="mx-auto w-[min(60rem,100%-2rem)] py-8">
-    <p class="mb-4"><a href="/" class="font-semibold text-suave hover:text-texto hover:underline">← Todos los planes</a></p>
+    <Breadcrumbs items={[{ nombre: "Inicio", href: "/" }, { nombre: CATEGORIA_NOMBRE[plan.categoria], href: `/${RUTA_CATEGORIA[plan.categoria]}/` }, { nombre: plan.titulo }]} />
 
     <div class="overflow-hidden rounded-tarjeta border border-linea">
       <Arte categoria={plan.categoria} alto={150} />
@@ -75,12 +80,12 @@ const filaDt = "text-sm font-bold uppercase tracking-wide text-suave";
     </div>
 
     <div class="mt-6 flex flex-wrap gap-3">
-      <a class="btn btn--primario" href={plan.fuente.url} target="_blank" rel="noopener noreferrer">
+      <a class="btn btn--primario" href={plan.fuente.url} target="_blank" rel="noopener noreferrer" data-umami-event="clic_fuente" data-umami-event-plan={plan.slug} data-umami-event-fuente={plan.fuente.nombre}>
         {plan.tipo === "evento" ? "Ver entradas e información" : "Ver más información"} ↗<span class="solo-lectores"> en {plan.fuente.nombre} (se abre en otra pestaña)</span>
       </a>
-      <a class="btn" href={comoLlegar} target="_blank" rel="noopener noreferrer">Cómo llegar ↗<span class="solo-lectores"> (se abre en otra pestaña)</span></a>
-      {agendable && <a class="btn" href={`/planes/${plan.slug}.ics`} download>Agregar al calendario</a>}
-      <a class="btn" href={whatsapp} data-wa target="_blank" rel="noopener noreferrer">Compartir por WhatsApp<span class="solo-lectores"> (se abre en otra pestaña)</span></a>
+      <a class="btn" href={comoLlegar} target="_blank" rel="noopener noreferrer" data-umami-event="como_llegar" data-umami-event-plan={plan.slug}>Cómo llegar ↗<span class="solo-lectores"> (se abre en otra pestaña)</span></a>
+      {agendable && <a class="btn" href={`/planes/${plan.slug}.ics`} download data-umami-event="calendario" data-umami-event-plan={plan.slug}>Agregar al calendario</a>}
+      <a class="btn" href={whatsapp} data-wa target="_blank" rel="noopener noreferrer" data-umami-event="compartir" data-umami-event-via="whatsapp" data-umami-event-plan={plan.slug}>Compartir por WhatsApp<span class="solo-lectores"> (se abre en otra pestaña)</span></a>
       <BotonFavorito client:load slug={plan.slug} titulo={plan.titulo} conTexto />
     </div>
 

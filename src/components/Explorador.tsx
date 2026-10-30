@@ -7,6 +7,7 @@ import { INICIAL, contarFiltros, estadoDesdeParams, filtrar, mismoEstado, params
 import PlanCard from "./PlanCard";
 import Sorprendeme from "./Sorprendeme";
 import Mapa, { type Punto } from "./Mapa";
+import { track } from "../lib/analitica";
 
 const CUANDO_TXT: Record<Cuando, string> = { todo: "lo que viene", hoy: "hoy", manana: "mañana", finde: "este fin de semana", semana: "los próximos 7 días" };
 const CUANDO_OPCION: Record<Cuando, string> = { todo: "Todo lo que viene", hoy: "Hoy", manana: "Mañana", finde: "Este fin de semana", semana: "Próximos 7 días" };
@@ -106,7 +107,19 @@ export default function Explorador({ planes, hoyInicial, preset = INICIAL }: Pro
   const [leidoDeUrl, setLeidoDeUrl] = useState(false);
   const hojaRef = useRef<HTMLDialogElement>(null);
 
-  const set = (parcial: Partial<Estado>) => setE((prev) => ({ ...prev, ...parcial }));
+  const temporizadorBusqueda = useRef<number>();
+
+  const set = (parcial: Partial<Estado>) => {
+    for (const [clave, valor] of Object.entries(parcial)) {
+      if (clave === "q") {
+        // Una sola medición por búsqueda: se espera a que la persona deje de escribir.
+        window.clearTimeout(temporizadorBusqueda.current);
+        const q = String(valor).trim().toLowerCase().slice(0, 40);
+        if (q.length >= 3) temporizadorBusqueda.current = window.setTimeout(() => track("busqueda", { termino: q }), 1200);
+      } else track("filtro", { tipo: clave, valor: String(valor) });
+    }
+    setE((prev) => ({ ...prev, ...parcial }));
+  };
   const reset = () => setE(preset);
 
   // "Hoy" se calcula en el navegador con hora de Bogotá y se refresca al volver a la pestaña.
@@ -181,6 +194,7 @@ export default function Explorador({ planes, hoyInicial, preset = INICIAL }: Pro
   async function copiarEnlace() {
     try {
       await navigator.clipboard.writeText(location.href);
+      track("compartir", { via: "enlace_busqueda" });
       setAviso("Enlace copiado. Quien lo abra verá estos mismos filtros.");
     } catch {
       setAviso("No se pudo copiar. Copia la dirección desde la barra del navegador.");
@@ -204,7 +218,7 @@ export default function Explorador({ planes, hoyInicial, preset = INICIAL }: Pro
               onInput={(ev) => set({ q: (ev.currentTarget as HTMLInputElement).value.trimStart() })}
             />
           </div>
-          <button type="button" class="btn btn--primario sm:min-w-44" onClick={() => setSorpresa(true)}>
+          <button type="button" class="btn btn--primario sm:min-w-44" onClick={() => { track("sorprendeme"); setSorpresa(true); }}>
             Sorpréndeme
           </button>
         </div>
@@ -232,7 +246,7 @@ export default function Explorador({ planes, hoyInicial, preset = INICIAL }: Pro
             {hayCambios && <button type="button" class="min-h-11 px-2 font-semibold text-acento underline-offset-4 hover:underline" onClick={copiarEnlace}>Copiar enlace</button>}
             <div role="group" aria-label="Tipo de vista" class="flex gap-2">
               <button type="button" class="chip" aria-pressed={vista === "lista"} onClick={() => setVista("lista")}>Lista</button>
-              <button type="button" class="chip" aria-pressed={vista === "mapa"} onClick={() => setVista("mapa")}>Mapa</button>
+              <button type="button" class="chip" aria-pressed={vista === "mapa"} onClick={() => { track("vista", { tipo: "mapa" }); setVista("mapa"); }}>Mapa</button>
             </div>
           </div>
         </div>

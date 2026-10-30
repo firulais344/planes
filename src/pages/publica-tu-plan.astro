@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import Consentimiento from "../components/Consentimiento.astro";
 ---
 
 <Base titulo="Publica tu plan · Parchemos" descripcion="¿Organizas un evento en Medellín? Envíanos los datos y lo revisamos para publicarlo en Parchemos.">
@@ -40,6 +41,7 @@ import Base from "../layouts/Base.astro";
         <input class="campo" id="contacto" name="contacto" required maxlength="120" />
       </div>
       <p class="text-sm text-suave">Usaremos tus datos únicamente para responder esta solicitud.</p>
+      <Consentimiento id="pub-consentimiento" />
       <button class="btn btn--primario justify-self-start" type="submit">Enviar plan</button>
     </form>
   </div>

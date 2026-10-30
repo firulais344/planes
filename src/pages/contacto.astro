@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import Consentimiento from "../components/Consentimiento.astro";
 ---
 
 <Base titulo="Contacto · Parchemos" descripcion="Escríbenos para corregir un dato, proponer una alianza o contarnos una idea.">
@@ -24,6 +25,7 @@ import Base from "../layouts/Base.astro";
         <textarea class="campo" id="mensaje" name="mensaje" rows="5" required maxlength="2000"></textarea>
       </div>
       <p class="text-sm text-suave">Usaremos tus datos únicamente para responder este mensaje.</p>
+      <Consentimiento id="con-consentimiento" />
       <button class="btn btn--primario justify-self-start" type="submit">Enviar mensaje</button>
     </form>
   </div>
