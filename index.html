@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parchemos · Planes en Medellín</title>
+  <meta name="description" content="Fiestas, conciertos, planes al aire libre, comida y cultura en Medellín. Filtra por día, precio y con quién vas.">
+  <meta name="theme-color" content="#0b0a14">
+  <meta property="og:title" content="Parchemos · Planes en Medellín">
+  <meta property="og:description" content="¿No sabes qué hacer? Encuentra fiestas, conciertos y planes en Medellín para hoy, mañana o el fin de semana.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%AA%A9%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#resultados">Saltar a los planes</a>
+
+  <header class="top">
+    <div class="wrap top__in">
+      <a class="brand" href="./" aria-label="Parchemos, inicio">
+        <span class="brand__dot" aria-hidden="true"></span>Parchemos
+      </a>
+      <span class="top__city">Medellín</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow">Planes en Medellín</p>
+        <h1>¿Qué hacemos <span class="grad">hoy?</span></h1>
+        <p class="lead">Fiestas, conciertos, parques, comida y cultura. Elige el día y te mostramos qué hay.</p>
+
+        <div class="chips" role="group" aria-label="¿Cuándo?" id="cuando">
+          <button class="chip chip--big" data-cuando="hoy" aria-pressed="true">Hoy</button>
+          <button class="chip chip--big" data-cuando="manana" aria-pressed="false">Mañana</button>
+          <button class="chip chip--big" data-cuando="finde" aria-pressed="false">Este fin de semana</button>
+          <button class="chip chip--big" data-cuando="semana" aria-pressed="false">Próximos 7 días</button>
+          <button class="chip chip--big" data-cuando="todo" aria-pressed="false">Todo lo que viene</button>
+        </div>
+
+        <div class="searchrow">
+          <label class="search">
+            <span class="sr">Buscar planes</span>
+            <input id="q" type="search" placeholder="Busca: salsa, teatro, Poblado, concierto…" autocomplete="off">
+          </label>
+          <button class="btn btn--glow" id="sorprende" type="button">Sorpréndeme</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="filters wrap" aria-label="Filtros">
+      <div class="chips" role="group" aria-label="Categoría" id="cats">
+        <button class="chip" data-cat="todas" aria-pressed="true">Todas</button>
+        <button class="chip chip--fiesta" data-cat="fiesta" aria-pressed="false">Fiestas y noche</button>
+        <button class="chip chip--aire" data-cat="aire-libre" aria-pressed="false">Aire libre</button>
+        <button class="chip chip--cultura" data-cat="comida-cultura" aria-pressed="false">Comida y cultura</button>
+      </div>
+
+      <div class="selects">
+        <label>Precio
+          <select id="precio">
+            <option value="todos">Cualquiera</option>
+            <option value="gratis">Solo gratis</option>
+            <option value="economico">Gratis o económico</option>
+          </select>
+        </label>
+        <label>¿Con quién?
+          <select id="con">
+            <option value="todos">Con cualquiera</option>
+            <option value="pareja">En pareja</option>
+            <option value="amigos">Con amigos</option>
+            <option value="familia">En familia</option>
+            <option value="solo">Solo/a</option>
+          </select>
+        </label>
+        <label>Zona
+          <select id="zona"><option value="todas">Toda la ciudad</option></select>
+        </label>
+        <label class="check">
+          <input type="checkbox" id="siempre" checked>
+          <span>Incluir lugares de siempre</span>
+        </label>
+      </div>
+    </section>
+
+    <section class="wrap results" id="resultados" tabindex="-1">
+      <p class="count" id="count" role="status" aria-live="polite"></p>
+      <div id="lista"></div>
+      <div class="empty" id="vacio" hidden>
+        <p class="empty__t">No hay planes con esos filtros.</p>
+        <p>Prueba con otro día o quita algún filtro.</p>
+        <button class="btn" id="reset" type="button">Quitar filtros</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p>Datos recopilados de medellin.travel, Tuboleta, La Tiquetera y Eventario. Última actualización: <span id="actualizado"></span>.</p>
+      <p>Los horarios y precios pueden cambiar. Confírmalos en el enlace de cada plan antes de salir.</p>
+    </div>
+  </footer>
+
+  <script src="planes.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
