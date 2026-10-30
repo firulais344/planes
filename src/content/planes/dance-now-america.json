@@ -35,5 +35,12 @@
     "horario",
     "direccion"
   ],
-  "estado": "activo"
+  "estado": "activo",
+  "imagen": {
+    "src": "medellin-centro.jpg",
+    "alt": "Vista aérea de Medellín con sus edificios y las laderas del valle",
+    "licencia": "Pexels License",
+    "credito": "César Gaviria en Pexels",
+    "origen": "https://www.pexels.com/photo/panoramic-view-of-medellin-city-skyline-39068368/"
+  }
 }

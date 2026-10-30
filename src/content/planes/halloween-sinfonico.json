@@ -34,5 +34,12 @@
     "direccion"
   ],
   "estado": "activo",
-  "notasInternas": "La sede no aparece en la fuente."
+  "notasInternas": "La sede no aparece en la fuente.",
+  "imagen": {
+    "src": "medellin-amanecer.jpg",
+    "alt": "Vista de Medellín al amanecer, con edificios y montañas",
+    "licencia": "Pexels License",
+    "credito": "Greg Gulik en Pexels",
+    "origen": "https://www.pexels.com/photo/medellin-skyline-during-early-morning-light-32197893/"
+  }
 }

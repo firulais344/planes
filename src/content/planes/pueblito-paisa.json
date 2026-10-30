@@ -83,5 +83,12 @@
     }
   },
   "direccion": "Cerro Nutibara; la guía oficial indica el desvío por la carrera 63B, sobre la Avenida 33",
-  "ultimaVerificacion": "2026-10-29"
+  "ultimaVerificacion": "2026-10-29",
+  "imagen": {
+    "src": "pueblito-paisa.jpg",
+    "alt": "Capilla blanca y casas con balcones en la plaza empedrada del Pueblito Paisa",
+    "licencia": "Pexels License",
+    "credito": "Camilo Ospina en Pexels",
+    "origen": "https://www.pexels.com/photo/pueblito-paisa-in-medelin-18156722/"
+  }
 }

@@ -38,5 +38,12 @@
     "direccion"
   ],
   "estado": "activo",
-  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Cerro Las Tres Cruces\"; sin verificar. Intento 2026-10-29: no se encontró fuente oficial con horario, costo ni acceso (solo AllTrails y redes). Pendiente."
+  "notasInternas": "Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Cerro Las Tres Cruces\"; sin verificar. Intento 2026-10-29: no se encontró fuente oficial con horario, costo ni acceso (solo AllTrails y redes). Pendiente.",
+  "imagen": {
+    "src": "medellin-valle.jpg",
+    "alt": "Vista panorámica de Medellín y las montañas del valle de Aburrá",
+    "licencia": "Pexels License",
+    "credito": "Cesar Gaviria en Pexels",
+    "origen": "https://www.pexels.com/photo/city-in-mountains-in-summer-16637436/"
+  }
 }

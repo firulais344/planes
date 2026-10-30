@@ -36,5 +36,12 @@
     "direccion"
   ],
   "estado": "activo",
-  "notasInternas": "Horario y precio no indicados en el listado. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Palacio de la Cultura Rafael Uribe Uribe\"; sin verificar."
+  "notasInternas": "Horario y precio no indicados en el listado. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Palacio de la Cultura Rafael Uribe Uribe\"; sin verificar.",
+  "imagen": {
+    "src": "palacio-cultura.jpg",
+    "alt": "Torre del Palacio de la Cultura Rafael Uribe Uribe, con su fachada de franjas a cuadros",
+    "licencia": "Pexels License",
+    "credito": "Daniel G en Pexels",
+    "origen": "https://www.pexels.com/photo/palace-of-culture-rafael-uribe-uribe-in-medellin-colombia-18314213/"
+  }
 }

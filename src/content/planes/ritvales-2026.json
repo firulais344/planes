@@ -41,5 +41,12 @@
   ],
   "estado": "activo",
   "destacado": true,
-  "notasInternas": "Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Parque Norte\"; sin verificar. OpenStreetMap lo ubica en la Comuna 4 - Aranjuez."
+  "notasInternas": "Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Parque Norte\"; sin verificar. OpenStreetMap lo ubica en la Comuna 4 - Aranjuez.",
+  "imagen": {
+    "src": "medellin-centro.jpg",
+    "alt": "Vista aérea de Medellín con sus edificios y las laderas del valle",
+    "licencia": "Pexels License",
+    "credito": "César Gaviria en Pexels",
+    "origen": "https://www.pexels.com/photo/panoramic-view-of-medellin-city-skyline-39068368/"
+  }
 }

@@ -76,5 +76,12 @@
       ]
     }
   },
-  "ultimaVerificacion": "2026-10-29"
+  "ultimaVerificacion": "2026-10-29",
+  "imagen": {
+    "src": "parque-explora.jpg",
+    "alt": "Esculturas de dinosaurios en el Parque Explora, con las montañas de Medellín al fondo",
+    "licencia": "Pexels License",
+    "credito": "Pinamon en Pexels",
+    "origen": "https://www.pexels.com/photo/dinosaurs-in-the-parque-explora-in-medellin-colombia-19252044/"
+  }
 }

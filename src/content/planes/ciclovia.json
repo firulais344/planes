@@ -38,5 +38,12 @@
   ],
   "estado": "activo",
   "notasInternas": "Verificado el 2026-10-29 en el PDF del Inder 'Horarios y trayectos Ciclovías 2025': horarios de ciclovías institucionales. El documento es de 2025: revisar si cambió. Además hay ciclovías barriales con otros horarios. No indica costo: precio pendiente. No aplica una dirección única (son trayectos).",
-  "ultimaVerificacion": "2026-10-29"
+  "ultimaVerificacion": "2026-10-29",
+  "imagen": {
+    "src": "medellin-rio.jpg",
+    "alt": "Vista de Medellín con el río y las montañas al fondo",
+    "licencia": "Pexels License",
+    "credito": "Juan Luna en Pexels",
+    "origen": "https://www.pexels.com/photo/scenic-view-of-medellin-skyline-and-river-38345724/"
+  }
 }

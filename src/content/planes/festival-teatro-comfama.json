@@ -38,5 +38,12 @@
     "direccion"
   ],
   "estado": "activo",
-  "notasInternas": "La URL de fuente es un listado de búsqueda; reemplazar por la del festival. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Comfama Claustro San Ignacio\"; sin verificar."
+  "notasInternas": "La URL de fuente es un listado de búsqueda; reemplazar por la del festival. Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Comfama Claustro San Ignacio\"; sin verificar.",
+  "imagen": {
+    "src": "medellin-poblado.jpg",
+    "alt": "Vista de edificios de Medellín frente a las montañas",
+    "licencia": "Pexels License",
+    "credito": "Roodzn en Pexels",
+    "origen": "https://www.pexels.com/photo/skyline-of-medellin-colombia-with-mountain-backdrop-33944843/"
+  }
 }

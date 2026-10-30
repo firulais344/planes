@@ -38,5 +38,12 @@
     "direccion"
   ],
   "estado": "activo",
-  "notasInternas": "Horario sin verificar (escrito de memoria). Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Intento 2026-10-29: es una zona de locales, no un lugar con horario ni tarifa propios; no hay fuente oficial que verificar. Se mantiene como referencia general."
+  "notasInternas": "Horario sin verificar (escrito de memoria). Plan permanente escrito de memoria: existencia, zona y descripción pendientes de verificar en fuente oficial. Intento 2026-10-29: es una zona de locales, no un lugar con horario ni tarifa propios; no hay fuente oficial que verificar. Se mantiene como referencia general.",
+  "imagen": {
+    "src": "medellin-amanecer.jpg",
+    "alt": "Vista de Medellín al amanecer, con edificios y montañas",
+    "licencia": "Pexels License",
+    "credito": "Greg Gulik en Pexels",
+    "origen": "https://www.pexels.com/photo/medellin-skyline-during-early-morning-light-32197893/"
+  }
 }

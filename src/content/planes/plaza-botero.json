@@ -85,5 +85,12 @@
     }
   },
   "direccion": "Museo de Antioquia: Carrera 52 # 52–43",
-  "ultimaVerificacion": "2026-10-29"
+  "ultimaVerificacion": "2026-10-29",
+  "imagen": {
+    "src": "museo-mural.jpg",
+    "alt": "Mural en el interior de un museo de Medellín",
+    "licencia": "Pexels License",
+    "credito": "Daniel Velez en Pexels",
+    "origen": "https://www.pexels.com/photo/stunning-mural-inside-medellin-s-historic-museum-33110225/"
+  }
 }

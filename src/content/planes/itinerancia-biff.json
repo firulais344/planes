@@ -39,5 +39,12 @@
     "direccion"
   ],
   "estado": "activo",
-  "notasInternas": "Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Museo de Arte Moderno de Medellín\"; sin verificar."
+  "notasInternas": "Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Museo de Arte Moderno de Medellín\"; sin verificar.",
+  "imagen": {
+    "src": "museo-mural.jpg",
+    "alt": "Mural en el interior de un museo de Medellín",
+    "licencia": "Pexels License",
+    "credito": "Daniel Velez en Pexels",
+    "origen": "https://www.pexels.com/photo/stunning-mural-inside-medellin-s-historic-museum-33110225/"
+  }
 }

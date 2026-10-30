@@ -37,5 +37,12 @@
     "direccion"
   ],
   "estado": "activo",
-  "destacado": true
+  "destacado": true,
+  "imagen": {
+    "src": "comuna-13.jpg",
+    "alt": "Escaleras, murales y torres del Metrocable en la Comuna 13 de Medellín",
+    "licencia": "Unsplash License",
+    "credito": "Josseph Downs (@0zymanndias) en Unsplash",
+    "origen": "https://unsplash.com/photos/a-bunch-of-graffiti-on-the-side-of-a-building-WOkl7pWtcE0"
+  }
 }

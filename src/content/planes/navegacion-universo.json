@@ -37,5 +37,12 @@
     "direccion"
   ],
   "estado": "activo",
-  "notasInternas": "Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Parque de los Deseos\"; sin verificar. OpenStreetMap lo ubica en la Comuna 4 - Aranjuez; revisar zona (escrita como Centro)."
+  "notasInternas": "Coordenadas aproximadas de OpenStreetMap/Nominatim (ODbL), consulta \"Parque de los Deseos\"; sin verificar. OpenStreetMap lo ubica en la Comuna 4 - Aranjuez; revisar zona (escrita como Centro).",
+  "imagen": {
+    "src": "parque-fuente.jpg",
+    "alt": "Parque con fuente y jardines en Medellín, con edificios al fondo",
+    "licencia": "Pexels License",
+    "credito": "Pinamon en Pexels",
+    "origen": "https://www.pexels.com/photo/park-in-town-16012236/"
+  }
 }

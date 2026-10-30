@@ -80,5 +80,12 @@
       ]
     }
   },
-  "ultimaVerificacion": "2026-10-29"
+  "ultimaVerificacion": "2026-10-29",
+  "imagen": {
+    "src": "medellin-valle.jpg",
+    "alt": "Vista panorámica de Medellín y las montañas del valle de Aburrá",
+    "licencia": "Pexels License",
+    "credito": "Cesar Gaviria en Pexels",
+    "origen": "https://www.pexels.com/photo/city-in-mountains-in-summer-16637436/"
+  }
 }

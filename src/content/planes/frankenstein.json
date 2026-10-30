@@ -36,5 +36,12 @@
     "horario",
     "direccion"
   ],
-  "estado": "activo"
+  "estado": "activo",
+  "imagen": {
+    "src": "medellin-rio.jpg",
+    "alt": "Vista de Medellín con el río y las montañas al fondo",
+    "licencia": "Pexels License",
+    "credito": "Juan Luna en Pexels",
+    "origen": "https://www.pexels.com/photo/scenic-view-of-medellin-skyline-and-river-38345724/"
+  }
 }
