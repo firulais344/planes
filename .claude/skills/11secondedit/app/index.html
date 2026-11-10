@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>11 Second Edit</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23ff4d2e'/><text x='16' y='22' font-size='15' font-family='Arial' font-weight='900' fill='white' text-anchor='middle'>11</text></svg>" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand"><span class="logo">11</span> Second Edit</div>
+      <div class="topbar-right">
+        <span id="job-label" class="muted"></span>
+        <button id="new-edit" class="ghost small" hidden>New edit</button>
+      </div>
+    </header>
+
+    <!-- 1 · SETUP -->
+    <main id="view-setup" class="view" hidden>
+      <section class="card">
+        <div class="card-head"><span class="num">1</span><h2>Upload your video</h2></div>
+        <label id="drop-source" class="drop">
+          <input id="file-source" type="file" accept="video/*,.mov,.mp4,.m4v,.webm,.mkv" hidden />
+          <div class="drop-empty"><strong>Drop raw talking-head footage</strong><span>or click to choose · MP4, MOV, WebM</span></div>
+          <div class="drop-file" hidden>
+            <video id="source-thumb" muted playsinline preload="metadata"></video>
+            <div><div id="source-name" class="file-name"></div><div id="source-meta" class="muted"></div>
+              <div class="bar"><div id="source-bar"></div></div></div>
+          </div>
+        </label>
+        <p class="hint">Your original file is never modified — the app works on a copy.</p>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><span class="num">2</span><h2>Add your own b-roll <span class="muted">(optional)</span></h2></div>
+        <label id="drop-broll" class="drop slim">
+          <input id="file-broll" type="file" accept="video/*,image/*" multiple hidden />
+          <div class="drop-empty"><strong>Drop clips or photos</strong><span>Claude watches them and places each one where it fits the script</span></div>
+        </label>
+        <ul id="broll-list" class="broll-list"></ul>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><span class="num">3</span><h2>Choose what Claude does</h2></div>
+        <div class="format-row">
+          <span>Output format</span>
+          <div class="seg" role="radiogroup" aria-label="Output format">
+            <button data-format="9:16" class="on" role="radio" aria-checked="true">9:16 Reel</button>
+            <button data-format="16:9" role="radio" aria-checked="false">16:9</button>
+          </div>
+        </div>
+        <ul id="features" class="features"></ul>
+        <div id="key-notes" class="notes"></div>
+        <button id="edit-video" class="primary big" disabled>Edit Video</button>
+        <p id="edit-hint" class="hint center">Upload a video to start.</p>
+      </section>
+    </main>
+
+    <!-- 2 · PROGRESS -->
+    <main id="view-progress" class="view" hidden>
+      <section class="card narrow">
+        <h2 id="progress-title">Editing…</h2>
+        <p id="progress-sub" class="muted"></p>
+        <ol id="checklist" class="checklist"></ol>
+      </section>
+    </main>
+
+    <!-- 3 · EDITOR -->
+    <main id="view-editor" class="view editor" hidden>
+      <div class="editor-bar">
+        <div id="stats" class="muted"></div>
+        <div class="editor-actions">
+          <button id="undo" class="ghost small" title="Undo (Ctrl/Cmd+Z)" disabled>Undo</button>
+          <button id="studio" class="ghost small" title="Open the composition in HyperFrames Studio">Open in Studio</button>
+          <button id="export" class="primary">Export</button>
+        </div>
+      </div>
+      <div id="export-panel" class="export-panel" hidden>
+        <div class="bar"><div id="export-bar"></div></div>
+        <span id="export-msg" class="muted"></span>
+        <a id="download" class="primary small" hidden>Download MP4</a>
+      </div>
+      <div class="editor-main">
+        <div class="preview-col">
+          <div id="frame" class="frame">
+            <div id="stage" class="stage"><video id="pv" playsinline preload="auto"></video></div>
+            <div id="ov-broll" class="ov-broll"></div>
+            <div id="ov-hook" class="ov-hook" hidden><div></div></div>
+            <div id="ov-cap" class="ov-cap"></div>
+            <div id="ov-cta" class="ov-cta" hidden><div class="cta-text"></div><div class="cta-sub"></div><div class="cta-arrow">↓</div></div>
+          </div>
+          <div class="transport">
+            <button id="play" class="round" aria-label="Play">▶</button>
+            <span id="time" class="mono">0:00.0 / 0:00.0</span>
+          </div>
+          <p class="hint">Preview is a fast approximation. Export renders the exact HyperFrames composition.</p>
+        </div>
+        <div class="transcript-col">
+          <div class="transcript-head">
+            <h3>Transcript</h3>
+            <div class="legend"><span class="lg removed">cut</span> Select words and press <kbd>Delete</kbd> to cut · <kbd>R</kbd> to restore</div>
+          </div>
+          <div id="transcript" class="transcript" tabindex="0"></div>
+          <div class="transcript-actions">
+            <button id="cut-sel" class="small">Delete selected</button>
+            <button id="restore-sel" class="ghost small">Restore selected</button>
+          </div>
+        </div>
+      </div>
+      <div id="timeline" class="timeline"></div>
+    </main>
+
+    <div id="toast" class="toast" hidden></div>
+    <audio id="pv-music" preload="auto"></audio>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

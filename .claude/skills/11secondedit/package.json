@@ -1,0 +1,13 @@
+{
+  "name": "11secondedit",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "One-click AI video editor that runs inside Claude Code: raw talking-head footage in, edited 9:16 Reel out.",
+  "engines": { "node": ">=22" },
+  "bin": { "11se": "bin/11se.mjs" },
+  "scripts": {
+    "start": "node bin/11se.mjs start",
+    "test": "node --test test/*.test.mjs"
+  }
+}

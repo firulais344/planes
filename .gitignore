@@ -12,3 +12,6 @@ dist.nosync
 test-results/
 playwright-report/
 .lighthouseci/
+
+# 11 Second Edit: trabajos locales (videos, renders)
+.11secondedit/
