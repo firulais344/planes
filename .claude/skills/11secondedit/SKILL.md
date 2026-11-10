@@ -3,6 +3,7 @@ name: 11secondedit
 description: One-click AI video editor. Opens a local browser app where the user uploads raw talking-head footage (plus optional b-roll), picks features and clicks Edit Video; Claude Code then edits it into a 9:16 Reel (or 16:9) — cuts bad takes, fillers and silences, places b-roll and zoom cuts, writes the hook and CTA, adds captions, music and SFX — and hands back a HyperFrames composition to review and export. Use when the user types /11secondedit or asks to edit a talking-head video into a Reel.
 allowed-tools:
   - Bash(node .claude/skills/11secondedit/bin/11se.mjs *)
+  - Bash(node ~/.claude/skills/11secondedit/bin/11se.mjs *)
   - Read
   - Write
 ---
@@ -13,13 +14,12 @@ You are the editor. A local web app collects the footage and settings; you run t
 step by step with the `11se` CLI and report progress to the page as you go. The user reviews
 the result in the browser (transcript editing, timeline, preview) and clicks Export.
 
-All commands run from the project root. `CLI` below means:
+All commands run from the project root. `CLI` below means the skill's CLI:
 
-```bash
-node .claude/skills/11secondedit/bin/11se.mjs
-```
+- `node .claude/skills/11secondedit/bin/11se.mjs` if that file exists in the project, otherwise
+- `node ~/.claude/skills/11secondedit/bin/11se.mjs` (skill installed globally).
 
-(If this skill is installed somewhere else, e.g. `~/.claude/skills/11secondedit`, use that path.)
+Check once which one exists, then use that same prefix for every command, including the ones printed after `Next:`.
 
 ## Rules — never break these
 
@@ -33,7 +33,7 @@ node .claude/skills/11secondedit/bin/11se.mjs
 ### 1. Start the app
 
 ```bash
-node .claude/skills/11secondedit/bin/11se.mjs start
+CLI start
 ```
 
 Tell the user the URL it prints (default http://localhost:4111) and that you are waiting for them to click **Edit Video**.
@@ -41,7 +41,7 @@ Tell the user the URL it prints (default http://localhost:4111) and that you are
 ### 2. Wait for the click
 
 ```bash
-node .claude/skills/11secondedit/bin/11se.mjs wait
+CLI wait
 ```
 
 It blocks up to 9 minutes. If it prints `WAITING`, run it again (do not ask the user anything in between). When the user clicks Edit Video it prints `JOB <id>`, the settings and the first command.
