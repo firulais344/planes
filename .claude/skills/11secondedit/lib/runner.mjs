@@ -3,8 +3,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import { SKILL_DIR, jobPath, loadJob, readJson, writeJson, setStep, updateJob } from "./job.mjs";
-import { stepDef, DECISION_SPECS, validateDecision } from "./steps.mjs";
-import { probe, workingVideo, extractAudio, thumbnailStrip, localEnhance, analyzeColor, makeSfx, isImage, run } from "./media.mjs";
+import { stepDef, decisionSpec, validateDecision } from "./steps.mjs";
+import { getStyle } from "./styles.mjs";
+import { probe, workingVideo, extractAudio, squareThumb, contactSheets, localEnhance, analyzeColor, makeSfx, isImage, run, ffmpeg } from "./media.mjs";
 import { auphonicEnhance, hasAuphonic, elevenLabsMusic, hasElevenLabs, env } from "./apis.mjs";
 import { normalizeWhisperX, detectFillers, formatTranscript, transcriptLines, fmtTime } from "./transcript.mjs";
 import { buildModel, computeModel, loadInputs } from "./model.mjs";
@@ -20,6 +21,13 @@ function saveAssets(id, patch) {
 }
 
 class Skip extends Error {}
+
+/** The CLI as Claude should type it: relative inside a project, absolute when installed globally. */
+function cliCommand() {
+  const abs = path.join(SKILL_DIR, "bin", "11se.mjs");
+  const r = path.relative(process.cwd(), abs);
+  return `node ${r.startsWith("..") ? abs : r}`;
+}
 
 const SCRIPTS = {
   async prepare(id, job, say) {
@@ -37,30 +45,44 @@ const SCRIPTS = {
     say("extracting audio");
     await extractAudio(aroll, jobPath(id, "media", "speech16k.wav"), { rate: 16000 });
 
-    const broll = {};
+    // Images and b-roll. Every file gets a clean working copy; the uploads stay read-only.
+    const media = {};
+    const thumbs = [];
+    let k = 0;
     for (const b of job.broll) {
-      say(`preparing b-roll ${b.name}`);
+      say(`preparing media ${++k}/${job.broll.length}`);
       const bsrc = jobPath(id, b.file);
       fs.chmodSync(bsrc, 0o444);
+      const base = b.name.replace(/\.[^.]+$/, "");
       const thumb = jobPath(id, "media", "thumbs", `${b.name}.jpg`);
+      let entry;
       if (isImage(bsrc)) {
-        const dest = jobPath(id, "media", "broll", b.name);
+        // Normalized copy (max 1600 px) so the size we lay out with is the size Chrome draws.
+        const dest = jobPath(id, "media", "img", `${base}${/\.png$/i.test(b.name) ? ".png" : ".jpg"}`);
         fs.mkdirSync(path.dirname(dest), { recursive: true });
-        fs.rmSync(dest, { force: true });
-        fs.copyFileSync(bsrc, dest);
-        await thumbnailStrip(bsrc, thumb, {});
-        broll[b.name] = { type: "image", src: rel(id, dest), thumb: rel(id, thumb) };
+        await ffmpeg(["-i", bsrc, "-vf", "scale='min(1600,iw)':'min(1600,ih)':force_original_aspect_ratio=decrease", "-frames:v", "1", "-q:v", "2", dest]);
+        const pi = await probe(dest);
+        if (!pi.video) continue;
+        entry = { type: "image", src: rel(id, dest), width: pi.video.width, height: pi.video.height };
+        await squareThumb(dest, thumb, {});
       } else {
         const bi = await probe(bsrc);
         if (!bi.video) continue;
-        const dest = jobPath(id, "media", "broll", `${b.name.replace(/\.[^.]+$/, "")}.mp4`);
-        await workingVideo(bsrc, dest, bi, { keepAudio: false });
-        await thumbnailStrip(dest, thumb, bi);
-        broll[b.name] = { type: "video", src: rel(id, dest), duration: Math.round(bi.duration * 1000) / 1000, width: bi.video.width, height: bi.video.height, thumb: rel(id, thumb) };
+        const dest = jobPath(id, "media", "broll", `${base}.mp4`);
+        const { transcoded: t } = await workingVideo(bsrc, dest, bi, { keepAudio: false });
+        const di = t ? await probe(dest) : bi;
+        entry = { type: "video", src: rel(id, dest), duration: Math.round(di.duration * 1000) / 1000, width: di.video.width, height: di.video.height };
+        await squareThumb(dest, thumb, di);
       }
+      media[b.name] = { ...entry, thumb: rel(id, thumb) };
+      thumbs.push(thumb);
     }
-    saveAssets(id, { aroll: "media/aroll.mp4", sourceDuration: arInfo.duration, video: arInfo.video, broll });
-    return `${fmtTime(arInfo.duration)} · ${arInfo.video.width}×${arInfo.video.height}${transcoded ? " · converted to H.264" : ""}${job.broll.length ? ` · ${Object.keys(broll).length} b-roll` : ""}`;
+    const sheets = thumbs.length ? await contactSheets(thumbs, jobPath(id, "media", "sheets")) : [];
+    saveAssets(id, { aroll: "media/aroll.mp4", sourceDuration: arInfo.duration, video: arInfo.video, media, sheets: sheets.map((sh) => ({ ...sh, file: rel(id, sh.file) })) });
+    const count = Object.values(media);
+    const nImg = count.filter((m) => m.type === "image").length;
+    const nVid = count.length - nImg;
+    return `${fmtTime(arInfo.duration)} · ${arInfo.video.width}×${arInfo.video.height}${transcoded ? " · converted to H.264" : ""}${nImg ? ` · ${nImg} image${nImg === 1 ? "" : "s"}` : ""}${nVid ? ` · ${nVid} clip${nVid === 1 ? "" : "s"}` : ""}`;
   },
 
   async enhanceAudio(id, job, say) {
@@ -114,15 +136,16 @@ const SCRIPTS = {
     return `${gaps.length} pauses over 0.45 s (≈${total.toFixed(1)} s incl. start/end) will be tightened`;
   },
 
-  async color(id) {
+  async color(id, job) {
+    if (job.settings.style === "cinematic") return "Teal shadows, warm highlights, lifted blacks — applied to a-roll and b-roll";
     const a = assets(id);
     const { filter, stats } = await analyzeColor(jobPath(id, a.aroll), a.sourceDuration);
     saveAssets(id, { colorFilter: filter, colorStats: stats });
-    return filter ? `CSS grade: ${filter}` : "Footage is already well exposed — no correction needed";
+    return filter ? `Measured correction: ${filter}` : "Footage is already well exposed — no correction needed";
   },
 
   async hook(id, job) {
-    writeJson(jobPath(id, "decisions", "hook.json"), { text: job.settings.hookText, by: "user" });
+    writeJson(jobPath(id, "decisions", "hook.json"), { title: job.settings.hookText, plain: "", script: "", proof: [], by: "user" });
     return `“${job.settings.hookText}”`;
   },
 
@@ -133,7 +156,7 @@ const SCRIPTS = {
 
   async captions(id) {
     const m = computeModel(loadInputs(id));
-    return `${m.captions.length} caption groups · ${m.words.filter((w) => !w.removed).length} words`;
+    return `${m.stats.captions} captions · ${m.words.filter((w) => !w.removed).length} words · hard cuts, no animation`;
   },
 
   async music(id, job, say) {
@@ -153,7 +176,7 @@ const SCRIPTS = {
     const sfx = Object.fromEntries(Object.entries(files).map(([k, v]) => [k, { src: rel(id, v.file), duration: v.duration }]));
     saveAssets(id, { sfx });
     const m = computeModel(loadInputs(id));
-    return `${m.sfx.length} placed (whoosh on zooms/b-roll, pop on hook, ding on CTA)`;
+    return m.sfx.length ? `${m.sfx.length} whoosh${m.sfx.length === 1 ? "" : "es"} on the whip transitions` : "No whip transitions in this edit — nothing to add";
   },
 
   async compose(id, job, say) {
@@ -165,7 +188,7 @@ const SCRIPTS = {
       j.reviewAt = new Date().toISOString();
     });
     const shown = path.relative(process.cwd(), file);
-    return `${fmtTime(m.duration)} final (cut ${m.stats.cutSeconds.toFixed(1)} s, ${m.stats.removedWords} words) → ${shown.startsWith("..") ? file : shown}`;
+    return `${m.styleName} · ${fmtTime(m.duration)} final (cut ${m.stats.cutSeconds.toFixed(1)} s, ${m.stats.removedWords} words) · ${m.stats.visuals} visuals → ${shown.startsWith("..") ? file : shown}`;
   },
 };
 
@@ -208,14 +231,32 @@ function currentRemoved(id) {
 export function stepContext(id, stepId) {
   const job = loadJob(id);
   if (!job.steps.find((s) => s.id === stepId)) throw new Error(`"${stepId}" is not enabled for this job.`);
-  const spec = DECISION_SPECS[stepId];
+  const style = getStyle(job.settings.style);
+  const spec = decisionSpec(stepId, style.id);
   if (!spec) throw new Error(`"${stepId}" does not take a decision.`);
   const { words, language } = readJson(jobPath(id, "transcript.json"));
   const a = assets(id);
   setStep(id, stepId, "running", "Claude is reviewing the transcript");
   const removed = currentRemoved(id);
   const keptText = words.filter((w) => !removed.has(w.i)).map((w) => w.w).join(" ");
-  const out = [`# ${stepDef(stepId).label} — job ${id}`, `Language: ${language} · source ${fmtTime(a.sourceDuration)} · ${words.length} words`, ""];
+  const planned = job.steps.find((s) => s.id === stepId);
+  let finalSeconds = null;
+  try {
+    finalSeconds = computeModel(loadInputs(id)).mainDuration;
+  } catch {}
+  const mediaList = () => {
+    const names = Object.keys(a.media || {});
+    const lines = [];
+    for (const sh of a.sheets || []) lines.push(`Contact sheet (${sh.cols} columns, files ${sh.first + 1}–${sh.first + sh.count} in order, left to right, top to bottom): ${jobPath(id, sh.file)}`);
+    names.forEach((name, k) => {
+      const m = a.media[name];
+      const cols = a.sheets?.[0]?.cols || 6;
+      const per = cols * 4;
+      lines.push(`${String(k + 1).padStart(2)}. ${name} · ${m.type} ${m.width}×${m.height}${m.duration ? ` · ${m.duration.toFixed(1)} s` : ""} · sheet ${Math.floor(k / per) + 1} row ${Math.floor((k % per) / cols) + 1} col ${(k % cols) + 1}`);
+    });
+    return lines.length ? lines : ["(nothing uploaded)"];
+  };
+  const out = [`# ${planned.label} — ${style.name} style — job ${id}`, `Language: ${language} · source ${fmtTime(a.sourceDuration)} · ${words.length} words`, ""];
 
   if (stepId === "badTakes") {
     out.push("## Transcript (start–end, [index]word)", formatTranscript(words));
@@ -227,14 +268,19 @@ export function stepContext(id, stepId) {
     out.push("## CANDIDATES (decide each from context)");
     out.push(candidates.length ? candidates.map((c) => `- [${c.join(",")}] …${around(c[0])}…`).join("\n") : "none");
     out.push("", "## Transcript (~~struck~~ = already cut)", formatTranscript(words, removed));
-  } else if (stepId === "broll") {
-    out.push("## B-ROLL (look at each thumbnail with the Read tool before deciding)");
-    for (const [name, b] of Object.entries(a.broll || {})) {
-      out.push(`- ${name} · ${b.type}${b.duration ? ` · ${b.duration.toFixed(1)} s` : ""} · thumbnail: ${jobPath(id, b.thumb)}`);
+  } else if (stepId === "visuals") {
+    const nMedia = Object.keys(a.media || {}).length;
+    out.push("## MEDIA", ...mediaList(), "");
+    out.push("## STATS");
+    if (finalSeconds) {
+      out.push(`Final spoken length ≈ ${finalSeconds.toFixed(1)} s · ${nMedia} file${nMedia === 1 ? "" : "s"} uploaded.`);
+      if (style.id === "collage") out.push(`Reference density: one image every 1–1.5 s → about ${Math.round(finalSeconds / 1.2)} images for this video.`);
+      if (style.id === "wordmeme") out.push(`Reference density: one image every 1–2.5 s → about ${Math.round(finalSeconds / 1.6)} images for this video.`);
+      if (style.id === "cinematic") out.push(`Reference: b-roll on ~80 % of the video → about ${(finalSeconds * 0.8).toFixed(0)} s covered, in 1–3 s shots plus word-by-word bursts.`);
     }
     out.push("", "## Transcript (~~struck~~ = already cut)", formatTranscript(words, removed));
-  } else if (stepId === "zooms") {
-    out.push("## Transcript (~~struck~~ = already cut)", formatTranscript(words, removed));
+  } else if (stepId === "hook") {
+    out.push("## MEDIA (for the optional `proof` images)", ...mediaList(), "", "## What the final video says", keptText);
   } else {
     out.push("## What the final video says", keptText);
     if (stepId === "music") {
@@ -244,7 +290,7 @@ export function stepContext(id, stepId) {
     }
   }
   out.push("", "## Write your decision as JSON", "```json", JSON.stringify(spec.example, null, 2), "```", "Rules:", ...spec.rules.map((r) => `- ${r}`));
-  out.push("", `Then run: node ${path.relative(process.cwd(), path.join(SKILL_DIR, "bin", "11se.mjs"))} decide ${id} ${stepId} <file.json>`);
+  out.push("", `Then run: ${cliCommand()} decide ${id} ${stepId} <file.json>`);
   return out.join("\n");
 }
 
@@ -253,15 +299,14 @@ export function saveDecision(id, stepId, data) {
   const planned = job.steps.find((s) => s.id === stepId);
   if (!planned) throw new Error(`"${stepId}" is not enabled for this job.`);
   const { words } = readJson(jobPath(id, "transcript.json"));
-  const brollFiles = Object.keys(assets(id).broll || {});
-  const clean = validateDecision(stepId, data, { words, brollFiles });
+  const mediaFiles = Object.keys(assets(id).media || {});
+  const clean = validateDecision(stepId, data, { words, mediaFiles, style: getStyle(job.settings.style).id });
   writeJson(jobPath(id, "decisions", `${stepId}.json`), { ...clean, by: "claude", at: new Date().toISOString() });
   const summary = {
     badTakes: () => `${clean.cuts.length} cut${clean.cuts.length === 1 ? "" : "s"} (${clean.cuts.reduce((n, c) => n + c.to - c.from + 1, 0)} words)`,
     fillers: () => `${detectFillers(words).auto.length} automatic + ${clean.remove.length} by context`,
-    broll: () => `${clean.placements.length} placement${clean.placements.length === 1 ? "" : "s"}`,
-    zooms: () => `${clean.zooms.length} zoom cut${clean.zooms.length === 1 ? "" : "s"}`,
-    hook: () => `“${clean.text}”`,
+    visuals: () => visualsSummary(id, job),
+    hook: () => `“${[clean.title, clean.plain, clean.script].filter(Boolean).join(" ")}”`,
     cta: () => `“${clean.text}”`,
     music: () => "prompt ready — generating",
   }[stepId]();
@@ -270,10 +315,23 @@ export function saveDecision(id, stepId, data) {
   return { summary, next: planned.kind === "claude+script" ? "run" : null };
 }
 
+/** What actually made it on screen, so Claude can see if the density matches the style and redo it. */
+function visualsSummary(id, job) {
+  const m = computeModel(loadInputs(id));
+  const style = getStyle(job.settings.style);
+  const pct = Math.round(m.stats.visualCoverage * 100);
+  if (style.id === "collage") {
+    const every = m.stats.visuals ? (m.mainDuration / m.stats.visuals).toFixed(1) : "–";
+    return `${m.stats.visuals} images placed · one every ${every} s (reference 1–1.5 s) · collage on screen ${pct} % of the time`;
+  }
+  if (style.id === "wordmeme") return `${m.stats.visuals} images placed · on screen ${pct} % of the time (reference: almost always)`;
+  return `${m.stats.visuals} shots placed · b-roll covers ${pct} % (reference ~80 %)`;
+}
+
 /** Next thing to do, as an exact command. Lets Claude drive the pipeline with no guesswork. */
 export function nextAction(id) {
   const job = loadJob(id);
-  const cli = `node ${path.relative(process.cwd(), path.join(SKILL_DIR, "bin", "11se.mjs"))}`;
+  const cli = cliCommand();
   const step = job.steps.find((s) => s.status === "pending" || s.status === "running");
   if (job.status === "error") {
     const bad = job.steps.find((s) => s.status === "error");

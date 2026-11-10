@@ -104,8 +104,9 @@ async function wait() {
       updateJob(job.id, (j) => (j.status = "processing"));
       const on = Object.entries(job.settings.features).filter(([, v]) => v).map(([k]) => k);
       console.log(`JOB ${job.id}`);
-      console.log(`Video: ${job.source.name}${job.broll.length ? ` · b-roll: ${job.broll.map((b) => b.name).join(", ")}` : ""}`);
-      console.log(`Format: ${job.settings.format} · enabled: ${on.join(", ")}`);
+      const nImg = job.broll.filter((b) => /\.(jpe?g|png|webp)$/i.test(b.name)).length;
+      console.log(`Video: ${job.source.name} · uploaded media: ${nImg} image(s), ${job.broll.length - nImg} clip(s)`);
+      console.log(`Style: ${job.settings.style} · format: ${job.settings.format} · enabled: ${on.join(", ")}`);
       if (job.settings.hookText) console.log(`Hook text (from user): ${job.settings.hookText}`);
       if (job.settings.ctaText) console.log(`CTA text (from user): ${job.settings.ctaText}`);
       console.log(`\nNext: ${nextAction(job.id).text}`);

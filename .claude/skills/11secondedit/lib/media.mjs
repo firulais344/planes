@@ -78,16 +78,53 @@ export async function extractAudio(src, dest, { rate = 48000, mono = true, codec
   await ffmpeg(args);
 }
 
-/** Thumbnail strip (3 frames) so Claude can SEE what a b-roll clip shows before placing it. */
-export async function thumbnailStrip(src, dest, info) {
+/** One square thumbnail per media file (videos: a frame a third of the way in). */
+export async function squareThumb(src, dest, info, size = 240) {
   fs.mkdirSync(path.dirname(dest), { recursive: true });
-  if (isImage(src)) {
-    await ffmpeg(["-i", src, "-vf", "scale=480:-2", "-frames:v", "1", dest]);
-    return;
+  const seek = isImage(src) ? [] : ["-ss", String(Math.max(0, (info.duration || 0) / 3))];
+  await ffmpeg([...seek, "-i", src, "-vf", `scale=${size}:${size}:force_original_aspect_ratio=decrease,pad=${size}:${size}:(ow-iw)/2:(oh-ih)/2:color=0x202024`, "-frames:v", "1", "-q:v", "4", dest]);
+}
+
+/**
+ * Contact sheets so Claude can SEE the uploaded media in one or two looks instead of opening
+ * 40 files. Cells are in list order, left to right, top to bottom.
+ */
+export async function contactSheets(thumbs, dir, { cols = 6, rows = 4, size = 240 } = {}) {
+  fs.rmSync(dir, { recursive: true, force: true });
+  fs.mkdirSync(dir, { recursive: true });
+  const per = cols * rows;
+  const sheets = [];
+  for (let k = 0; k * per < thumbs.length; k++) {
+    const chunk = thumbs.slice(k * per, (k + 1) * per);
+    const tmp = path.join(dir, `.cells${k}`);
+    fs.mkdirSync(tmp, { recursive: true });
+    chunk.forEach((t, i) => fs.copyFileSync(t, path.join(tmp, `${String(i).padStart(3, "0")}.jpg`)));
+    const r = Math.ceil(chunk.length / cols);
+    const file = path.join(dir, `sheet-${k + 1}.jpg`);
+    await ffmpeg(["-framerate", "1", "-i", path.join(tmp, "%03d.jpg"), "-vf", `tile=${cols}x${r}:padding=6:margin=6:color=0x101014`, "-frames:v", "1", "-q:v", "3", file]);
+    fs.rmSync(tmp, { recursive: true, force: true });
+    sheets.push({ file, cols, rows: r, first: k * per, count: chunk.length, size });
   }
-  const d = Math.max(0.1, info.duration);
-  const fps = 3 / d;
-  await ffmpeg(["-i", src, "-vf", `fps=${fps},scale=320:-2,tile=3x1`, "-frames:v", "1", dest]);
+  return sheets;
+}
+
+/**
+ * Two-pass loudness normalization of a finished render to the style's target (LUFS).
+ * Video is copied untouched; only the audio is re-encoded.
+ */
+export async function normalizeLoudness(input, output, target) {
+  const tp = -1;
+  const { err } = await run("ffmpeg", ["-hide_banner", "-nostats", "-i", input, "-vn", "-af", `loudnorm=I=${target}:TP=${tp}:LRA=11:print_format=json`, "-f", "null", "-"]);
+  const json = err.slice(err.lastIndexOf("{"), err.lastIndexOf("}") + 1);
+  let filter = `loudnorm=I=${target}:TP=${tp}:LRA=11`;
+  let measured = null;
+  try {
+    const m = JSON.parse(json);
+    measured = Number(m.input_i);
+    if (Number.isFinite(measured)) filter += `:measured_I=${m.input_i}:measured_TP=${m.input_tp}:measured_LRA=${m.input_lra}:measured_thresh=${m.input_thresh}:offset=${m.target_offset}`;
+  } catch {}
+  await ffmpeg(["-i", input, "-c:v", "copy", "-af", filter, "-ar", "48000", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", output]);
+  return { measured, target };
 }
 
 /** Local cleanup used only when no Auphonic key is configured. */

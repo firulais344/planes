@@ -97,4 +97,4 @@ Guía completa (Netlify, dominio propio, HTTPS, formularios y lista de comprobac
 
 ## 11 Second Edit (skill de Claude Code)
 
-Este repo también incluye **11 Second Edit**, un editor de video con IA que corre dentro de Claude Code: escribe `/11secondedit`, sube un video de cámara a cara y Claude lo convierte en un Reel 9:16 editado (cortes, muletillas, silencios, b-roll, zooms, hook, CTA, subtítulos, música y efectos). Todo vive en [`.claude/skills/11secondedit/`](.claude/skills/11secondedit/README.md) y no afecta al sitio.
+Este repo también incluye **11 Second Edit**, un editor de video con IA que corre dentro de Claude Code: escribe `/11secondedit`, sube un video de cámara a cara con tus imágenes o b-roll, elige uno de tres estilos (Collage, Palabra + meme, Cinemático) y Claude lo convierte en un Reel editado: cortes, muletillas, silencios, cada imagen sobre la palabra que ilustra, subtítulos, música y volumen. Todo vive en [`.claude/skills/11secondedit/`](.claude/skills/11secondedit/README.md) y no afecta al sitio.

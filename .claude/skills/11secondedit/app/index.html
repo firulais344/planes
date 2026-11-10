@@ -33,22 +33,26 @@
       </section>
 
       <section class="card">
-        <div class="card-head"><span class="num">2</span><h2>Add your own b-roll <span class="muted">(optional)</span></h2></div>
-        <label id="drop-broll" class="drop slim">
-          <input id="file-broll" type="file" accept="video/*,image/*" multiple hidden />
-          <div class="drop-empty"><strong>Drop clips or photos</strong><span>Claude watches them and places each one where it fits the script</span></div>
-        </label>
-        <ul id="broll-list" class="broll-list"></ul>
+        <div class="card-head"><span class="num">2</span><h2>Choose a style</h2></div>
+        <div id="styles" class="styles" role="radiogroup" aria-label="Editing style"></div>
+        <p class="hint">All three cut text and images in on the spoken word — no zooms, no bounces, no outlined captions.</p>
       </section>
 
       <section class="card">
-        <div class="card-head"><span class="num">3</span><h2>Choose what Claude does</h2></div>
+        <div class="card-head"><span class="num">3</span><h2 id="media-title">Add your images</h2></div>
+        <label id="drop-broll" class="drop slim">
+          <input id="file-broll" type="file" accept="video/*,image/jpeg,image/png,image/webp" multiple hidden />
+          <div class="drop-empty"><strong id="media-drop">Drop images</strong><span id="media-need"></span></div>
+        </label>
+        <ul id="broll-list" class="broll-list"></ul>
+        <p id="media-count" class="hint"></p>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><span class="num">4</span><h2>Choose what Claude does</h2></div>
         <div class="format-row">
           <span>Output format</span>
-          <div class="seg" role="radiogroup" aria-label="Output format">
-            <button data-format="9:16" class="on" role="radio" aria-checked="true">9:16 Reel</button>
-            <button data-format="16:9" role="radio" aria-checked="false">16:9</button>
-          </div>
+          <div id="formats" class="seg" role="radiogroup" aria-label="Output format"></div>
         </div>
         <ul id="features" class="features"></ul>
         <div id="key-notes" class="notes"></div>
@@ -84,17 +88,13 @@
       <div class="editor-main">
         <div class="preview-col">
           <div id="frame" class="frame">
-            <div id="stage" class="stage"><video id="pv" playsinline preload="auto"></video></div>
-            <div id="ov-broll" class="ov-broll"></div>
-            <div id="ov-hook" class="ov-hook" hidden><div></div></div>
-            <div id="ov-cap" class="ov-cap"></div>
-            <div id="ov-cta" class="ov-cta" hidden><div class="cta-text"></div><div class="cta-sub"></div><div class="cta-arrow">↓</div></div>
+            <div id="canvas" class="canvas"><video id="pv" class="aroll" playsinline preload="auto"></video><div id="ovs"></div></div>
           </div>
           <div class="transport">
             <button id="play" class="round" aria-label="Play">▶</button>
             <span id="time" class="mono">0:00.0 / 0:00.0</span>
           </div>
-          <p class="hint">Preview is a fast approximation. Export renders the exact HyperFrames composition.</p>
+          <p class="hint">Text and images are drawn by the same code as the render. Export produces the exact HyperFrames composition, with the final audio.</p>
         </div>
         <div class="transcript-col">
           <div class="transcript-head">
@@ -113,6 +113,7 @@
 
     <div id="toast" class="toast" hidden></div>
     <audio id="pv-music" preload="auto"></audio>
+    <style id="ov-style"></style>
     <script type="module" src="/app.js"></script>
   </body>
 </html>

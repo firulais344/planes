@@ -105,23 +105,9 @@ button.round { width: 42px; height: 42px; border-radius: 50%; border: 0; backgro
 .editor-main { display: grid; grid-template-columns: minmax(260px, 380px) 1fr; gap: 18px; align-items: start; }
 .editor.landscape .editor-main { grid-template-columns: minmax(360px, 1.2fr) 1fr; }
 .preview-col { position: sticky; top: 76px; }
-.frame { position: relative; width: 100%; aspect-ratio: 9 / 16; background: #000; border-radius: 14px; overflow: hidden; container-type: inline-size; }
-.editor.landscape .frame { aspect-ratio: 16 / 9; }
-.stage { position: absolute; inset: 0; transform-origin: 50% 38%; }
-.stage video, .ov-broll > * { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.ov-broll { position: absolute; inset: 0; pointer-events: none; }
-.ov-cap { position: absolute; left: 6%; right: 6%; top: 66%; text-align: center; font-weight: 900; text-transform: uppercase; font-size: 8cqw; line-height: 1.1; color: #fff;
-  -webkit-text-stroke: .9cqw #000; paint-order: stroke fill; font-family: "Arial Black", Montserrat, sans-serif; pointer-events: none; }
-.editor.landscape .ov-cap { top: 74%; font-size: 3.4cqw; -webkit-text-stroke: .45cqw #000; }
-.ov-cap .on { color: #ffe14d; display: inline-block; transform: scale(1.12); }
-.ov-hook { position: absolute; left: 6%; right: 6%; top: 12%; display: flex; justify-content: center; pointer-events: none; }
-.ov-hook > div { background: #fff; color: #111; font-weight: 900; font-size: 6.3cqw; padding: 2.4cqw 3.2cqw; border-radius: 2cqw; text-align: center; font-family: "Arial Black", Montserrat, sans-serif; line-height: 1.12; }
-.editor.landscape .ov-hook > div { font-size: 2.9cqw; }
-.ov-cta { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; padding: 8%; background: radial-gradient(120% 90% at 50% 20%, #3b2bff 0%, #12122a 60%, #07070f 100%); }
-.ov-cta .cta-text { font-weight: 900; font-size: 9.6cqw; line-height: 1.05; font-family: "Arial Black", Montserrat, sans-serif; }
-.ov-cta .cta-sub { margin-top: 2.6cqw; font-size: 4.2cqw; opacity: .85; }
-.ov-cta .cta-arrow { font-size: 10cqw; margin-top: 4cqw; }
-.editor.landscape .ov-cta .cta-text { font-size: 4.8cqw; }
+.frame { position: relative; width: 100%; aspect-ratio: 9 / 16; background: #000; border-radius: 14px; overflow: hidden; }
+.canvas { position: absolute; left: 0; top: 0; transform-origin: 0 0; overflow: hidden; background: #000; }
+.canvas .aroll { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 .transport { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
 
 .transcript-col { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); display: flex; flex-direction: column; max-height: calc(100vh - 330px); min-height: 380px; }
@@ -164,3 +150,22 @@ button.round { width: 42px; height: 42px; border-radius: 50%; border: 0; backgro
   .preview-col { position: static; max-width: 380px; margin: 0 auto; width: 100%; }
   .transcript-col { max-height: 60vh; }
 }
+
+/* Style picker */
+.styles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.style-card { background: var(--panel-2); border: 1.5px solid var(--line); border-radius: 12px; padding: 12px; cursor: pointer; text-align: left; display: grid; gap: 8px; color: inherit; }
+.style-card:hover { border-color: #55556a; }
+.style-card.on { border-color: var(--accent); background: rgba(255,77,46,.07); }
+.style-card h3 { margin: 0; font-size: 15px; }
+.style-card p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.35; }
+.style-card .best { color: var(--text); }
+.wire { position: relative; height: 150px; border-radius: 8px; overflow: hidden; background: linear-gradient(160deg, #3a3a4a, #1b1b24); margin: 0 auto; aspect-ratio: 9 / 16; }
+.wire.wide { aspect-ratio: 3 / 2; height: auto; width: 100%; background: linear-gradient(160deg, #2c4a52, #6a4a2c); }
+.wire i { position: absolute; display: block; background: #d9d9e3; }
+.wire .head { left: 32%; top: 22%; width: 36%; aspect-ratio: 1; border-radius: 50%; background: #6b6b80; }
+.wire .body { left: 14%; top: 46%; width: 72%; height: 60%; border-radius: 40% 40% 0 0; background: #55556a; }
+.wire .txt { left: 50%; transform: translateX(-50%); height: 3px; border-radius: 2px; background: #fff; }
+.wire .img { background: #9aa7ff; }
+.wire .img.b { background: #ffb48a; }
+.wire .img.c { background: #8fe0c0; }
+@media (max-width: 640px) { .styles { grid-template-columns: 1fr; } .wire { height: 110px; } }

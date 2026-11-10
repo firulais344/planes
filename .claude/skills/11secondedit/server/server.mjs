@@ -9,6 +9,8 @@ import { SKILL_DIR, workdir, createJob, loadJob, updateJob, queueJob, listJobs, 
 import { buildModel } from "../lib/model.mjs";
 import { writeComposition, HYPERFRAMES_VERSION } from "../lib/composition.mjs";
 import { loadEnv, hasAuphonic, hasElevenLabs } from "../lib/apis.mjs";
+import { STYLES, FEATURE_KEYS } from "../lib/styles.mjs";
+import { normalizeLoudness } from "../lib/media.mjs";
 
 loadEnv();
 const PORT = Number(process.env.ELEVENSE_PORT || 4111);
@@ -19,11 +21,12 @@ fs.mkdirSync(WD, { recursive: true });
 const MIME = {
   ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".mjs": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8",
   ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".gif": "image/gif",
-  ".mp4": "video/mp4", ".mov": "video/quicktime", ".webm": "video/webm", ".m4v": "video/mp4", ".wav": "audio/wav", ".mp3": "audio/mpeg", ".flac": "audio/flac",
+  ".mp4": "video/mp4", ".mov": "video/quicktime", ".webm": "video/webm", ".m4v": "video/mp4", ".woff2": "font/woff2", ".wav": "audio/wav", ".mp3": "audio/mpeg", ".flac": "audio/flac",
 };
 
 const VIDEO_EXT = /\.(mp4|mov|m4v|webm|mkv|avi)$/i;
 const BROLL_EXT = /\.(mp4|mov|m4v|webm|mkv|avi|jpe?g|png|webp)$/i;
+const FONT_DIR = path.join(SKILL_DIR, "assets", "fonts");
 
 function send(res, status, body, headers = {}) {
   const isObj = typeof body === "object" && !(body instanceof Buffer);
@@ -125,13 +128,15 @@ function startExport(id) {
   const model = buildModel(id);
   writeComposition(id, model);
   const outFile = jobPath(id, "export", `11secondedit-${id}.mp4`);
+  const rawFile = jobPath(id, "export", "render.mp4");
   fs.mkdirSync(path.dirname(outFile), { recursive: true });
   fs.rmSync(outFile, { force: true });
+  fs.rmSync(rawFile, { force: true });
   const state = { status: "rendering", progress: 0, message: "Starting HyperFrames render", startedAt: new Date().toISOString(), duration: model.duration };
   writeJson(jobPath(id, "export.json"), state);
   const logFile = jobPath(id, "export", "render.log");
   const log = fs.createWriteStream(logFile);
-  const child = spawn("npx", ["--yes", `hyperframes@${HYPERFRAMES_VERSION}`, "render", "-o", outFile], {
+  const child = spawn("npx", ["--yes", `hyperframes@${HYPERFRAMES_VERSION}`, "render", "-o", rawFile], {
     cwd: jobPath(id, "composition"),
     env: { ...process.env, HYPERFRAMES_SKIP_SKILLS: "1", CI: "1" },
     stdio: ["ignore", "pipe", "pipe"],
@@ -156,21 +161,27 @@ function startExport(id) {
       .pop();
     if (pcts.length || (line && Date.now() - last > 500)) {
       last = Date.now();
-      if (pcts.length) state.progress = Math.max(state.progress, pcts[pcts.length - 1]);
+      if (pcts.length) state.progress = Math.max(state.progress, pcts[pcts.length - 1] * 0.97);
       if (line) state.message = line.slice(0, 160);
       writeJson(jobPath(id, "export.json"), state);
     }
   };
   child.stdout.on("data", onData);
   child.stderr.on("data", onData);
-  child.on("close", (code) => {
-    renders.delete(id);
+  child.on("close", async (code) => {
     log.end();
-    if (code === 0 && fs.existsSync(outFile)) {
-      writeJson(jobPath(id, "export.json"), { ...state, status: "done", progress: 100, message: "Rendered", file: path.relative(jobPath(id), outFile), finishedAt: new Date().toISOString() });
+    try {
+      if (code !== 0 || !fs.existsSync(rawFile)) throw new Error(`Render failed (exit ${code}). Log: ${logFile}`);
+      // Match the reference loudness of the style (video stream is copied untouched).
+      writeJson(jobPath(id, "export.json"), { ...state, progress: 98, message: `Setting loudness to ${model.loudness} LUFS` });
+      const loud = await normalizeLoudness(rawFile, outFile, model.loudness);
+      fs.rmSync(rawFile, { force: true });
+      writeJson(jobPath(id, "export.json"), { ...state, status: "done", progress: 100, message: "Rendered", loudness: loud, file: path.relative(jobPath(id), outFile), finishedAt: new Date().toISOString() });
       updateJob(id, (j) => (j.status = "exported"));
-    } else {
-      writeJson(jobPath(id, "export.json"), { ...state, status: "error", message: `Render failed (exit ${code}). Log: ${logFile}` });
+    } catch (e) {
+      writeJson(jobPath(id, "export.json"), { ...state, status: "error", message: e.message.split("\n")[0] });
+    } finally {
+      renders.delete(id);
     }
   });
 }
@@ -196,7 +207,7 @@ async function handle(req, res) {
   const p = url.pathname;
   let m;
 
-  if (p === "/api/health") return send(res, 200, { ok: true, pid: process.pid, workdir: WD, keys: { auphonic: hasAuphonic(), elevenlabs: hasElevenLabs() } });
+  if (p === "/api/health") return send(res, 200, { ok: true, pid: process.pid, workdir: WD, keys: { auphonic: hasAuphonic(), elevenlabs: hasElevenLabs() }, styles: Object.values(STYLES).map((st) => ({ id: st.id, name: st.name, tagline: st.tagline, bestFor: st.bestFor, formats: st.formats, features: st.features, visuals: st.visuals })), featureKeys: FEATURE_KEYS });
 
   if (p === "/api/jobs" && req.method === "GET") return send(res, 200, listJobs().map((j) => ({ id: j.id, status: j.status, createdAt: j.createdAt, source: j.source?.name })));
   if (p === "/api/jobs" && req.method === "POST") return send(res, 200, createJob());
@@ -324,6 +335,13 @@ async function handle(req, res) {
       return serveFile(req, res, file);
     }
     return send(res, 404, { error: "Unknown endpoint" });
+  }
+
+  // The overlay renderer is shared with the composition builder; fonts are the ones the render uses.
+  if (p === "/shared/overlay-html.mjs") return serveFile(req, res, path.join(SKILL_DIR, "lib", "overlay-html.mjs"));
+  if (p.startsWith("/fonts/")) {
+    const file = path.resolve(FONT_DIR, `.${decodeURIComponent(p.slice(6))}`);
+    return inside(FONT_DIR, file) ? serveFile(req, res, file) : send(res, 403, "Forbidden");
   }
 
   // Static app

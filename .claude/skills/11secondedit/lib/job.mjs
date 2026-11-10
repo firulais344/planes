@@ -5,6 +5,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { stepsFor } from "./steps.mjs";
+import { DEFAULT_STYLE, getStyle } from "./styles.mjs";
 
 export const SKILL_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -48,26 +49,12 @@ export function newJobId() {
   return `${stamp}-${crypto.randomBytes(3).toString("hex")}`;
 }
 
-export const DEFAULT_SETTINGS = {
-  features: {
-    enhanceAudio: true,
-    badTakes: true,
-    fillers: true,
-    silences: true,
-    broll: true,
-    zooms: true,
-    color: true,
-    hook: true,
-    cta: true,
-    captions: true,
-    music: true,
-    sfx: true,
-  },
-  format: "9:16",
-  hookText: "",
-  ctaText: "",
-  language: "",
-};
+export function defaultSettings(styleId = DEFAULT_STYLE) {
+  const style = getStyle(styleId);
+  return { style: style.id, features: { ...style.features }, format: style.formats[0], hookText: "", ctaText: "", language: "" };
+}
+
+export const DEFAULT_SETTINGS = defaultSettings();
 
 export function createJob() {
   const id = newJobId();
@@ -77,7 +64,7 @@ export function createJob() {
     status: "draft",
     source: null,
     broll: [],
-    settings: structuredClone(DEFAULT_SETTINGS),
+    settings: defaultSettings(),
     steps: [],
   };
   fs.mkdirSync(jobPath(id, "source"), { recursive: true });
@@ -122,15 +109,21 @@ export function queueJob(id, settings) {
   });
 }
 
+/** Settings are always normalized against the style: a feature the style does not have cannot be on. */
 export function mergeSettings(base, incoming = {}) {
-  const out = structuredClone(base || DEFAULT_SETTINGS);
-  for (const [k, v] of Object.entries(incoming.features || {})) {
-    if (k in out.features) out.features[k] = Boolean(v);
+  const style = getStyle(incoming.style || base?.style);
+  const out = defaultSettings(style.id);
+  for (const key of Object.keys(style.features)) {
+    const v = incoming.features?.[key] ?? (base?.style === style.id ? base.features?.[key] : undefined);
+    if (v !== undefined) out.features[key] = Boolean(v);
   }
-  if (incoming.format === "9:16" || incoming.format === "16:9") out.format = incoming.format;
+  const format = incoming.format || base?.format;
+  if (style.formats.includes(format)) out.format = format;
   for (const key of ["hookText", "ctaText", "language"]) {
-    if (typeof incoming[key] === "string") out[key] = incoming[key].trim().slice(0, 140);
+    const v = incoming[key] ?? base?.[key];
+    if (typeof v === "string") out[key] = v.trim().slice(0, 140);
   }
+  if (!out.features.hook) out.hookText = "";
   return out;
 }
 
