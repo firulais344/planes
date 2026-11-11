@@ -19,6 +19,7 @@ import { spawn } from "node:child_process";
 import { SKILL_DIR, workdir, listJobs, loadJob, updateJob, setStep, jobPath } from "../lib/job.mjs";
 import { runStep, stepContext, saveDecision, nextAction } from "../lib/runner.mjs";
 import { loadEnv } from "../lib/apis.mjs";
+import { buildId } from "../lib/build.mjs";
 
 loadEnv();
 const PORT = Number(process.env.ELEVENSE_PORT || 4111);
@@ -62,6 +63,16 @@ async function start() {
   const wd = workdir();
   fs.mkdirSync(wd, { recursive: true });
   let health = await ping();
+  if (health && health.build !== buildId()) {
+    // A server from an older install is still running: it would keep serving the old page. Replace it.
+    console.log("An older 11 Second Edit server was running — restarting it with the current version.");
+    try {
+      process.kill(health.pid);
+    } catch {}
+    for (let i = 0; i < 25 && (await ping()); i++) await new Promise((r) => setTimeout(r, 200));
+    health = await ping();
+    if (health) die(`Could not stop the old server (pid ${health.pid}). Run: kill ${health.pid}`);
+  }
   if (health && health.workdir !== wd) die(`Port ${PORT} is used by another 11 Second Edit server (workdir ${health.workdir}). Stop it with \`stop\` or set ELEVENSE_PORT.`);
   if (!health) {
     const log = fs.openSync(path.join(wd, "server.log"), "a");

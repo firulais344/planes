@@ -10,6 +10,9 @@ import { buildModel } from "../lib/model.mjs";
 import { writeComposition, HYPERFRAMES_VERSION } from "../lib/composition.mjs";
 import { loadEnv, hasAuphonic, hasElevenLabs } from "../lib/apis.mjs";
 import { STYLES, FEATURE_KEYS } from "../lib/styles.mjs";
+import { buildId } from "../lib/build.mjs";
+
+const BUILD = buildId();
 import { normalizeLoudness } from "../lib/media.mjs";
 
 loadEnv();
@@ -207,7 +210,7 @@ async function handle(req, res) {
   const p = url.pathname;
   let m;
 
-  if (p === "/api/health") return send(res, 200, { ok: true, pid: process.pid, workdir: WD, keys: { auphonic: hasAuphonic(), elevenlabs: hasElevenLabs() }, styles: Object.values(STYLES).map((st) => ({ id: st.id, name: st.name, tagline: st.tagline, bestFor: st.bestFor, formats: st.formats, features: st.features, visuals: st.visuals })), featureKeys: FEATURE_KEYS });
+  if (p === "/api/health") return send(res, 200, { ok: true, pid: process.pid, build: BUILD, workdir: WD, keys: { auphonic: hasAuphonic(), elevenlabs: hasElevenLabs() }, styles: Object.values(STYLES).map((st) => ({ id: st.id, name: st.name, tagline: st.tagline, bestFor: st.bestFor, formats: st.formats, features: st.features, visuals: st.visuals })), featureKeys: FEATURE_KEYS });
 
   if (p === "/api/jobs" && req.method === "GET") return send(res, 200, listJobs().map((j) => ({ id: j.id, status: j.status, createdAt: j.createdAt, source: j.source?.name })));
   if (p === "/api/jobs" && req.method === "POST") return send(res, 200, createJob());
